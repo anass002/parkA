@@ -8,7 +8,8 @@ var MetronicApp = angular.module("MetronicApp", [
     "ui.router", 
     "ui.bootstrap", 
     "oc.lazyLoad",  
-    "ngSanitize"
+    "ngSanitize",
+    "angular-jwt"
 ]); 
 
 /* Configure ocLazyLoader(refer: https://github.com/ocombe/ocLazyLoad) */
@@ -164,6 +165,7 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvi
 
                             '../assets/pages/scripts/dashboard.min.js',
                             'js/controllers/DashboardController.js',
+                            'js/services/UserModel.js',
                         ] 
                     });
                 }]

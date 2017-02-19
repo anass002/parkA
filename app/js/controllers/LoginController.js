@@ -1,4 +1,4 @@
-angular.module('MetronicApp').controller('LoginController', function($rootScope, $scope, $window,$http) {
+angular.module('MetronicApp').controller('LoginController', function($rootScope, $scope, $window,$http, UserModel) {
     /*$scope.$on('$viewContentLoaded', function() {   
         // initialize core components
         App.initComponents(); // init core components
@@ -15,11 +15,11 @@ angular.module('MetronicApp').controller('LoginController', function($rootScope,
             function(response){
                 console.log(response.data.data);
 
-
                 if(response.data.error === true){
                     alert(response.data.data);
                     return false;
                 }
+
                 window.localStorage['authToken'] = response.data.data;
                 $window.location.href = './#/dashboard.html';
 
