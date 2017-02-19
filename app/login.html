@@ -78,12 +78,12 @@ License: You must have a valid license purchased only from themeforest(the above
                             <div class="form-group">
                                 <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
                                 <label class="control-label visible-ie8 visible-ie9">Username</label>
-                                <input class="form-control form-control-solid placeholder-no-fix" type="text" autocomplete="off" placeholder="Username" name="username" /> </div>
+                                <input class="form-control form-control-solid placeholder-no-fix" type="text" autocomplete="off" placeholder="Username" name="username" ng-model="data.login"/> </div>
                             <div class="form-group">
                                 <label class="control-label visible-ie8 visible-ie9">Password</label>
-                                <input class="form-control form-control-solid placeholder-no-fix" type="password" autocomplete="off" placeholder="Password" name="password" /> </div>
+                                <input class="form-control form-control-solid placeholder-no-fix" type="password" autocomplete="off" placeholder="Password" name="password" ng-model="data.password"/> </div>
                             <div class="form-actions">
-                                <button ng-click="connect()" class="btn green uppercase">Login</button>
+                                <button ng-click="connect(data)" class="btn green uppercase">Login</button>
                                 <label class="rememberme check mt-checkbox mt-checkbox-outline">
                                     <input type="checkbox" name="remember" value="1" />Remember
                                     <span></span>
