@@ -45,6 +45,11 @@
 			return users::execRequest($sql);
 		}
 
+		function getAll(){
+			$sql = "SELECT * from users";
+			return users::execRequest($sql);
+		}
+
 		function logIn( $login = false , $password = false){
 			if($login === false || $password === false){
 				return returnResponse(true,"Missing parameter to execute logIn");
