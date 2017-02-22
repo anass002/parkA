@@ -28,7 +28,15 @@
 			$this->login = '';
 			$this->password = '';
 			$this->type = '';
-			$this->droits = Array();
+			$this->droits = new stdClass();
+			$this->droits->users = "false";
+			$this->droits->categories = "false";
+			$this->droits->cars = "false";
+			$this->droits->drivers = "false";
+			$this->droits->papers = "false";
+			$this->droits->purshase = "false";
+			$this->droits->reservations = "false";
+			$this->droits->missions = "false";
 			$this->dcreate = date('Y-m-d H:i:s');
 			$this->ucreate = 0;
 			$this->dupdate = date('Y-m-d H:i:s');;
@@ -47,6 +55,15 @@
 
 		function getAll(){
 			$sql = "SELECT * from users";
+			return users::execRequest($sql);
+		}
+
+		function deleteUserById($id){
+			if($id === false){
+				return returnResponse(true , " Missing parameter id to execute getUserById");
+			}
+
+			$sql = "DELETE FROM users WHERE id = ". pg_escape_string($id);
 			return users::execRequest($sql);
 		}
 

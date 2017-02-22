@@ -8,15 +8,8 @@ angular.module('MetronicApp').controller('DashboardController', function($rootSc
     $scope.data.hideDivTableUser = true;
     $scope.data.hideDivInfosUser = false;
 
-    $http.post('../serv/ws/users.ws.php' , {action:'getAllUsers'}).then(
-        function(response){
-            $scope.data.users = response.data.data;
-            console.log(response);
-        },
-        function(error){
-            console.log(err);
-        }
-    )
+    getUsers();
+    
 
     $scope.editUser = function(user){
         console.log(user);
@@ -26,6 +19,60 @@ angular.module('MetronicApp').controller('DashboardController', function($rootSc
     }
     $scope.deleteUser = function(user){
         console.log(user);
+        $http.post('../serv/ws/users.ws.php' ,{action:'deleteUser' , id : user.id}).then(
+            function(response){
+                if(response.data.error === true){
+                    alert("Error On Add User");
+                    return false;
+                }
+                getUsers();
+            },
+            function(error){
+                console.log(error);
+            }
+        )
+    }
+
+    $scope.AddNewUser = function(){
+        $scope.data.hideDivInfosUser = true;
+        $scope.data.hideDivTableUser = false;
+        $scope.data.user = {};
+    }
+
+    $scope.closeNewUser = function(){
+        $scope.data.hideDivInfosUser = false;
+        $scope.data.hideDivTableUser = true;
+    }
+
+    $scope.saveUser = function(user){
+        console.log(user);
+
+        $http.post('../serv/ws/users.ws.php' , {action:'AddNewUser' , user:JSON.stringify(user)}).then(
+            function(response){
+                if(response.data.error === true){
+                    alert("Error On Add User");
+                    return false;
+                }
+                $scope.closeNewUser();
+                getUsers();
+
+            },
+            function(error){
+                console.log(error);
+            }
+        )
+    }
+
+    function getUsers(){
+        $http.post('../serv/ws/users.ws.php' , {action:'getAllUsers'}).then(
+            function(response){
+                $scope.data.users = response.data.data;
+                console.log(response);
+            },
+            function(error){
+                console.log(err);
+            }
+        )
     }
 
 
