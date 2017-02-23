@@ -103,10 +103,21 @@ initialization can be disabled and Layout.init() should be called on page load c
 ***/
 
 /* Setup Layout Part - Header */
-MetronicApp.controller('HeaderController', ['$scope', function($scope) {
+MetronicApp.controller('HeaderController', ['$scope', '$window', 'jwtHelper', function($scope, $window, jwtHelper) {
     $scope.$on('$includeContentLoaded', function() {
         Layout.initHeader(); // init header
     });
+
+    if(!angular.isDefined(window.localStorage['authToken'])){
+        $window.location.href = './login.html';
+    } else{
+        var tokenPayload = jwtHelper.decodeToken(window.localStorage['authToken']);
+        if(angular.isDefined(tokenPayload)){
+            $scope.name = tokenPayload.firstname + " " + tokenPayload.lastname;
+        } else{
+            $scope.name = "Unknown";
+        }
+    }
 }]);
 
 /* Setup Layout Part - Sidebar */
@@ -166,6 +177,55 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvi
                             '../assets/pages/scripts/dashboard.min.js',
                             'js/controllers/DashboardController.js',
                             'js/services/UserModel.js',
+                        ] 
+                    });
+                }]
+            }
+        })
+
+        // Gestion des utilisateurs
+        .state('users', {
+            url: "/utilisateurs.html",
+            templateUrl: "views/utilisateurs.html",            
+            data: {pageTitle: 'Gestion des Utilisteurs'},
+            controller: "DashboardController",
+            resolve: {
+                deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                    return $ocLazyLoad.load({
+                        name: 'MetronicApp',
+                        insertBefore: '#ng_load_plugins_before', // load the above css files before a LINK element with this ID. Dynamic CSS files must be loaded between core and theme css files
+                        files: [
+                            '../assets/global/plugins/morris/morris.css',                            
+                            '../assets/global/plugins/morris/morris.min.js',
+                            '../assets/global/plugins/morris/raphael-min.js',                            
+                            '../assets/global/plugins/jquery.sparkline.min.js',
+
+                            '../assets/pages/scripts/dashboard.min.js',
+                            'js/controllers/DashboardController.js',
+                            'js/services/UserModel.js',
+                        ] 
+                    });
+                }]
+            }
+        })
+
+        // Gestion des voitures
+        .state('voitures', {
+            url: "/voitures.html",
+            templateUrl: "views/voitures.html",            
+            data: {pageTitle: 'Gestion des Voitures'},
+            controller: "CarsController",
+            resolve: {
+                deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                    return $ocLazyLoad.load({
+                        name: 'MetronicApp',
+                        insertBefore: '#ng_load_plugins_before', // load the above css files before a LINK element with this ID. Dynamic CSS files must be loaded between core and theme css files
+                        files: [
+                            '../assets/global/plugins/morris/morris.css',                            
+                            '../assets/global/plugins/morris/morris.min.js',
+                            '../assets/global/plugins/morris/raphael-min.js',                            
+                            '../assets/global/plugins/jquery.sparkline.min.js',
+                            'js/controllers/CarsController.js'
                         ] 
                     });
                 }]
