@@ -65,6 +65,15 @@
 			return purshase::execRequest($sql);			
 		}
 
+		function deletePurshaseById($id = false){
+			if($id === false){
+				return returnResponse(true,"Missing id parameter to execute deletePurshaseById");
+			}
+
+			$sql = "DELETE FROM purshase WHERE id =" . pg_escape_string($id);
+			return purshase::execRequest($sql);
+		}
+
 		function save(){
 			if(!isset($this)){
 				return returnResponse(true,"Object not instancied. Cannot save it !");
@@ -90,7 +99,7 @@
 						."nbl='".pg_escape_string($this->nbl)."', "
 						."price='".pg_escape_string($this->price)."', "
 						."dcreate='".pg_escape_string($this->dcreate)."', "
-						."ucreate=".pg_escape_string($this->ucreate)." "
+						."ucreate=".pg_escape_string($this->ucreate).", "
 						."dupdate='".pg_escape_string($this->dupdate)."', "
 						."uupdate=".pg_escape_string($this->uupdate).", "
 						."customdata='".json_encode($this->customdata)."' "

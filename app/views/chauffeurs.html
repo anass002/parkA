@@ -14,6 +14,7 @@
 								<th class="text-center">Prénom</th>
 								<th class="text-center">Téléphone</th>
 								<th class="text-center">Email</th>
+								<th class="text-center">Permis</th>
 								<th class="text-center">Cin</th>
 								<th class="text-center">Voiture</th>
 								<th class="text-center">Actions</th>
@@ -25,6 +26,7 @@
 								<td class="text-center">{{driver.firstname}}</td>
 								<td class="text-center">{{driver.tel}}</td>
 								<td class="text-center">{{driver.email}}</td>
+								<td class="text-center">{{driver.driverlicense}}</td>
 								<td class="text-center">{{driver.cin}}</td>
 								<td class="text-center">{{driver.dependencies.car.name}}</td>
 								<td>
@@ -39,7 +41,7 @@
 		</div>
 	</div>
 	<div class="row" ng-if="data.hideDivFormDrivers">
-		<div class="col-sm-12 text-right">
+		<div class="col-sm-12">
 			<div class="portlet-body form">
 				<div class="form-horizontal form-bordered">
 					<div class="form-body">
@@ -68,6 +70,13 @@
                             <label class="control-label col-md-3">Email : </label>
                             <div class="col-md-4">
                                 <input type="text" class="form-control" ng-model="data.driver.email">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Permis : </label>
+                            <div class="col-md-4">
+                                <input type="text" class="form-control" ng-model="data.driver.driverlicense">
                             </div>
                         </div>
 

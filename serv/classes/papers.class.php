@@ -64,6 +64,15 @@
 			return papers::execRequest($sql);
 		}
 
+		function deletePaperById($id = false){
+			if($id === false){
+				return returnResponse(true,"Missing id parameter to execute deletePaperById");
+			}
+
+			$sql = "DELETE FROM papers WHERE id = " . pg_escape_string($id);
+			return papers::execRequest($sql);
+		}
+
 		function save(){
 			if(!isset($this)){
 				return returnResponse(true,"Object not instancied. Cannot save it !");
@@ -84,15 +93,15 @@
 
 			}else{
 				$sql = "UPDATE papers SET "
-						."".pg_escape_string($this->carid).", "
-						."'".pg_escape_string($this->name)."', "
-						."'".pg_escape_string($this->dbegin)."', "
-						."'".pg_escape_string($this->dend)."', "
-						."'".pg_escape_string($this->dcreate)."', "
-						."".pg_escape_string($this->ucreate).", "
-						."'".pg_escape_string($this->dupdate)."', "
-						."".pg_escape_string($this->uupdate).", "
-						."'".json_encode($this->customdata)."' "
+						."carid=".pg_escape_string($this->carid).", "
+						."name='".pg_escape_string($this->name)."', "
+						."dbegin='".pg_escape_string($this->dbegin)."', "
+						."dend='".pg_escape_string($this->dend)."', "
+						."dcreate='".pg_escape_string($this->dcreate)."', "
+						."ucreate=".pg_escape_string($this->ucreate).", "
+						."dupdate='".pg_escape_string($this->dupdate)."', "
+						."uupdate=".pg_escape_string($this->uupdate).", "
+						."customdata='".json_encode($this->customdata)."' "
 						."WHERE id = ".pg_escape_string($this->id);
 			}
 			$result = dbExecRequest($sql);
