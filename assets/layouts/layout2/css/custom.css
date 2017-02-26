@@ -4,3 +4,17 @@
 	    font-size: 12px;
 	    min-height: 45px;
 }
+.btn.green:not(.btn-outline) {
+    color: #FFF;
+    background-color: #2f4ba1;
+    border-color: #2f4ba1;
+}
+.font-green {
+    color: #2f4ba1!important;
+}
+
+.btn.green:not(.btn-outline).active, .btn.green:not(.btn-outline):active, .btn.green:not(.btn-outline):hover, .open>.btn.green:not(.btn-outline).dropdown-toggle {
+    color: #FFF;
+    background-color: #21377a;
+    border-color: #21377a;
+}
