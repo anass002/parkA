@@ -1,0 +1,99 @@
+<h3 class="page-title"> Gestion des Chauffeurs </h3>
+<div ng-controller="ChauffeurController">
+	<div class="row" ng-if="data.hideDivTableDrivers">
+		<div class="col-sm-12 text-right">
+			<button class="btn btn-primary" ng-click="addNewDriver()">Ajouter</button>
+		</div>
+		<div class="col-sm-12">
+			<div class="portlet-body">
+				<div class="table-responsive">
+					<table class="table">
+						<thead>
+							<tr>
+								<th class="text-center">Nom </th>
+								<th class="text-center">Prénom</th>
+								<th class="text-center">Téléphone</th>
+								<th class="text-center">Email</th>
+								<th class="text-center">Cin</th>
+								<th class="text-center">Voiture</th>
+								<th class="text-center">Actions</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="driver in data.drivers">
+								<td class="text-center">{{driver.lastname}}</td>
+								<td class="text-center">{{driver.firstname}}</td>
+								<td class="text-center">{{driver.tel}}</td>
+								<td class="text-center">{{driver.email}}</td>
+								<td class="text-center">{{driver.cin}}</td>
+								<td class="text-center">{{driver.dependencies.car.name}}</td>
+								<td>
+									<a title="Modifier Chauffeur" class="btn btn-icon-only yellow" ng-click="editDriver(driver)"><i class="fa fa-edit"></i></a>	
+									<a title="Supprimer Chauffeur" class="btn btn-icon-only red" ng-click="deleteDriver(driver)"><i class="fa fa-trash"></i></a>	
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row" ng-if="data.hideDivFormDrivers">
+		<div class="col-sm-12 text-right">
+			<div class="portlet-body form">
+				<div class="form-horizontal form-bordered">
+					<div class="form-body">
+						<div class="form-group">
+                            <label class="control-label col-md-3">Nom : </label>
+                            <div class="col-md-4">
+                                <input type="text" class="form-control" ng-model="data.driver.lastname">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Prénom : </label>
+                            <div class="col-md-4">
+                                <input type="text" class="form-control" ng-model="data.driver.firstname">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Téléphone : </label>
+                            <div class="col-md-4">
+                                <input type="text" class="form-control" ng-model="data.driver.tel">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Email : </label>
+                            <div class="col-md-4">
+                                <input type="text" class="form-control" ng-model="data.driver.email">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Cin : </label>
+                            <div class="col-md-4">
+                                <input type="text" class="form-control" ng-model="data.driver.cin">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Voiture : </label>
+                            <div class="col-md-4">
+                                <select class="form-control select2" ng-model="data.driver.carid">
+                                    <option value="">Selectionner une Voiture</option>                  
+                                    <option ng-repeat="car in data.cars" value="{{car.id}}">{{car.name}}</option>
+                                </select>
+                            </div>
+                        </div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-12 text-right">
+			<button class="btn btn-primary" ng-click="saveDriver(data.driver)">Enregister</button>
+            <button class="btn btn-danger" ng-click="closeDriver()">Fermer</button>
+		</div>
+	</div>
+</div>

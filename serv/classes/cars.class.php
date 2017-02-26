@@ -73,6 +73,15 @@
 			return cars::execRequest($sql);			
 		}
 
+		function deleteCarById($id = false){
+			if($id === false){
+				return returnResponse(true,"Missing parameter id to execute deleteCarById");
+			}
+
+			$sql = "DELETE FROM cars WHERE id = " . pg_escape_string($id);
+			return cars::execRequest($sql);
+		}
+
 		function save(){
 			if(!isset($this)){
 				return returnResponse(true,"Object not instancied. Cannot save it !");

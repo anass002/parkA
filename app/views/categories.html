@@ -1,0 +1,56 @@
+<h3 class="page-title"> Gestion des Utilisateurs </h3>
+<div ng-controller="CategorieController">
+	<div class="row" ng-if="data.hideDivCategories">
+		<div class="col-sm-12 text-right">
+			<button class="btn btn-primary" ng-click="AddNewCategorie()">Ajouter</button>
+		</div>
+		<div class="col-sm-12">
+			<div class="portlet-body">
+				<div class="table-responsive">
+					<table class="table">
+						<thead>
+							<tr>
+								<th class="text-center">Nom</th>
+								<th class="text-center">Actions</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="categorie in data.categories">
+								<td class="text-center">{{categorie.name}}</td>
+								<td class="text-center">
+									<a title="Modifier la catégorie" class="btn btn-icon-only yellow" ng-click="editCategorie(categorie)">
+										<i class="fa fa-edit"></i>
+									</a>
+									<a title="Supprimer la catégorie" class="btn btn-icon-only red" ng-click="deleteCategorie(categorie)">
+										<i class="fa fa-trash"></i>
+									</a>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>	
+			</div>
+		</div>
+	</div>
+
+	<div class="row" ng-if="data.hideFormCategories">
+		<div class="col-sm-12">
+			<div class="portlet-body form">
+				<form class="form-horizontal form-bordered">
+					<div class="form-body">
+						<div class="form-group">
+							<label class="control-label col-md-3"> Nom : </label>
+							<div class="col-md-4">
+								<input type="text" class="form-control" ng-model="data.categorie.name">
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+		<div class="col-sm-12 text-right">
+            <button class="btn btn-primary" ng-click="saveCategorie(data.categorie)">Enregister</button>
+            <button class="btn btn-danger" ng-click="closeCategories()">Fermer</button>
+        </div>
+	</div>
+</div>

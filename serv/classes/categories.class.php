@@ -31,6 +31,20 @@
 			return categories::execRequest($sql);
 		}
 
+		function getAll(){
+			$sql = "SELECT * FROM categories";
+			return categories::execRequest($sql);
+		}
+
+		function deleteCatById($id = false){
+			if($id === false){
+				return returnResponse(true,"Missing id parameter to execute deleteCatById");
+			}
+
+			$sql = "DELETE FROM categories WHERE id = ".pg_escape_string($id);
+			return categories::execRequest($sql);
+		}
+
 		function save(){
 			if(!isset($this)){
 				return returnResponse(true,"Object not instancied. Cannot save it !");

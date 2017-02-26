@@ -74,6 +74,14 @@
 			return drivers::execRequest($sql);
 		}
 
+		function deleteDriverById($id = false){
+			if($id === false){
+				return returnResponse(true,"Missing id parameter to execute deleteDriverById");
+			}
+			$sql = "DELETE FROM drivers WHERE id = ".pg_escape_string($id);
+			return drivers::execRequest($sql);
+		}
+
 		function save(){
 			if(!isset($this)){
 				return returnResponse(true,"Object not instancied. Cannot save it !");

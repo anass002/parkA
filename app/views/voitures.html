@@ -1,172 +1,103 @@
 <h3 class="page-title"> Gestion des Voitures </h3>
-<div ng-controller="DashboardController">
-    <div class="row" ng-if="data.hideDivTableUser">
-        <div class="col-sm-12 text-right">
-            <button class="btn btn-primary" ng-click="AddNewUser()">Ajouter</button>
-        </div>
-        <div class="col-sm-12">
-            <div class="portlet-body">
-                <div class="table-responsive">
+<div ng-controller="CarsController">
+    <div class="row" ng-if="data.hideDivCars">
+    	<div class="col-sm-12 text-right">
+    		<button title="" class="btn btn-primary" ng-click="addNewCar()">Ajouter</button>
+    	</div>
+    	<div class="col-sm-12">
+    		 <div class="portlet-body">
+    		 	<div class="table-responsive">
                     <table class="table">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>nom</th>
-                                <th>prenom</th>
-                                <th>login</th>
-                                <th>type</th>
-                                <th>actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr ng-repeat="user in data.users">
-                                <td>{{user.id}}</td>
-                                <td>{{user.lastname}}</td>
-                                <td>{{user.firstname}}</td>
-                                <td>{{user.login}}</td>
-                                <td>{{user.type}}</td>
-                                <td>
-                                	<a class="btn btn-icon-only yellow" ng-click="editUser(user)"><i class="fa fa-edit"></i></a>
-                                	<a class="btn btn-icon-only red" ng-click="deleteUser(user)"><i class="fa fa-trash"></i></a>
-                                </td>
-                            </tr>
-                        </tbody>
+	                    <thead>
+	                    	<tr>
+	                    		<th>Code</th>
+	                    		<th>Nom</th>
+	                    		<th>Marque</th>
+	                    		<th>Carte grise</th>
+	                    		<th>Kilométrage</th>
+	                    		<th>N° plaque</th>
+	                    		<th>Catégories</th>
+	                    		<th>Actions</th>
+	                    	</tr>
+	                    </thead>
+	                    <tbody>
+	                    	<tr ng-repeat="car in data.cars">
+	                    		<td>{{car.carcode}}</td>
+	                    		<td>{{car.name}}</td>
+	                    		<td>{{car.brand}}</td>
+	                    		<td>{{car.greycard}}</td>
+	                    		<td>{{car.km}}</td>
+	                    		<td>{{car.registrationnumber}}</td>
+	                    		<td>{{car.dependencies.categorie.name}}</td>
+	                    		<td>
+	                    			<a title="Modifier Voiture" class="btn btn-icon-only yellow" ng-click="editCar(car)"><i class="fa fa-edit"></i></a>
+	                    			<a title="Supprimer Voiture" class="btn btn-icon-only red" ng-click="deleteCar(car)"><i class="fa fa-trash"></i></a>
+	                    		</td>
+	                    	</tr>
+	                    </tbody>
                     </table>
-                </div>
-            </div>
-        </div>
+                </div>    
+    		 </div>
+    	</div>
     </div>
-    <div class="row" ng-if="data.hideDivInfosUser">
+
+    <div class="row" ng-if="data.hideInfosCar">
     	<div class="col-sm-12">
     		<div class="portlet-body form">
-        		<form class="form-horizontal form-bordered">
-        			<div class="form-body">
-        				<div class="form-group">
-        					<label class="control-label col-md-3">nom : </label>
-        					<div class="col-md-4">
-        						<input type="text" class="form-control" ng-model="data.user.lastname">
-        					</div>
-        				</div>
-        				<div class="form-group">
-        					<label class="control-label col-md-3">prénom : </label>
-        					<div class="col-md-4">
-        						<input type="text" class="form-control" ng-model="data.user.firstname">
-        					</div>
-        				</div>
-        				<div class="form-group">
-        					<label class="control-label col-md-3">email : </label>
-        					<div class="col-md-4">
-        						<input type="text" class="form-control" ng-model="data.user.email">
-        					</div>
-        				</div>
-        				<div class="form-group">
-        					<label class="control-label col-md-3">login : </label>
-        					<div class="col-md-4">
-        						<input type="text" class="form-control" ng-model="data.user.login">
-        					</div>
-        				</div>
-        				<div class="form-group">
-        					<label class="control-label col-md-3">password : </label>
-        					<div class="col-md-4">
-        						<input type="password" class="form-control" ng-model="data.user.password">
-        					</div>
-        				</div>
-        				<div class="form-group">
-        					<label class="control-label col-md-3">type : </label>
-        					<div class="col-md-4">
-        						<select class="form-control select2" ng-model="data.user.type">
-                                    <option value="">Selectionner un type</option>                  
-                                    <option value="admin">Admin</option>                  
-                                    <option value="user">User</option>                  
-                                </select>
-        					</div>
-        				</div>
-                        <h3>droits Utilisateurs : </h3>
-        				<div class="form-group">
-        					<label class="control-label col-md-3">users : </label>
-        					<div class="col-md-4">
-                                <select class="form-control select2" ng-model="data.user.droits.users">                  
-                                    <option value="true">OUI</option>                  
-                                    <option value="false">NON</option>                  
-                                </select>
-                            </div>
-        				</div>
-                        <div class="form-group">
-                            <label class="control-label col-md-3">categories : </label>
+    			<form class="form-horizontal form-bordered">
+    				<div class="form-body">
+    					<div class="form-group">
+    						<label class="control-label col-md-3">Code : </label>
+    						<div class="col-md-4">
+    							<input type="text" class="form-control" ng-model="data.car.carcode">
+    						</div>
+    					</div>
+    					<div class="form-group">
+    						<label class="control-label col-md-3">Nom : </label>
+    						<div class="col-md-4">
+    							<input type="text" class="form-control" ng-model="data.car.name">
+    						</div>
+    					</div>
+    					<div class="form-group">
+    						<label class="control-label col-md-3">Marque : </label>
+    						<div class="col-md-4">
+    							<input type="text" class="form-control" ng-model="data.car.brand">
+    						</div>
+    					</div>
+    					<div class="form-group">
+    						<label class="control-label col-md-3">Carte grise : </label>
+    						<div class="col-md-4">
+    							<input type="text" class="form-control" ng-model="data.car.greycard">
+    						</div>
+    					</div>
+    					<div class="form-group">
+    						<label class="control-label col-md-3">Kilométrage : </label>
+    						<div class="col-md-4">
+    							<input type="text" class="form-control" ng-model="data.car.km">
+    						</div>
+    					</div>
+    					<div class="form-group">
+    						<label class="control-label col-md-3">N° plaque : </label>
+    						<div class="col-md-4">
+    							<input type="text" class="form-control" ng-model="data.car.registrationnumber">
+    						</div>
+    					</div>
+    					<div class="form-group">
+                            <label class="control-label col-md-3">type : </label>
                             <div class="col-md-4">
-                                <select class="form-control select2" ng-model="data.user.droits.categories">                  
-                                    <option value="true">OUI</option>                  
-                                    <option value="false">NON</option>                  
+                                <select class="form-control select2" ng-model="data.car.catid">
+                                    <option value="">Selectionner une catégorie</option>                  
+                                    <option ng-repeat="cat in data.categories" value="{{cat.id}}">{{cat.name}}</option>
                                 </select>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label class="control-label col-md-3">cars : </label>
-                            <div class="col-md-4">
-                                <select class="form-control select2" ng-model="data.user.droits.cars">                  
-                                    <option value="true">OUI</option>                  
-                                    <option value="false">NON</option>                  
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-md-3">drivers : </label>
-                            <div class="col-md-4">
-                                <select class="form-control select2" ng-model="data.user.droits.drivers">                  
-                                    <option value="true">OUI</option>                  
-                                    <option value="false">NON</option>                  
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-md-3">papers : </label>
-                            <div class="col-md-4">
-                                <select class="form-control select2" ng-model="data.user.droits.papers">                  
-                                    <option value="true">OUI</option>                  
-                                    <option value="false">NON</option>                  
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-md-3">purshase : </label>
-                            <div class="col-md-4">
-                                <select class="form-control select2" ng-model="data.user.droits.purshase">                  
-                                    <option value="true">OUI</option>                  
-                                    <option value="false">NON</option>                  
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-md-3">reservations : </label>
-                            <div class="col-md-4">
-                                <select class="form-control select2" ng-model="data.user.droits.reservations">                  
-                                    <option value="true">OUI</option>                  
-                                    <option value="false">NON</option>                  
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-md-3">missions : </label>
-                            <div class="col-md-4">
-                                <select class="form-control select2" ng-model="data.user.droits.missions">                  
-                                    <option value="true">OUI</option>                  
-                                    <option value="false">NON</option>                  
-                                </select>
-                            </div>
-                        </div>
-        			</div>
-        		</form>
+    				</div>
+    			</form>
     		</div>
     	</div>
-        <div class="col-sm-12 text-right">
-            <button class="btn btn-primary" ng-click="saveUser(data.user)">Enregister</button>
-            <button class="btn btn-danger" ng-click="closeNewUser()">Fermer</button>
-        </div>
+    	<div class="col-sm-12 text-right">
+    		<button class="btn btn-primary" ng-click="saveCar(data.car)">Enregister</button>
+            <button class="btn btn-danger" ng-click="closeCar()">Fermer</button>
+    	</div>
     </div>
 </div>
-<!-- END MAIN CONTENT -->
-<!-- BEGIN MAIN JS & CSS -->
-<script>
-    Dashboard.init();
-</script>
-<!-- BEGIN MAIN JS & CSS
