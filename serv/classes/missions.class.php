@@ -108,6 +108,15 @@
 			return returnResponse(false,$result['data']);
 		}
 
+		function deleteMissionById($id = false){
+			if($id === false){
+				return returnResponse(true,"Missing id parameter to execute deleteMissionById");
+			}
+
+			$sql = "DELETE FROM missions WHERE id = ".pg_escape_string($id);
+			return missions::execRequest($sql);
+		}
+
 		private function readRow($row = false){
 			if($row === false){
 				return false;

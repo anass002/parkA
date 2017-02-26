@@ -101,6 +101,15 @@
 			return returnResponse(false,$result['data']);
 		}
 
+		function deleteReservationById($id = false){
+			if($id === false){
+				return returnResponse(true,"Missing id parameter to execute deleteReservationById");
+			}
+
+			$sql = "DELETE FROM reservations WHERE id = ".pg_escape_string($id);
+			return reservations::execRequest($sql);
+		}
+
 		private function readRow($row = false){
 			if($row === false){
 				return false;

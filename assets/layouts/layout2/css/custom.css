@@ -1,1 +1,6 @@
 /* here you can put your own css to customize and override the theme */
+.page-sidebar .page-sidebar-menu>li>a, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu>li>a{
+	    padding: 17px 5px 5px;
+	    font-size: 12px;
+	    min-height: 45px;
+}
