@@ -276,6 +276,50 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvi
             }
         })
 
+        .state('papiers', {
+            url: "/papiers.html",
+            templateUrl: "views/papiers.html",            
+            data: {pageTitle: 'Gestion des Papiers'},
+            controller: "PapiersController",
+            resolve: {
+                deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                    return $ocLazyLoad.load({
+                        name: 'MetronicApp',
+                        insertBefore: '#ng_load_plugins_before', // load the above css files before a LINK element with this ID. Dynamic CSS files must be loaded between core and theme css files
+                        files: [
+                            '../assets/global/plugins/morris/morris.css',                            
+                            '../assets/global/plugins/morris/morris.min.js',
+                            '../assets/global/plugins/morris/raphael-min.js',                            
+                            '../assets/global/plugins/jquery.sparkline.min.js',
+                            'js/controllers/PapiersController.js'
+                        ] 
+                    });
+                }]
+            }
+        })
+
+        .state('achats', {
+            url: "/achats.html",
+            templateUrl: "views/achats.html",            
+            data: {pageTitle: 'Gestion des Achats'},
+            controller: "AchatsController",
+            resolve: {
+                deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                    return $ocLazyLoad.load({
+                        name: 'MetronicApp',
+                        insertBefore: '#ng_load_plugins_before', // load the above css files before a LINK element with this ID. Dynamic CSS files must be loaded between core and theme css files
+                        files: [
+                            '../assets/global/plugins/morris/morris.css',                            
+                            '../assets/global/plugins/morris/morris.min.js',
+                            '../assets/global/plugins/morris/raphael-min.js',                            
+                            '../assets/global/plugins/jquery.sparkline.min.js',
+                            'js/controllers/AchatsController.js'
+                        ] 
+                    });
+                }]
+            }
+        })
+
 }]);
 
 /* Init global settings and run the app */
