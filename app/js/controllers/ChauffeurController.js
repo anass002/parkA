@@ -7,7 +7,8 @@ angular.module('MetronicApp').controller('ChauffeurController', function($rootSc
     console.log("Drivers CTRL");
     $scope.data = {};
     $scope.data.hideDivTableDrivers = true;	
-	$scope.data.hideDivFormDrivers = false;
+    $scope.data.hideDivFormDrivers = false;
+	$scope.data.hideDivInfosCar = false;
 
     getDrivers();
     getCars();
@@ -40,7 +41,6 @@ angular.module('MetronicApp').controller('ChauffeurController', function($rootSc
                 console.log(error);
             }
         )
-
 	}
 
 	$scope.saveDriver = function(driver){
@@ -65,7 +65,18 @@ angular.module('MetronicApp').controller('ChauffeurController', function($rootSc
 		$scope.data.hideDivFormDrivers = false;
 	}
 
+    $scope.getInfosCar = function(car){
+        $scope.data.car = car;
+        $scope.data.hideDivTableDrivers = false;    
+        $scope.data.hideDivFormDrivers = false;
+        $scope.data.hideDivInfosCar = true;
+    }
 
+    $scope.closeInfosCar = function(){
+        $scope.data.hideDivTableDrivers = true;    
+        $scope.data.hideDivFormDrivers = false;
+        $scope.data.hideDivInfosCar = false;   
+    }
 
 
 

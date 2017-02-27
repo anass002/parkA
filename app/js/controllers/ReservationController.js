@@ -8,6 +8,7 @@ angular.module('MetronicApp').controller('ReservationController', function($root
     $scope.data = {};
     $scope.data.hideFormReservation = false;
     $scope.data.hideListReservation = true;
+    $scope.data.hideDivInfosCar = false;
 
     getReservations();
     getCars();
@@ -78,6 +79,19 @@ angular.module('MetronicApp').controller('ReservationController', function($root
     $scope.closeReservation = function(){
         $scope.data.hideFormReservation = false;
         $scope.data.hideListReservation = true;
+    }
+
+    $scope.getInfosCar = function(car){
+        $scope.data.car = car;
+        $scope.data.hideFormReservation = false;
+        $scope.data.hideListReservation = false;
+        $scope.data.hideDivInfosCar = true;
+    }
+
+    $scope.closeInfosCar = function(){
+        $scope.data.hideFormReservation = false;
+        $scope.data.hideListReservation = true;
+        $scope.data.hideDivInfosCar = false;   
     }
 
     function getCars(){

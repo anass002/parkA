@@ -1,6 +1,12 @@
 <?php 
 	require_once('../classes/auth.class.php');
 	require_once('../classes/cars.class.php');
+	require_once('../classes/missions.class.php');
+	require_once('../classes/papers.class.php');
+	require_once('../classes/drivers.class.php');
+	require_once('../classes/reservations.class.php');
+	require_once('../classes/purshase.class.php');
+
 
 
 	$postdata = file_get_contents("php://input");
@@ -47,6 +53,37 @@
 						$myCar->uupdate = $car->id;
 					}
 					echo json_encode($myCar->save());
+					return false;
+					break;
+				case 'getAllInfosCar':
+					if(!isset($postdata->id)){
+						echo json_encode(returnResponse(true,"Missing parameter to complete getAllInfosCar"));
+						return false;
+					}
+					$data = new stdClass();
+
+
+					$myMissions = missions::getMissionsByCarId($postdata->id);
+
+					$data->missions = $myMissions['data'];
+
+					$myDriver = drivers::getDriverByCarId($postdata->id);
+
+					$data->driver = $myDriver['data'];
+
+					$myPapers = papers::getPapersByCarId($postdata->id);
+
+					$data->papers = $myPapers['data'];
+
+					$myReservations = reservations::getReservationByCarId($postdata->id);
+
+					$data->reservations = $myReservations['data'];
+
+					$myPurshases = purshase::getPurshaseByCarId($postdata->id);
+
+					$data->purshases = $myPurshases['data'];
+
+					echo json_encode(returnResponse(false,$data));
 					return false;
 					break;			
 				default:

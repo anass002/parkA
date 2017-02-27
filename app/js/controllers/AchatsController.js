@@ -8,6 +8,7 @@ angular.module('MetronicApp').controller('AchatsController', function($rootScope
     $scope.data = {};
     $scope.data.hideDivTableAchats = true;	
 	$scope.data.hideDivFormAchats = false;
+	$scope.data.hideDivInfosCar = false;
 	getAchats();
 	getCars();
 
@@ -61,6 +62,19 @@ angular.module('MetronicApp').controller('AchatsController', function($rootScope
 		$scope.data.hideDivTableAchats = true;	
 		$scope.data.hideDivFormAchats = false;
 	}
+
+	$scope.getInfosCar = function(car){
+        $scope.data.car = car;
+        $scope.data.hideDivTableAchats = false;	
+		$scope.data.hideDivFormAchats = false;
+        $scope.data.hideDivInfosCar = true;
+    }
+
+    $scope.closeInfosCar = function(){
+        $scope.data.hideDivTableAchats = true;	
+		$scope.data.hideDivFormAchats = false;
+        $scope.data.hideDivInfosCar = false;   
+    }
 
 	function getAchats(){
 		$http.post('../serv/ws/achats.ws.php' , {action:'getAllPurshases'}).then(

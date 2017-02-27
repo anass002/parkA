@@ -161,6 +161,33 @@
 			return returnResponse(false, $results);
 		}
 
+		function readJoinString($row = false){
+			if($row === false){
+				return false;
+			}
+			if(isset($row['purshase_id'])){
+				$obj = new purshase();
+				$vars = get_class_vars(get_class($obj));
+				foreach ($vars as $key => $value) {
+					if(isset($row['purshase'.strtolower($key)])){
+						$obj->$key = trim($row['purshase'.strtolower($key)]);
+					}
+				}
+				return $obj;
+			}
+			return false;
+		}
+
+		function getJoinString(){
+			$classVars = get_class_vars('purshase');
+			$joinString = '';
+			foreach($classVars as $name => $value) {
+			    $joinString .= 'COALESCE(purshase.'.$name.',null) as purshase'.$name.", ";
+			}
+			$joinString = rtrim($joinString, ", ");
+			return $joinString;
+		}
+
 
 	}
 ?>

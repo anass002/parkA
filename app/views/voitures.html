@@ -1,5 +1,279 @@
-<h3 class="page-title"> Gestion des Voitures </h3>
-<div ng-controller="CarsController">
+<div class="portlet light">
+    <div class="portlet-title tabbable-line">
+        <div class="caption">
+            <i class="icon-bubbles font-dark hide"></i>
+            <span class="caption-subject font-dark bold uppercase">Gestion des Voitures </span>
+        </div>
+    </div>
+    <div class="portlet-body">
+        <div class="row" ng-if="data.hideDivCars">
+            <div class="col-sm-12 text-right">
+                <button title="" class="btn btn-primary" ng-click="addNewCar()">Ajouter</button>
+            </div>
+            <div class="col-sm-12">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Code</th>
+                                <th>Nom</th>
+                                <th>Marque</th>
+                                <th>Carte grise</th>
+                                <th>Kilométrage</th>
+                                <th>N° plaque</th>
+                                <th>Catégories</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="car in data.cars">
+                                <td>{{car.carcode}}</td>
+                                <td>{{car.name}}</td>
+                                <td>{{car.brand}}</td>
+                                <td>{{car.greycard}}</td>
+                                <td>{{car.km}}</td>
+                                <td>{{car.registrationnumber}}</td>
+                                <td>{{car.dependencies.categorie.name}}</td>
+                                <td>
+                                    <a title="Modifier Voiture" class="btn btn-icon-only yellow" ng-click="editCar(car)"><i class="fa fa-edit"></i></a>
+                                    <a title="Supprimer Voiture" class="btn btn-icon-only red" ng-click="deleteCar(car)"><i class="fa fa-trash"></i></a>
+                                    <a title="Détail Voiture" class="btn btn-icon-only blue" ng-click="getInfosCar(car)"><i class="fa fa-book"></i></a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>    
+            </div>
+        </div>
+
+        <div class="row" ng-if="data.hideInfosCar">
+            <div class="col-sm-12">
+                <div class="form">
+                    <form class="form-horizontal form-bordered">
+                        <div class="form-body">
+                            <div class="form-group">
+                                <label class="control-label col-md-3">Code : </label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" ng-model="data.car.carcode">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3">Nom : </label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" ng-model="data.car.name">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3">Marque : </label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" ng-model="data.car.brand">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3">Carte grise : </label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" ng-model="data.car.greycard">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3">Kilométrage : </label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" ng-model="data.car.km">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3">N° plaque : </label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" ng-model="data.car.registrationnumber">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3">type : </label>
+                                <div class="col-md-4">
+                                    <select class="form-control select2" ng-model="data.car.catid">
+                                        <option value="">Selectionner une catégorie</option>                  
+                                        <option ng-repeat="cat in data.categories" value="{{cat.id}}">{{cat.name}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="col-sm-12 text-right">
+                <button class="btn btn-primary" ng-click="saveCar(data.car)">Enregister</button>
+                <button class="btn btn-danger" ng-click="closeCar()">Fermer</button>
+            </div>
+        </div>
+
+        <div class="row" ng-if="data.hideModeInfosCars">
+            <div class="col-sm-12">
+                <h3> Détails sur la Voiture :  {{data.car.name}} ({{data.car.registrationnumber}})</h3>
+                <button class="btn btn-danger" ng-click="closeMoreInfos()">Fermer</button>            
+            </div>
+
+            <div class="col-sm-12">
+                <div class="portlet light">
+                    <div class="portlet-title tabbable-line">
+                        <div class="caption">
+                            <i class="icon-bubbles font-dark hide"></i>
+                            <span class="caption-subject font-dark bold uppercase">Chauffeur </span>
+                        </div>
+                    </div>
+                    <div class="portlet-body">
+                        <div class="tab-content">
+                            <div ng-if="data.carInfos.driver.length == 0">
+                                <h3 class="text-center font-red-thunderbird"><strong>Aucun Chauffeur désigner a cette voiture.</strong></h3>
+                            </div>
+                            <div ng-if="data.carInfos.driver.length != 0">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <h5><strong>Nom Complet : </strong> {{data.carInfos.driver[0].lastname}} {{data.carInfos.driver[0].firstname}}</h5>
+                                        <h5><strong>Permis : </strong>{{data.carInfos.driver[0].driverlicense}}</h5>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <h5><strong>Téléphone : </strong> {{data.carInfos.driver[0].tel}}</h5>
+                                        <h5><strong>email : </strong>{{data.carInfos.driver[0].email}}</h5>
+                                        <h5><strong>N° CIN : </strong>{{data.carInfos.driver[0].cin}}</h5>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12">
+                <div class="portlet light">
+                    <div class="portlet-title tabbable-line">
+                        <div class="caption">
+                            <i class="icon-bubbles font-dark hide"></i>
+                            <span class="caption-subject font-dark bold uppercase">Ces Missions </span>
+                        </div>
+                    </div>
+                    <div class="portlet-body">
+                        <div ng-if="data.carInfos.missions.length == 0">
+                            <h3 class="text-center font-red-thunderbird"><strong>Pas de missions pour ce vehicule.</strong></h3>
+                        </div>
+                        <div ng-if="data.carInfos.missions.length != 0">
+                            <div class="row" ng-repeat="mission in data.carInfos.missions">
+                                <div class="col-sm-5">
+                                    <h5><strong>Départ de : </strong>{{mission.departure}} <strong>Vers : </strong>{{mission.destination}} </h5>
+                                </div>
+                                <div class="col-sm-5">
+                                    <h5><strong>Date de départ : </strong> {{mission.ddeparture}}</h5>
+                                </div>
+                                <div class="col-sm-2">
+                                    <h5><strong>Prix :</strong> {{mission.rate}} (MAD)</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12">
+                <div class="portlet light">
+                    <div class="portlet-title tabbable-line">
+                        <div class="caption">
+                            <i class="icon-bubbles font-dark hide"></i>
+                            <span class="caption-subject font-dark bold uppercase">Ces Réservations</span>
+                        </div>
+                    </div>
+                    <div class="portlet-body">
+                        <div ng-if="data.carInfos.reservations.length == 0">
+                            <h3 class="text-center font-red-thunderbird"><strong>Pas de réservations pour ce vehicule.</strong></h3>
+                        </div>
+                        <div ng-if="data.carInfos.reservations.length != 0">
+                            <div class="row" ng-repeat="reser in data.carInfos.reservations">
+                                <div class="col-sm-6">
+                                    <h5><strong>Date de réservation :</strong> {{reser.dreservation}}</h5> 
+                                </div>
+                                <div class="col-sm-6">
+                                    <h5><strong>Cout de réservation :</strong> {{reser.rate}} (MAD)</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12">
+                <div class="portlet light">
+                    <div class="portlet-title tabbable-line">
+                        <div class="caption">
+                            <i class="icon-bubbles font-dark hide"></i>
+                            <span class="caption-subject font-dark bold uppercase">Ces Papies</span>
+                        </div>
+                    </div>
+                    <div class="portlet-body">
+                        <div ng-if="data.carInfos.papers.length == 0">
+                            <h3 class="text-center font-red-thunderbird"><strong>Aucuns papies enregistrer pour ce vehicule.</strong></h3>
+                        </div>
+                        <div ng-if="data.carInfos.papers.length != 0">
+                            <div class="row" ng-repeat="paper in data.carInfos.papers">
+                                <div class="col-sm-4">
+                                    <h5><strong>Papier : </strong> {{paper.name}}</h5>
+                                </div>
+                                <div class="col-sm-4">
+                                    <h5><strong>Date début : </strong> {{paper.dbegin}}</h5>
+                                </div>
+                                <div class="col-sm-4">
+                                    <h5><strong>Date fin : </strong> {{paper.dend}}</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12">
+                <div class="portlet light">
+                    <div class="portlet-title tabbable-line">
+                        <div class="caption">
+                            <i class="icon-bubbles font-dark hide"></i>
+                            <span class="caption-subject font-dark bold uppercase">Ces Achats</span>
+                        </div>
+                    </div>
+                    <div class="portlet-body">
+                        <div ng-if="data.carInfos.purshases.length == 0">
+                            <h3 class="text-center font-red-thunderbird"><strong>Aucun Achat n'est effectué pour ce vehicule .</strong></h3>
+                        </div>
+                        <div ng-if="data.carInfos.purshases.length != 0">
+                            <div class="row" ng-repeat="achat in data.carInfos.purshases">
+                                <div class="col-sm-3">
+                                    <h5><strong>Achat de : </strong>{{achat.name}}</h5>
+                                </div>
+                                <div class="col-sm-3">
+                                    <h5><strong>N° Facture</strong> : {{achat.nfacture}} </h5>
+                                </div>
+                                <div class="col-sm-3">
+                                    <h5><strong>N° Bon Commande : </strong> {{achat.nbl}}</h5>
+                                </div>
+                                <div class="col-sm-3">
+                                    <h5><strong>Prix : </strong> {{achat.price}} (MAD)</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <h3 class="page-title"> Gestion des Voitures </h3>
+<div>
     <div class="row" ng-if="data.hideDivCars">
     	<div class="col-sm-12 text-right">
     		<button title="" class="btn btn-primary" ng-click="addNewCar()">Ajouter</button>
@@ -32,6 +306,7 @@
 	                    		<td>
 	                    			<a title="Modifier Voiture" class="btn btn-icon-only yellow" ng-click="editCar(car)"><i class="fa fa-edit"></i></a>
 	                    			<a title="Supprimer Voiture" class="btn btn-icon-only red" ng-click="deleteCar(car)"><i class="fa fa-trash"></i></a>
+                                    <a title="Détail Voiture" class="btn btn-icon-only blue" ng-click="getInfosCar(car)"><i class="fa fa-book"></i></a>
 	                    		</td>
 	                    	</tr>
 	                    </tbody>
@@ -100,4 +375,154 @@
             <button class="btn btn-danger" ng-click="closeCar()">Fermer</button>
     	</div>
     </div>
-</div>
+
+    <div class="row" ng-if="data.hideModeInfosCars">
+        <div class="col-sm-12">
+            <h3> Détails sur la Voiture :  {{data.car.name}} ({{data.car.registrationnumber}})</h3>
+            <button class="btn btn-danger" ng-click="closeMoreInfos()">Fermer</button>            
+        </div>
+
+        <div class="col-sm-12">
+            <div class="portlet light">
+                <div class="portlet-title tabbable-line">
+                    <div class="caption">
+                        <i class="icon-bubbles font-dark hide"></i>
+                        <span class="caption-subject font-dark bold uppercase">Chauffeur </span>
+                    </div>
+                </div>
+                <div class="portlet-body">
+                    <div class="tab-content">
+                        <div ng-if="data.carInfos.driver.length == 0">
+                            <h3 class="text-center font-red-thunderbird"><strong>Aucun Chauffeur désigner a cette voiture.</strong></h3>
+                        </div>
+                        <div ng-if="data.carInfos.driver.length != 0">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <h5><strong>Nom Complet : </strong> {{data.carInfos.driver[0].lastname}} {{data.carInfos.driver[0].firstname}}</h5>
+                                    <h5><strong>Permis : </strong>{{data.carInfos.driver[0].driverlicense}}</h5>
+                                </div>
+                                <div class="col-sm-6">
+                                    <h5><strong>Téléphone : </strong> {{data.carInfos.driver[0].tel}}</h5>
+                                    <h5><strong>email : </strong>{{data.carInfos.driver[0].email}}</h5>
+                                    <h5><strong>N° CIN : </strong>{{data.carInfos.driver[0].cin}}</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12">
+            <div class="portlet light">
+                <div class="portlet-title tabbable-line">
+                    <div class="caption">
+                        <i class="icon-bubbles font-dark hide"></i>
+                        <span class="caption-subject font-dark bold uppercase">Ces Missions </span>
+                    </div>
+                </div>
+                <div class="portlet-body">
+                    <div ng-if="data.carInfos.missions.length == 0">
+                        <h3 class="text-center font-red-thunderbird"><strong>Pas de missions pour ce vehicule.</strong></h3>
+                    </div>
+                    <div ng-if="data.carInfos.missions.length != 0">
+                        <div class="row" ng-repeat="mission in data.carInfos.missions">
+                            <div class="col-sm-5">
+                                <h5><strong>Départ de : </strong>{{mission.departure}} <strong>Vers : </strong>{{mission.destination}} </h5>
+                            </div>
+                            <div class="col-sm-5">
+                                <h5><strong>Date de départ : </strong> {{mission.ddeparture}}</h5>
+                            </div>
+                            <div class="col-sm-2">
+                                <h5><strong>Prix :</strong> {{mission.rate}} (MAD)</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12">
+            <div class="portlet light">
+                <div class="portlet-title tabbable-line">
+                    <div class="caption">
+                        <i class="icon-bubbles font-dark hide"></i>
+                        <span class="caption-subject font-dark bold uppercase">Ces Réservations</span>
+                    </div>
+                </div>
+                <div class="portlet-body">
+                    <div ng-if="data.carInfos.reservations.length == 0">
+                        <h3 class="text-center font-red-thunderbird"><strong>Pas de réservations pour ce vehicule.</strong></h3>
+                    </div>
+                    <div ng-if="data.carInfos.reservations.length != 0">
+                        <div class="row" ng-repeat="reser in data.carInfos.reservations">
+                            <div class="col-sm-6">
+                                <h5><strong>Date de réservation :</strong> {{reser.dreservation}}</h5> 
+                            </div>
+                            <div class="col-sm-6">
+                                <h5><strong>Cout de réservation :</strong> {{reser.rate}} (MAD)</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12">
+            <div class="portlet light">
+                <div class="portlet-title tabbable-line">
+                    <div class="caption">
+                        <i class="icon-bubbles font-dark hide"></i>
+                        <span class="caption-subject font-dark bold uppercase">Ces Papies</span>
+                    </div>
+                </div>
+                <div class="portlet-body">
+                    <div ng-if="data.carInfos.papers.length == 0">
+                        <h3 class="text-center font-red-thunderbird"><strong>Aucuns papies enregistrer pour ce vehicule.</strong></h3>
+                    </div>
+                    <div ng-if="data.carInfos.papers.length != 0">
+                        <div class="row" ng-repeat="paper in data.carInfos.papers">
+                            <div class="col-sm-4">
+                                <h5><strong>Papier : </strong> {{paper.name}}</h5>
+                            </div>
+                            <div class="col-sm-4">
+                                <h5><strong>Date début : </strong> {{paper.dbegin}}</h5>
+                            </div>
+                            <div class="col-sm-4">
+                                <h5><strong>Date fin : </strong> {{paper.dend}}</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12">
+            <div class="portlet light">
+                <div class="portlet-title tabbable-line">
+                    <div class="caption">
+                        <i class="icon-bubbles font-dark hide"></i>
+                        <span class="caption-subject font-dark bold uppercase">Ces Achats</span>
+                    </div>
+                </div>
+                <div class="portlet-body">
+                    <div ng-if="data.carInfos.purshases.length == 0">
+                        <h3 class="text-center font-red-thunderbird"><strong>Aucun Achat n'est effectué pour ce vehicule .</strong></h3>
+                    </div>
+                    <div ng-if="data.carInfos.purshases.length != 0">
+                        <div class="row" ng-repeat="achat in data.carInfos.purshases">
+                            <div class="col-sm-3">
+                                <h5><strong>Achat de : </strong>{{achat.name}}</h5>
+                            </div>
+                            <div class="col-sm-3">
+                                <h5><strong>N° Facture</strong> : {{achat.nfacture}} </h5>
+                            </div>
+                            <div class="col-sm-3">
+                                <h5><strong>N° Bon Commande : </strong> {{achat.nbl}}</h5>
+                            </div>
+                            <div class="col-sm-3">
+                                <h5><strong>Prix : </strong> {{achat.price}} (MAD)</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> -->

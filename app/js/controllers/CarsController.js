@@ -8,9 +8,11 @@ angular.module('MetronicApp').controller('CarsController', function($rootScope, 
     $scope.data = {};
     $scope.data.hideDivCars = true;
     $scope.data.hideInfosCar = false;
+    $scope.data.hideModeInfosCars = false;
 
     getCars();
     getCategories();
+    getBrands();
 
     $scope.addNewCar = function(){
         $scope.data.hideDivCars = false;
@@ -64,6 +66,31 @@ angular.module('MetronicApp').controller('CarsController', function($rootScope, 
         $scope.data.hideInfosCar = false;
     }
 
+    $scope.getInfosCar = function(car){
+        console.log(car);
+        $scope.data.car = car;
+
+        $http.post('../serv/ws/cars.ws.php' , {action:'getAllInfosCar' , id : car.id}).then(
+            function(response){
+                $scope.data.hideModeInfosCars = true;
+                $scope.data.hideDivCars = false;
+                $scope.data.hideInfosCar = false;
+
+                console.log(response.data.data);
+                $scope.data.carInfos = response.data.data;
+            },
+            function(error){
+                console.log(error);
+            }
+        )
+    }
+
+    $scope.closeMoreInfos = function(){
+        $scope.data.hideModeInfosCars = false;
+        $scope.data.hideDivCars = true;
+        $scope.data.hideInfosCar = false;
+    }
+
     function getCars(){
         $http.post('../serv/ws/cars.ws.php',{action:'getAllCars'}).then(
             function(response){
@@ -74,6 +101,12 @@ angular.module('MetronicApp').controller('CarsController', function($rootScope, 
                 console.log(error);
             }
         )
+    }
+
+    function getBrands(){
+        $http.get('../assets/brand.json').success(function(data) {
+           console.log(data);
+        });
     }
 
     function getCategories(){

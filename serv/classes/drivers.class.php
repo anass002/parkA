@@ -180,5 +180,32 @@
 			}
 			return returnResponse(false, $results);
 		}
+
+		function readJoinString($row = false){
+			if($row === false){
+				return false;
+			}
+			if(isset($row['drivers_id'])){
+				$obj = new drivers();
+				$vars = get_class_vars(get_class($obj));
+				foreach ($vars as $key => $value) {
+					if(isset($row['drivers_'.strtolower($key)])){
+						$obj->$key = trim($row['drivers_'.strtolower($key)]);
+					}
+				}
+				return $obj;
+			}
+			return false;
+		}
+
+		function getJoinString(){
+			$classVars = get_class_vars('drivers');
+			$joinString = '';
+			foreach($classVars as $name => $value) {
+			    $joinString .= 'COALESCE(drivers.'.$name.',null) as drivers_'.$name.", ";
+			}
+			$joinString = rtrim($joinString, ", ");
+			return $joinString;
+		}
 	}
 ?>

@@ -1,4 +1,128 @@
-<h3 class="page-title"> Gestion des Papiers </h3>
+<div class="portlet light">
+	<div class="portlet-title tabbable-line">
+		<div class="caption">
+            <i class="icon-bubbles font-dark hide"></i>
+            <span class="caption-subject font-dark bold uppercase">Gestion des Papiers </span>
+        </div>
+	</div>
+	<div class="portlet-body">
+		<div class="row" ng-if="data.hideDivTablePapiers">
+			<div class="col-sm-12 text-right">
+				<button class="btn btn-primary" ng-click="addNewPaper()">Ajouter</button>
+			</div>
+			<div class="col-sm-12">
+				<div class="portlet-body">
+					<div class="table-responsive">
+						<table class="table">
+							<thead>
+								<tr>
+									<th class="text-center">Nom </th>
+									<th class="text-center">Date Début</th>
+									<th class="text-center">Date Fin</th>
+									<th class="text-center">Voiture</th>
+									<th class="text-center">Actions</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr ng-repeat="paper in data.papers">
+									<td class="text-center">{{paper.name}}</td>
+									<td class="text-center">{{paper.dbegin}}</td>
+									<td class="text-center">{{paper.dend}}</td>
+									<td class="text-center">{{paper.dependencies.car.name}} ({{paper.dependencies.car.registrationnumber}})</td>
+									<td class="text-center">
+										<a title="Modifier Papier" class="btn btn-icon-only yellow" ng-click="editPaper(paper)"><i class="fa fa-edit"></i></a>	
+										<a title="Supprimer Papier" class="btn btn-icon-only red" ng-click="deletePaper(paper)"><i class="fa fa-trash"></i></a>
+										<a title="Détail Voiture" class="btn btn-icon-only blue" ng-click="getInfosCar(paper.dependencies.car)"><i class="fa fa-book"></i></a>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="row" ng-if="data.hideDivFormPapiers">
+			<div class="col-sm-12">
+				<div class="portlet-body form">
+					<div class="form-horizontal form-bordered">
+						<div class="form-body">
+							<div class="form-group">
+	                            <label class="control-label col-md-3">Nom : </label>
+	                            <div class="col-md-4">
+	                                <input type="text" class="form-control" ng-model="data.paper.name">
+	                            </div>
+	                        </div>
+						</div>
+
+						<div class="form-body">
+							<div class="form-group">
+	                            <label class="control-label col-md-3">Date Début : </label>
+	                            <div class="col-md-4">
+	                                <input type="text" class="form-control" ng-model="data.paper.dbegin">
+	                            </div>
+	                        </div>
+						</div>
+
+						<div class="form-body">
+							<div class="form-group">
+	                            <label class="control-label col-md-3">Date Fin : </label>
+	                            <div class="col-md-4">
+	                                <input type="text" class="form-control" ng-model="data.paper.dend">
+	                            </div>
+	                        </div>
+						</div>
+
+						<div class="form-group">
+	                        <label class="control-label col-md-3">Voiture : </label>
+	                        <div class="col-md-4">
+	                            <select class="form-control select2" ng-model="data.paper.carid">
+	                                <option value="">Selectionner une Voiture</option>                  
+	                                <option ng-repeat="car in data.cars" value="{{car.id}}">{{car.name}} (({{car.registrationnumber}})</option>
+	                            </select>
+	                        </div>
+	                    </div>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-12 text-right">
+				<button class="btn btn-primary" ng-click="savePaper(data.paper)">Enregister</button>
+	            <button class="btn btn-danger" ng-click="closePaper()">Fermer</button>
+			</div>
+		</div>
+
+		<div class="row" ng-if="data.hideDivInfosCar">
+			<div class="col-sm-12">
+				<h3>Informations sur la voiture du Chauffeur</h3>
+				<button class="btn btn-danger" ng-click="closeInfosCar()">Fermer</button>
+			</div>
+
+			<div class="col-sm-12">
+				<div class="rows">
+					<div class="col-md-2">
+						<h5><strong>Code : </strong>{{data.car.carcode}}</h5>
+					</div>
+					<div class="col-md-3">
+						<h5><strong>Nom : </strong> {{data.car.name}}</h5>
+						<h5><strong>Marque : </strong> {{data.car.brand}}</h5>
+						<h5><strong>Code : </strong>{{data.car.carcode}}</h5>
+					</div>
+					<div class="col-md-4">
+						<h5><strong>Kilométrage : {{data.car.km}}</strong></h5>
+						<h5><strong>N° Plaque: </strong> {{data.car.registrationnumber}}</h5>
+					</div>
+					<div class="col-md-3">
+						<h5><strong>Carte grise : </strong> {{data.car.greycard}}</h5>
+						<h5><strong>Catégorie : </strong> {{data.car.dependencies.categorie.name}}</h5>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>	
+
+
+<!-- <h3 class="page-title"> Gestion des Papiers </h3>
 <div>
 	<div class="row" ng-if="data.hideDivTablePapiers">
 		<div class="col-sm-12 text-right">
@@ -83,4 +207,4 @@
             <button class="btn btn-danger" ng-click="closePaper()">Fermer</button>
 		</div>
 	</div>
-</div>
+</div> -->

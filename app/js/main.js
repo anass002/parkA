@@ -269,6 +269,8 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvi
                             '../assets/global/plugins/morris/morris.min.js',
                             '../assets/global/plugins/morris/raphael-min.js',                            
                             '../assets/global/plugins/jquery.sparkline.min.js',
+                            '../assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.css',
+                            '../assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.js',
                             'js/controllers/ChauffeurController.js'
                         ] 
                     });

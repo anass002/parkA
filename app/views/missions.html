@@ -1,4 +1,145 @@
-<h3 class="page-title"> Gestion des Missions</h3>
+<div class="portlet light">
+	<div class="portlet-title tabbable-line">
+		<div class="caption">
+            <i class="icon-bubbles font-dark hide"></i>
+            <span class="caption-subject font-dark bold uppercase"> Gestion des Missions</span>
+        </div>
+	</div>
+	<div class="portlet-body">
+		<div class="row" ng-if="data.hideListMissions">
+			<div class="col-sm-12 text-right">
+				<button class="btn btn-primary" ng-click="AddNewMission()">Ajouter</button>
+			</div>
+			<div class="col-sm-12">
+				<div class="table-responsive">
+					<table class="table">
+						<thead>
+							<tr>
+								<th class="text-center">Voiture</th>
+								<th class="text-center">Départ</th>
+								<th class="text-center">Date de départ</th>
+								<th class="text-center">Arrivée</th>
+								<th class="text-center">Coût</th>
+								<th class="text-center">Actions</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="mission in data.missions">
+								<td class="text-center">{{mission.dependencies.car.name}} ({{mission.dependencies.car.registrationnumber}})</td>
+								<td class="text-center">{{mission.departure}}</td>
+								<td class="text-center">{{mission.ddeparture}}</td>
+								<td class="text-center">{{mission.destination}}</td>
+								<td class="text-center">{{mission.rate}}</td>
+								<td class="text-center">
+									<a title="Modifier la mission" class="btn btn-icon-only yellow" ng-click="editMission(mission)">
+										<i class="fa fa-edit"></i>
+									</a>
+									<a title="Supprimer la mission" class="btn btn-icon-only red" ng-click="deleteMission(mission)">
+										<i class="fa fa-trash"></i>
+									</a>
+									<a title="Détail Voiture" class="btn btn-icon-only blue" ng-click="getInfosCar(mission.dependencies.car)">
+										<i class="fa fa-book"></i>
+									</a>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>	
+			</div>
+		</div>
+
+		<div class="row" ng-if="data.hideFormMissions" id="form_modal1">
+			<div class="col-sm-12">
+				<div class="form">
+					<form class="form-horizontal form-bordered">
+						<div class="form-body">
+							<div class="form-group">
+								<label class="control-label col-md-3"> Départ : </label>
+								<div class="col-md-4">
+									<input type="text" class="form-control" ng-model="data.mission.departure">
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="control-label col-md-3">Date de Départ : </label>
+								<div class="col-md-4">
+									<div class="input-group date form_datetime" data-date="2012-12-21T15:25:00Z">
+	                                    <input type="text" size="16" readonly class="form-control">
+	                                    <span class="input-group-btn">
+	                                        <button class="btn default date-reset" type="button">
+	                                            <i class="fa fa-times"></i>
+	                                        </button>
+	                                        <button class="btn default date-set" type="button">
+	                                            <i class="fa fa-calendar"></i>
+	                                        </button>
+	                                    </span>
+	                                </div>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="control-label col-md-3"> Arrivée : </label>
+								<div class="col-md-4">
+									<input type="text" class="form-control" ng-model="data.mission.destination">
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="control-label col-md-3"> Coût : </label>
+								<div class="col-md-4">
+									<input type="text" class="form-control" ng-model="data.mission.rate">
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="control-label col-md-3"> Voiture : </label>
+								<div class="col-md-4">
+	                                <select class="form-control select2" ng-model="data.mission.carid">
+	                                    <option value="">Selectionner une Voiture</option>                  
+	                                    <option ng-repeat="car in data.cars" value="{{car.id}}">{{car.name}}</option>
+	                                </select>
+	                            </div>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+			<div class="col-sm-12 text-right">
+	            <button class="btn btn-primary" ng-click="saveMission(data.mission)">Enregister</button>
+	            <button class="btn btn-danger" ng-click="closeMission()">Fermer</button>
+	        </div>
+		</div>
+
+		<div class="row" ng-if="data.hideDivInfosCar">
+			<div class="col-sm-12">
+				<h3>Informations sur la voiture du Chauffeur</h3>
+				<button class="btn btn-danger" ng-click="closeInfosCar()">Fermer</button>
+			</div>
+
+			<div class="col-sm-12">
+				<div class="rows">
+					<div class="col-md-2">
+						<h5><strong>Code : </strong>{{data.car.carcode}}</h5>
+					</div>
+					<div class="col-md-3">
+						<h5><strong>Nom : </strong> {{data.car.name}}</h5>
+						<h5><strong>Marque : </strong> {{data.car.brand}}</h5>
+						<h5><strong>Code : </strong>{{data.car.carcode}}</h5>
+					</div>
+					<div class="col-md-4">
+						<h5><strong>Kilométrage : {{data.car.km}}</strong></h5>
+						<h5><strong>N° Plaque: </strong> {{data.car.registrationnumber}}</h5>
+					</div>
+					<div class="col-md-3">
+						<h5><strong>Carte grise : </strong> {{data.car.greycard}}</h5>
+						<h5><strong>Catégorie : </strong> {{data.car.dependencies.categorie.name}}</h5>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>	
+
+
+
+
+<!-- <h3 class="page-title"> Gestion des Missions</h3>
 <div>
 	<div class="row" ng-if="data.hideListMissions">
 		<div class="col-sm-12 text-right">
@@ -98,4 +239,4 @@
             <button class="btn btn-danger" ng-click="closeMission()">Fermer</button>
         </div>
 	</div>
-</div>
+</div> -->

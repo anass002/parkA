@@ -3,6 +3,7 @@
 	require_once('error.inc.php');
 	require_once('db.inc.php');
 	require_once('categories.class.php');
+	require_once('missions.class.php');
 
 	class cars {
 		var $id;

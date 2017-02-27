@@ -8,6 +8,7 @@ angular.module('MetronicApp').controller('PapiersController', function($rootScop
     $scope.data = {};
     $scope.data.hideDivTablePapiers = true;	
 	$scope.data.hideDivFormPapiers = false;
+	$scope.data.hideDivInfosCar = false;
 
 	getPapers();
 	getCars();
@@ -57,6 +58,19 @@ angular.module('MetronicApp').controller('PapiersController', function($rootScop
 		$scope.data.hideDivTablePapiers = true;	
 		$scope.data.hideDivFormPapiers = false;
 	}
+
+	$scope.getInfosCar = function(car){
+        $scope.data.car = car;
+        $scope.data.hideDivTablePapiers = false;	
+		$scope.data.hideDivFormPapiers = false;;
+        $scope.data.hideDivInfosCar = true;
+    }
+
+    $scope.closeInfosCar = function(){
+        $scope.data.hideDivTablePapiers = true;	
+		$scope.data.hideDivFormPapiers = false;
+        $scope.data.hideDivInfosCar = false;   
+    }
 
 	function getPapers(){
 		$http.post('../serv/ws/papers.ws.php' , {action : 'getAllPapers'}).then(

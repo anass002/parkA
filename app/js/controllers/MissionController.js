@@ -8,6 +8,7 @@ angular.module('MetronicApp').controller('MissionController', function($rootScop
     $scope.data = {};
     $scope.data.hideFormMissions = false;
     $scope.data.hideListMissions = true;
+    $scope.data.hideDivInfosCar = false;
 
     getMissions();
     getCars();
@@ -78,6 +79,19 @@ angular.module('MetronicApp').controller('MissionController', function($rootScop
     $scope.closeMission = function(){
         $scope.data.hideFormMissions = false;
         $scope.data.hideListMissions = true;
+    }
+
+    $scope.getInfosCar = function(car){
+        $scope.data.car = car;
+        $scope.data.hideFormMissions = false;
+        $scope.data.hideListMissions = false;
+        $scope.data.hideDivInfosCar = true;
+    }
+
+    $scope.closeInfosCar = function(){
+        $scope.data.hideFormMissions = false;
+        $scope.data.hideListMissions = true;
+        $scope.data.hideDivInfosCar = false;   
     }
 
     function getCars(){

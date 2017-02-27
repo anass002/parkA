@@ -159,6 +159,33 @@
 			return returnResponse(false, $results);
 		}
 
+		function readJoinString($row = false){
+			if($row === false){
+				return false;
+			}
+			if(isset($row['reservations_id'])){
+				$obj = new reservations();
+				$vars = get_class_vars(get_class($obj));
+				foreach ($vars as $key => $value) {
+					if(isset($row['reservations'.strtolower($key)])){
+						$obj->$key = trim($row['reservations'.strtolower($key)]);
+					}
+				}
+				return $obj;
+			}
+			return false;
+		}
+
+		function getJoinString(){
+			$classVars = get_class_vars('reservations');
+			$joinString = '';
+			foreach($classVars as $name => $value) {
+			    $joinString .= 'COALESCE(reservations.'.$name.',null) as reservations'.$name.", ";
+			}
+			$joinString = rtrim($joinString, ", ");
+			return $joinString;
+		}
+
 	}
 
 ?>
