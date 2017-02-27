@@ -1,11 +1,18 @@
 <div class="portlet light">
     <div class="portlet-title tabbable-line">
         <div class="caption">
-            <i class="icon-bubbles font-dark hide"></i>
-            <span class="caption-subject font-dark bold uppercase"> Gestion des Utilisateurs </span>
+            <h3 class="page-title">Gestion des Utilisateurs</h3>
         </div>
     </div>
     <div class="portlet-body">
+        <div class="alert alert-success" ng-if="data.userAdded">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>
+            L'utilisateur ajouté avec  <strong>Succèss!</strong> 
+        </div>
+        <div class="alert alert-danger" ng-if="data.error">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>
+            <strong>Error!</strong> The daily cronjob has failed. 
+        </div>
         <div class="row" ng-if="data.hideDivTableUser">
             <div class="col-sm-12 text-right">
                 <button title="Ajouter Nouveau Utilisateur" class="btn btn-primary" ng-click="AddNewUser()">Ajouter</button>
@@ -15,11 +22,11 @@
                     <table class="table">
                         <thead>
                             <tr>
-                                <th class="text-center">nom </th>
-                                <th class="text-center">prenom</th>
-                                <th class="text-center">login</th>
-                                <th class="text-center">type</th>
-                                <th class="text-center">actions</th>
+                                <th class="text-center">Nom </th>
+                                <th class="text-center">Prénom</th>
+                                <th class="text-center">Login</th>
+                                <th class="text-center">Type</th>
+                                <th class="text-center">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -44,37 +51,37 @@
                     <form class="form-horizontal form-bordered">
                         <div class="form-body">
                             <div class="form-group">
-                                <label class="control-label col-md-3">nom : </label>
+                                <label class="control-label col-md-3">Nom : </label>
                                 <div class="col-md-4">
                                     <input type="text" class="form-control" ng-model="data.user.lastname">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="control-label col-md-3">prénom : </label>
+                                <label class="control-label col-md-3">Prénom : </label>
                                 <div class="col-md-4">
                                     <input type="text" class="form-control" ng-model="data.user.firstname">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="control-label col-md-3">email : </label>
+                                <label class="control-label col-md-3">Email : </label>
                                 <div class="col-md-4">
                                     <input type="text" class="form-control" ng-model="data.user.email">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="control-label col-md-3">login : </label>
+                                <label class="control-label col-md-3">Login : </label>
                                 <div class="col-md-4">
                                     <input type="text" class="form-control" ng-model="data.user.login">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="control-label col-md-3">password : </label>
+                                <label class="control-label col-md-3">Mot de Passe : </label>
                                 <div class="col-md-4">
                                     <input type="password" class="form-control" ng-model="data.user.password">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="control-label col-md-3">type : </label>
+                                <label class="control-label col-md-3">Type : </label>
                                 <div class="col-md-4">
                                     <select class="form-control select2" ng-model="data.user.type">
                                         <option value="">Selectionner un type</option>                  
@@ -84,7 +91,7 @@
                                 </div>
                             </div>
                             <div class="form-group form-md-checkboxes">
-                                <label><h3>droits Utilisateurs : </h3></label>
+                                <label><h3>Droits Utilisateurs : </h3></label>
                                 <div class="md-checkbox-inline">
                                     <div class="md-checkbox">
                                         <input type="checkbox" id="checkbox1" class="md-check" ng-model="data.user.droits.users">

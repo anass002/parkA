@@ -188,7 +188,7 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvi
             url: "/utilisateurs.html",
             templateUrl: "views/utilisateurs.html",            
             data: {pageTitle: 'Gestion des Utilisteurs'},
-            controller: "DashboardController",
+            controller: "UtilisateursController",
             resolve: {
                 deps: ['$ocLazyLoad', function($ocLazyLoad) {
                     return $ocLazyLoad.load({
@@ -201,7 +201,7 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvi
                             '../assets/global/plugins/jquery.sparkline.min.js',
 
                             '../assets/pages/scripts/dashboard.min.js',
-                            'js/controllers/DashboardController.js',
+                            'js/controllers/UtilisateursController.js',
                             'js/services/UserModel.js',
                         ] 
                     });
