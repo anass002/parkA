@@ -403,6 +403,33 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvi
             }
         })
 
+
+
+
+
+
+        .state('profile', {
+            url: "/profile.html",
+            templateUrl: "views/profile.html",            
+            data: {pageTitle: 'Aperçu Profile'},
+            controller: "UserProfileController",
+
+            resolve: {
+                deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                    return $ocLazyLoad.load({
+                        name: 'MetronicApp',
+                        insertBefore: '#ng_load_plugins_before', // load the above css files before a LINK element with this ID. Dynamic CSS files must be loaded between core and theme css files
+                        files: [
+                            '../assets/global/plugins/morris/morris.css',                            
+                            '../assets/global/plugins/morris/morris.min.js',
+                            '../assets/global/plugins/morris/raphael-min.js',                            
+                            '../assets/global/plugins/jquery.sparkline.min.js',
+                            'js/controllers/UserProfileController.js'
+                        ] 
+                    });
+                }]
+            }
+        })
 }]);
 
 /* Init global settings and run the app */

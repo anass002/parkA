@@ -24,3 +24,8 @@
     background-color: #21377a;
     border-color: #21377a;
 }
+
+
+.page-header.navbar .menu-toggler{
+        background-image: url(../img/sidebar-toggler-inverse.png);
+}

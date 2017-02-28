@@ -1,8 +1,21 @@
-angular.module('MetronicApp').controller('UserProfileController', function($rootScope, $scope, $http, $timeout) {
+angular.module('MetronicApp').controller('UserProfileController', function($rootScope, $scope, $http, $timeout, jwtHelper) {
     $scope.$on('$viewContentLoaded', function() {   
         App.initAjax(); // initialize core components
-        Layout.setSidebarMenuActiveLink('set', $('#sidebar_menu_link_profile')); // set profile link active in sidebar menu 
+        //Layout.setSidebarMenuActiveLink('set', $('#sidebar_menu_link_profile')); // set profile link active in sidebar menu 
     });
+
+    getUser();
+
+    function getUser(){
+    	if(!angular.isDefined(window.localStorage['authToken'])){
+	        $window.location.href = './login.html';
+	    } else{
+	        var tokenPayload = jwtHelper.decodeToken(window.localStorage['authToken']);
+	        if(angular.isDefined(tokenPayload)){
+	            $scope.user = tokenPayload;
+	        }
+	    }
+    };
 
     // set sidebar closed and body solid layout mode
     $rootScope.settings.layout.pageBodySolid = true;
