@@ -103,22 +103,43 @@ initialization can be disabled and Layout.init() should be called on page load c
 ***/
 
 /* Setup Layout Part - Header */
-MetronicApp.controller('HeaderController', ['$scope', '$window', 'jwtHelper', function($scope, $window, jwtHelper) {
+MetronicApp.controller('HeaderController', function($scope, $window, jwtHelper,$http) {
     $scope.$on('$includeContentLoaded', function() {
         Layout.initHeader(); // init header
     });
-
+    $http.defaults.headers.common.Authorization = 'Bearer ' + window.localStorage['authToken'] ;
+    $scope.data = {};
     if(!angular.isDefined(window.localStorage['authToken'])){
         $window.location.href = './login.html';
+        return false;
+    }
+
+    var tokenPayload = jwtHelper.decodeToken(window.localStorage['authToken']);
+    if(angular.isDefined(tokenPayload)){
+        $scope.name = tokenPayload.firstname + " " + tokenPayload.lastname;
     } else{
-        var tokenPayload = jwtHelper.decodeToken(window.localStorage['authToken']);
-        if(angular.isDefined(tokenPayload)){
-            $scope.name = tokenPayload.firstname + " " + tokenPayload.lastname;
-        } else{
-            $scope.name = "Unknown";
+        $scope.name = "Unknown";
+    }
+    
+    $http.post('../serv/ws/notifications.ws.php' , {action:'getNotifications'}).then(
+        function(response){
+            console.log(response.data.data);
+            $scope.data.notifs = response.data.data;
+        },
+        function(error){
+            console.log(error);
+        }
+    )
+
+    $scope.logOut = function(){
+        if(window.confirm("Etes-vous de vouloir vous déconnecter ?")){
+            window.localStorage.removeItem('authToken');
+            if(!angular.isDefined(window.localStorage['authToken'])){
+                $window.location.href = './login.html';
+            }
         }
     }
-}]);
+});
 
 /* Setup Layout Part - Sidebar */
 MetronicApp.controller('SidebarController', ['$scope', function($scope) {

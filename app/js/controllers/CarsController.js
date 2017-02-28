@@ -106,6 +106,7 @@ angular.module('MetronicApp').controller('CarsController', function($rootScope, 
     function getBrands(){
         $http.get('../assets/brand.json').success(function(data) {
            console.log(data);
+           $scope.data.brands = data;
         });
     }
 

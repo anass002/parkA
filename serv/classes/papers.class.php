@@ -3,6 +3,7 @@
 	require_once('error.inc.php');
 	require_once('db.inc.php');
 	require_once('cars.class.php');
+	require_once('notifications.class.php');
 
 	class papers {
 		var $id; 
@@ -108,6 +109,16 @@
 			if($result['error'] === true){
 				return returnResponse(true,"Unable to execute ".$sql);
 			}
+
+			if($this->id === false){
+				$notif = new notifications();
+				$notif->carid = $this->carid;
+				$notif->dsend = '2017-03-02 00:00:00';
+				$notif->msg = "Le papier " . $this->name ." va bientot expiré pensez a le renouveler";
+				$notif->htmlmsg = 	'<p> Le papier '.$this->name.' va bientot expiré pensez a le renouveler </p>';
+				$notif->save();
+			}
+
 
 			return returnResponse(false,$result['data']);
 		}

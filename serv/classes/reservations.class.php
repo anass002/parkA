@@ -98,6 +98,15 @@
 				return returnResponse(true,"Unable to execute ".$sql);
 			}
 
+			if($this->id === false){
+				$notif = new notifications();
+				$notif->carid = $this->carid;
+				$notif->dsend = '2017-03-02 00:00:00';
+				$notif->msg = "Une Réservation a ete enregister pour le vehicule " .$this.carid ." Avec le prix : " .$this->rate ." (MAD)";
+				$notif->htmlmsg = 	'Une Réservation a ete enregister pour le vehicule ' .$this.carid .' Avec le prix : ' .$this->rate .' (MAD)';
+				$notif->save();
+			}
+
 			return returnResponse(false,$result['data']);
 		}
 
