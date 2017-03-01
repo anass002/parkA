@@ -7,55 +7,55 @@
     <!-- DOC: Set data-keep-expand="true" to keep the submenues expanded -->
     <!-- DOC: Set data-auto-speed="200" to adjust the sub menu slide up/down speed -->
     <ul class="page-sidebar-menu" data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200" ng-class="{'page-sidebar-menu-closed': settings.layout.pageSidebarClosed}">
-        <li class="start">
+        <li class="start" ng-if="data.type == 'admin' || (data.type == 'user' && data.droits.user)">
             <a href="#/dashboard.html">
                 <i class="icon-home"></i>
-                <span class="title">Dashboard</span>
+                <span class="title">Accueil</span>
             </a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item" ng-if="data.type == 'admin' || (data.type == 'user' && data.droits.user)">
             <a href="#/utilisateurs.html">
                 <i class="icon-user"></i>
                 <span class="title">Utilisateur</span>
             </a>
         </li>
-        <li class="nav-item">
-            <a href="#/voitures.html">
-                <i class="fa fa-car"></i>
-                <span class="title">Mes Voitures</span>
-            </a>
-        </li>
-        <li class="nav-item">
+        <li class="nav-item" ng-if="data.type == 'admin' || (data.type == 'user' && data.droits.categories)">
             <a href="#/categories.html" id="sidebar_menu_link_profile">
                 <i class="fa fa-tags"></i>
                 <span class="title">Mes Categories</span>
             </a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item" ng-if="data.type == 'admin' || (data.type == 'user' && data.droits.cars)">
+            <a href="#/voitures.html">
+                <i class="fa fa-car"></i>
+                <span class="title">Mes Voitures</span>
+            </a>
+        </li>
+        <li class="nav-item" ng-if="data.type == 'admin' || (data.type == 'user' && data.droits.drivers)">
             <a href="#/chauffeurs.html">
                 <i class="icon-check"></i>
                 <span class="title">Mes Chauffeurs</span>
             </a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item" ng-if="data.type == 'admin' || (data.type == 'user' && data.droits.missions)">
             <a href="#/missions.html">
                 <i class="fa fa-bullseye"></i>
                 <span class="title">Missions</span>
             </a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item" ng-if="data.type == 'admin' || (data.type == 'user' && data.droits.reservations)">
             <a href="#/reservations.html">
                 <i class="fa fa-calendar-o"></i>
                 <span class="title">Réservations</span>
             </a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item" ng-if="data.type == 'admin' || (data.type == 'user' && data.droits.papers)">
             <a href="#/papiers.html">
                 <i class="fa fa-paperclip"></i>
                 <span class="title">Papiers</span>
             </a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item" ng-if="data.type == 'admin' || (data.type == 'user' && data.droits.purshase)">
             <a href="#/achats.html">
                 <i class="fa fa-shopping-cart"></i>
                 <span class="title">Achats</span>

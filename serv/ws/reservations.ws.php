@@ -1,6 +1,7 @@
 <?php 
 	require_once('../classes/auth.class.php');
 	require_once('../classes/reservations.class.php');
+	require_once('../classes/notifications.class.php');
 
 
 	$postdata = file_get_contents("php://input");

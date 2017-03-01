@@ -67,6 +67,14 @@
 			return missions::execRequest($sql);		
 		}
 
+		function getNextMissions(){
+			$sql = "SELECT * "
+					."FROM missions "
+					."WHERE missions.ddeparture::timestamp > now()";
+							
+			return missions::execRequest($sql);	
+		}
+
 		function save(){
 			if(!isset($this)){
 				return returnResponse(true,"Object not instancied. Cannot save it !");

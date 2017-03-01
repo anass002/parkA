@@ -5,6 +5,15 @@
         </div>
     </div>
     <div class="portlet-body">
+        <div class="alert alert-success" ng-if="data.newcarAdded">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>
+            Le vehicule est  ajouté avec  <strong>Succèss!</strong> 
+        </div>
+        <div class="alert alert-danger" ng-if="data.errorAddNewCar">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>
+            <strong>Erreur !</strong> Lors de l'ajout du vehicule   
+        </div>
+
         <div class="row" ng-if="data.hideDivCars">
             <div class="col-sm-12 text-right">
                 <button title="" class="btn btn-primary" ng-click="addNewCar()">Ajouter</button>
@@ -52,56 +61,57 @@
                         <div class="form-body">
                             <div class="form-group">
                                 <label class="control-label col-md-3">Code : </label>
-                                <div class="col-md-4">
+                                <div class="col-md-8">
                                     <input type="text" class="form-control" ng-model="data.car.carcode">
+                                    <span class="help-block font-red-mint" ng-if="data.errorForm.carcode"> Veuillez saisir le code de la voiture ! </span>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-md-3">Marque : </label>
-                                <div class="col-md-4">
+                                <div class="col-md-8">
                                     <select class="form-control select2" ng-model="data.car.brand">
                                         <option value="">Selectionner une Marque</option>                  
                                         <option ng-repeat="brand in data.brands" value="{{brand.title}}">{{brand.title}}</option>
                                     </select>
+                                    <span class="help-block font-red-mint" ng-if="data.errorForm.brand"> Veuillez selectionner la marque de la voiture ! </span>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-md-3">Nom : </label>
-                                <div class="col-md-4">
+                                <div class="col-md-8">
                                     <input type="text" class="form-control" ng-model="data.car.name">
+                                    <span class="help-block font-red-mint" ng-if="data.errorForm.name"> Veuillez saisir le nom de la voiture ! </span>
                                 </div>
                             </div>
-                            <!-- <div class="form-group">
-                                <label class="control-label col-md-3">Marque : </label>
-                                <div class="col-md-4">
-                                    <input type="text" class="form-control" ng-model="data.car.brand">
-                                </div>
-                            </div> -->
                             <div class="form-group">
                                 <label class="control-label col-md-3">Carte grise : </label>
-                                <div class="col-md-4">
+                                <div class="col-md-8">
                                     <input type="text" class="form-control" ng-model="data.car.greycard">
+                                    <span class="help-block font-red-mint" ng-if="data.errorForm.greycard"> Veuillez saisir le numéro de carte grise ! </span>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-md-3">Kilométrage : </label>
-                                <div class="col-md-4">
+                                <div class="col-md-8">
                                     <input type="text" class="form-control" ng-model="data.car.km">
+                                    <span class="help-block font-red-mint" ng-if="data.errorForm.km"> Veuillez saisir le kilométrage de la voiture ! </span>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-md-3">N° plaque : </label>
-                                <div class="col-md-4">
+                                <div class="col-md-8">
                                     <input type="text" class="form-control" ng-model="data.car.registrationnumber">
+                                    <span class="help-block font-red-mint" ng-if="data.errorForm.registrationnumber"> Veuillez saisir un numéro de plaque ! </span>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-md-3">type : </label>
-                                <div class="col-md-4">
+                                <div class="col-md-8">
                                     <select class="form-control select2" ng-model="data.car.catid">
                                         <option value="">Selectionner une catégorie</option>                  
                                         <option ng-repeat="cat in data.categories" value="{{cat.id}}">{{cat.name}}</option>
                                     </select>
+                                    <span class="help-block font-red-mint" ng-if="data.errorForm.catid"> Veuillez selectionner une catégorie ! </span>
                                 </div>
                             </div>
                         </div>

@@ -5,6 +5,15 @@
         </div>
 	</div>
 	<div class="portlet-body">
+		<div class="alert alert-success" ng-if="data.newMissionAdded">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>
+            Le mission est  ajouté avec  <strong>Succèss!</strong> 
+        </div>
+        <div class="alert alert-danger" ng-if="data.errorAddNewMission">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>
+            <strong>Erreur !</strong> Lors de l'ajout de la mission   
+        </div>
+
 		<div class="row" ng-if="data.hideListMissions">
 			<div class="col-sm-12 text-right">
 				<button class="btn btn-primary" ng-click="AddNewMission()">Ajouter</button>
@@ -54,45 +63,40 @@
 						<div class="form-body">
 							<div class="form-group">
 								<label class="control-label col-md-3"> Départ : </label>
-								<div class="col-md-4">
+								<div class="col-md-8">
 									<input type="text" class="form-control" ng-model="data.mission.departure">
+									<span class="help-block font-red-mint" ng-if="data.errorForm.departure"> Veuillez saisir le lieu de départ de la missions ! </span>
 								</div>
 							</div>
 							<div class="form-group">
 								<label class="control-label col-md-3">Date de Départ : </label>
-								<div class="col-md-4">
-									<div class="input-group date form_datetime" data-date="2012-12-21T15:25:00Z">
-	                                    <input type="text" size="16" readonly class="form-control">
-	                                    <span class="input-group-btn">
-	                                        <button class="btn default date-reset" type="button">
-	                                            <i class="fa fa-times"></i>
-	                                        </button>
-	                                        <button class="btn default date-set" type="button">
-	                                            <i class="fa fa-calendar"></i>
-	                                        </button>
-	                                    </span>
-	                                </div>
+								<div class="col-md-8">
+									<input type="text" class="form-control" ng-model="data.mission.ddeparture">
+									<span class="help-block font-red-mint" ng-if="data.errorForm.ddeparture"> Veuillez saisir la date de départ de la missions ! </span>
 								</div>
 							</div>
 							<div class="form-group">
 								<label class="control-label col-md-3"> Arrivée : </label>
-								<div class="col-md-4">
+								<div class="col-md-8">
 									<input type="text" class="form-control" ng-model="data.mission.destination">
+									<span class="help-block font-red-mint" ng-if="data.errorForm.destination"> Veuillez saisir le lieu de d'arrivée de la missions ! </span>
 								</div>
 							</div>
 							<div class="form-group">
 								<label class="control-label col-md-3"> Coût : </label>
-								<div class="col-md-4">
+								<div class="col-md-8">
 									<input type="text" class="form-control" ng-model="data.mission.rate">
+									<span class="help-block font-red-mint" ng-if="data.errorForm.rate"> Veuillez saisir le coût de la missions ! </span>
 								</div>
 							</div>
 							<div class="form-group">
 								<label class="control-label col-md-3"> Voiture : </label>
-								<div class="col-md-4">
+								<div class="col-md-8">
 	                                <select class="form-control select2" ng-model="data.mission.carid">
 	                                    <option value="">Selectionner une Voiture</option>                  
 	                                    <option ng-repeat="car in data.cars" value="{{car.id}}">{{car.name}}</option>
 	                                </select>
+	                                <span class="help-block font-red-mint" ng-if="data.errorForm.carid"> Veuillez selectionner le vehicule ! </span>
 	                            </div>
 							</div>
 						</div>

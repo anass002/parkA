@@ -9,6 +9,8 @@ angular.module('MetronicApp').controller('PapiersController', function($rootScop
     $scope.data.hideDivTablePapiers = true;	
 	$scope.data.hideDivFormPapiers = false;
 	$scope.data.hideDivInfosCar = false;
+	$scope.data.newPaperAdded = false;
+	$scope.data.errorAddNewPaper = false;
 
 	getPapers();
 	getCars();
@@ -17,6 +19,9 @@ angular.module('MetronicApp').controller('PapiersController', function($rootScop
 		$scope.data.hideDivTablePapiers = false;	
 		$scope.data.hideDivFormPapiers = true;
 		$scope.data.paper = {};
+		$scope.data.newPaperAdded = false;
+		$scope.data.errorAddNewPaper = false;
+		$scope.data.errorForm = {};
 	}
 
 	$scope.editPaper = function(paper){
@@ -24,31 +29,38 @@ angular.module('MetronicApp').controller('PapiersController', function($rootScop
 		$scope.data.hideDivTablePapiers = false;	
 		$scope.data.hideDivFormPapiers = true;
 		$scope.data.paper = paper;
+		$scope.data.newPaperAdded = false;
+		$scope.data.errorAddNewPaper = false;
+		$scope.data.errorForm = {};
 	}
 	$scope.deletePaper = function(paper){
-		console.log(paper);
+		if(window.confirm("Etes vous sur de vouloir supprimer ce papier ?")){
+			$http.post('../serv/ws/papers.ws.php' , {action:'deletePaper' , id : paper.id}).then(
+				function(response){
+					if(response.data.error === true){
+						alert(response.data.data);
+						return false;
+					}
 
-		$http.post('../serv/ws/papers.ws.php' , {action:'deletePaper' , id : paper.id}).then(
-			function(response){
-				if(response.data.error === true){
-					alert(response.data.data);
-					return false;
+					getPapers();
 				}
-
-				getPapers();
-			}
-		)
+			)
+		}
 	}
 
 	$scope.savePaper = function(paper){
-		console.log(paper);
+		if(!checkForm(paper)){
+			return false;
+		}
 
 		$http.post('../serv/ws/papers.ws.php' , {action:'savePaper' , paper : JSON.stringify(paper)}).then(
 			function(response){
 				if(response.data.error === true){
-					alert(response.data.data);
+					$scope.data.errorAddNewPaper = true;
+					$scope.closePaper();
 					return false;
 				}
+				$scope.data.newPaperAdded = true;
 				$scope.closePaper();
 				getPapers();
 			}
@@ -62,8 +74,9 @@ angular.module('MetronicApp').controller('PapiersController', function($rootScop
 	$scope.getInfosCar = function(car){
         $scope.data.car = car;
         $scope.data.hideDivTablePapiers = false;	
-		$scope.data.hideDivFormPapiers = false;;
-        $scope.data.hideDivInfosCar = true;
+		$scope.data.hideDivFormPapiers = false;
+		$scope.data.newPaperAdded = false;
+		$scope.data.errorAddNewPaper = false;
     }
 
     $scope.closeInfosCar = function(){
@@ -94,6 +107,38 @@ angular.module('MetronicApp').controller('PapiersController', function($rootScop
                 console.log(error);
             }
         )
+    }
+
+    function checkForm(paper){
+    	if(!angular.isDefined(paper.name) || paper.name == ''){
+            $scope.data.errorForm.name = true;
+            return false;
+        }else{
+            $scope.data.errorForm.name = false;
+        }
+
+        if(!angular.isDefined(paper.dbegin) || paper.dbegin == ''){
+            $scope.data.errorForm.dbegin = true;
+            return false;
+        }else{
+            $scope.data.errorForm.dbegin = false;
+        }
+
+        if(!angular.isDefined(paper.dend) || paper.dend == ''){
+            $scope.data.errorForm.dend = true;
+            return false;
+        }else{
+            $scope.data.errorForm.dend = false;
+        }
+
+        if(!angular.isDefined(paper.carid) || paper.carid == ''){
+            $scope.data.errorForm.carid = true;
+            return false;
+        }else{
+            $scope.data.errorForm.carid = false;
+        }
+
+        return true;
     }
 
     // set sidebar closed and body solid layout mode

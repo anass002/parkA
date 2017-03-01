@@ -142,10 +142,14 @@ MetronicApp.controller('HeaderController', function($scope, $window, jwtHelper,$
 });
 
 /* Setup Layout Part - Sidebar */
-MetronicApp.controller('SidebarController', ['$scope', function($scope) {
+MetronicApp.controller('SidebarController', ['$scope','jwtHelper', function($scope,jwtHelper) {
     $scope.$on('$includeContentLoaded', function() {
         Layout.initSidebar(); // init sidebar
     });
+    $scope.data = {};
+    var tokenPayload = jwtHelper.decodeToken(window.localStorage['authToken']);
+    $scope.data.droits = tokenPayload.droits;
+    $scope.data.type = tokenPayload.type;
 }]);
 
 /* Setup Layout Part - Quick Sidebar */

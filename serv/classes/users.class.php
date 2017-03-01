@@ -29,6 +29,14 @@
 			$this->password = '';
 			$this->type = '';
 			$this->droits = new stdClass();
+			$this->droits->users = false;
+			$this->droits->cars = false;
+			$this->droits->categories = false;
+			$this->droits->drivers = false;
+			$this->droits->missions = false;
+			$this->droits->reservations = false;
+			$this->droits->papers = false;
+			$this->droits->purshase = false;
 			$this->dcreate = date('Y-m-d H:i:s');
 			$this->ucreate = 0;
 			$this->dupdate = date('Y-m-d H:i:s');;

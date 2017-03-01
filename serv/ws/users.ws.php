@@ -37,6 +37,17 @@
 						$newUser->dupdate = date('Y-m-d H:i:s');
 						$newUser->uupdate = $user->id;
 					}
+
+					if($newUser->type == 'admin'){
+						$newUser->droits->users = true;
+						$newUser->droits->cars = true;
+						$newUser->droits->categories = true;
+						$newUser->droits->drivers = true;
+						$newUser->droits->missions = true;
+						$newUser->droits->reservations = true;
+						$newUser->droits->papers = true;
+						$newUser->droits->purshase = true;
+					}
 					echo json_encode($newUser->save());
 					return false;
 					break;	

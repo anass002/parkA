@@ -5,74 +5,55 @@ angular.module('MetronicApp').controller('DashboardController', function($rootSc
     });
     $http.defaults.headers.common.Authorization = 'Bearer ' + window.localStorage['authToken'] ;
     $scope.data = {};
-    $scope.data.hideDivTableUser = true;
-    $scope.data.hideDivInfosUser = false;
-
-    getUsers();
     
 
-    $scope.editUser = function(user){
-        console.log(user);
-        $scope.data.hideDivInfosUser = true;
-        $scope.data.hideDivTableUser = false;
-        $scope.data.user = user;
-    }
-    $scope.deleteUser = function(user){
-        console.log(user);
-        $http.post('../serv/ws/users.ws.php' ,{action:'deleteUser' , id : user.id}).then(
-            function(response){
-                if(response.data.error === true){
-                    alert("Error On Add User");
-                    return false;
-                }
-                getUsers();
-            },
-            function(error){
-                console.log(error);
-            }
-        )
-    }
 
-    $scope.AddNewUser = function(){
-        $scope.data.hideDivInfosUser = true;
-        $scope.data.hideDivTableUser = false;
-        $scope.data.user = {};
-    }
 
-    $scope.closeNewUser = function(){
-        $scope.data.hideDivInfosUser = false;
-        $scope.data.hideDivTableUser = true;
-    }
+    $http.post('../serv/ws/cars.ws.php' , {action: 'getAllCars'}).then(
+        function(response){
+            $scope.data.nbrTotalCars = response.data.data.length;
+        },
+        function(error){
+            console.log(error);
+        }
+    )
 
-    $scope.saveUser = function(user){
-        console.log(user);
+    $http.post('../serv/ws/cars.ws.php' , {action: 'getNotAssignedCars'}).then(
+        function(response){
+            $scope.data.nbrTotalNotAssignedCars = response.data.data.length;
+        },
+        function(error){
+            console.log(error);
+        }
+    )
 
-        $http.post('../serv/ws/users.ws.php' , {action:'AddNewUser' , user:JSON.stringify(user)}).then(
-            function(response){
-                if(response.data.error === true){
-                    alert("Error On Add User");
-                    return false;
-                }
-                $scope.closeNewUser();
-                getUsers();
+    $http.post('../serv/ws/cars.ws.php' , {action: 'getAssignedCars'}).then(
+        function(response){
+            $scope.data.nbrTotalAssignedCars = response.data.data.length;
+        },
+        function(error){
+            console.log(error);
+        }
+    )
 
-            },
-            function(error){
-                console.log(error);
-            }
-        )
-    }
+    $http.post('../serv/ws/missions.ws.php' , {action: 'getAllMissions'}).then(
+        function(response){
+            $scope.data.nbrTotalMissions = response.data.data.length;
+        },
+        function(error){
+            console.log(error);
+        }
+    )
 
-    function getUsers(){
-        $http.post('../serv/ws/users.ws.php' , {action:'getAllUsers'}).then(
-            function(response){
-                $scope.data.users = response.data.data;
-            },
-            function(error){
-                console.log(err);
-            }
-        )
-    }
+
+    $http.post('../serv/ws/missions.ws.php' , {action: 'getNextMissions'}).then(
+        function(response){
+            $scope.data.nbrTotalNextMissions = response.data.data.length;
+        },
+        function(error){
+            console.log(error);
+        }
+    )
 
 
 

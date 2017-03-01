@@ -5,6 +5,15 @@
         </div>
 	</div>
 	<div class="portlet-body">
+		<div class="alert alert-success" ng-if="data.newdriverAdded">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>
+            Le chauffeur est  ajouté avec  <strong>Succèss!</strong> 
+        </div>
+        <div class="alert alert-danger" ng-if="data.errorAddNewdriver">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>
+            <strong>Erreur !</strong> Lors de l'ajout du chauffeur   
+        </div>
+
 		<div class="row" ng-if="data.hideDivTableDrivers">
 			<div class="col-sm-12 text-right">
 				<button class="btn btn-primary" ng-click="addNewDriver()">Ajouter</button>
@@ -52,53 +61,68 @@
 						<div class="form-body">
 							<div class="form-group">
 	                            <label class="control-label col-md-3">Nom : </label>
-	                            <div class="col-md-4">
+	                            <div class="col-md-8">
 	                                <input type="text" class="form-control" ng-model="data.driver.lastname">
+	                                <span class="help-block font-red-mint" ng-if="data.errorForm.lastname"> Veuillez saisir le nom du Chauffeur ! </span>
 	                            </div>
 	                        </div>
 
 	                        <div class="form-group">
 	                            <label class="control-label col-md-3">Prénom : </label>
-	                            <div class="col-md-4">
+	                            <div class="col-md-8">
 	                                <input type="text" class="form-control" ng-model="data.driver.firstname">
+	                                <span class="help-block font-red-mint" ng-if="data.errorForm.firstname"> Veuillez saisir le prénom du Chauffeur ! </span>
 	                            </div>
 	                        </div>
 
 	                        <div class="form-group">
 	                            <label class="control-label col-md-3">Téléphone : </label>
-	                            <div class="col-md-4">
+	                            <div class="col-md-8">
 	                                <input type="text" class="form-control" ng-model="data.driver.tel">
+	                                <span class="help-block font-red-mint" ng-if="data.errorForm.tel"> Veuillez saisir le téléphone du Chauffeur ! </span>
 	                            </div>
 	                        </div>
 
 	                        <div class="form-group">
 	                            <label class="control-label col-md-3">Email : </label>
-	                            <div class="col-md-4">
+	                            <div class="col-md-8">
 	                                <input type="text" class="form-control" ng-model="data.driver.email">
+	                                <span class="help-block font-red-mint" ng-if="data.errorForm.email"> Veuillez saisir l'email du Chauffeur ! </span>
 	                            </div>
 	                        </div>
 
 	                        <div class="form-group">
 	                            <label class="control-label col-md-3">Permis : </label>
-	                            <div class="col-md-4">
-	                                <input type="text" class="form-control" ng-model="data.driver.driverlicense">
+	                            <div class="col-md-8">
+	                            	<select class="form-control select2" ng-model="data.driver.driverlicense">
+	                            		<option value="">Selectionner un type de permis</option>
+	                            		<option value="A">A</option>
+	                            		<option value="B">B</option>
+	                            		<option value="C">C</option>
+	                            		<option value="D">D</option>
+	                            		<option value="E">E</option>
+	                            	</select>
+	                                <span class="help-block font-red-mint" ng-if="data.errorForm.driverlicense"> Veuillez saisir le Type de permis du Chauffeur ! </span>
 	                            </div>
 	                        </div>
 
 	                        <div class="form-group">
 	                            <label class="control-label col-md-3">Cin : </label>
-	                            <div class="col-md-4">
+	                            <div class="col-md-8">
 	                                <input type="text" class="form-control" ng-model="data.driver.cin">
+	                                <span class="help-block font-red-mint" ng-if="data.errorForm.cin"> Veuillez saisir le numéro de cin du Chauffeur ! </span>
 	                            </div>
 	                        </div>
 
 	                        <div class="form-group">
 	                            <label class="control-label col-md-3">Voiture : </label>
-	                            <div class="col-md-4">
+	                            <div class="col-md-8">
 	                                <select class="form-control select2" ng-model="data.driver.carid">
 	                                    <option value="">Selectionner une Voiture</option>                  
 	                                    <option ng-repeat="car in data.cars" value="{{car.id}}">{{car.name}}</option>
 	                                </select>
+	                                <span class="help-block font-red-mint" ng-if="data.errorForm.carid"> Veuillez selectionner la voiture a assigner au chauffeur ! </span>
+	                                <span class="help-block font-red-mint" ng-if="data.cars.length == 0"> Tous les vehicule sont assignés a des chaufeurs, veuillez ajouter un nouveau vehicule ! </span>
 	                            </div>
 	                        </div>
 						</div>

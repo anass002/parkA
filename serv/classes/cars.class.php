@@ -20,6 +20,7 @@
 		var $dupdate;
 		var $uupdate;
 		var $customdata;
+		var $flag;
 
 		function __construct(){
 			$this->id = false ;
@@ -36,6 +37,7 @@
 			$this->dupdate = date('Y-m-d H:i:s') ;
 			$this->uupdate = 0 ;
 			$this->customdata =  new stdClass();
+			$this->flag = 'false';
 		}
 
 
@@ -64,6 +66,24 @@
 						."JOIN categories ON categories.id = cars.catid "
 						."WHERE cars.catid = ".pg_escape_string($catId);
 			return cars::execRequest($sql);
+		}
+
+		function getNotAssignedCars(){
+			$sql = "SELECT cars.*, "
+						.categories::getJoinString()." "
+						."FROM cars "
+						."JOIN categories ON categories.id = cars.catid "
+						."WHERE cars.flag = 'f'";
+			return cars::execRequest($sql);			
+		}
+
+		function getAssignedCars(){
+			$sql = "SELECT cars.*, "
+						.categories::getJoinString()." "
+						."FROM cars "
+						."JOIN categories ON categories.id = cars.catid "
+						."WHERE cars.flag = 't'";
+			return cars::execRequest($sql);			
 		}
 
 		function getAll(){
@@ -102,7 +122,8 @@
 						."".pg_escape_string($this->ucreate).", "
 						."'".pg_escape_string($this->dupdate)."', "
 						."".pg_escape_string($this->uupdate).", "
-						."'".pg_escape_string(json_encode($this->customdata))."' "
+						."'".pg_escape_string(json_encode($this->customdata))."', "
+						."'".pg_escape_string($this->flag)."' "
 						.") RETURNING id";
 			}else{
 				$sql = "UPDATE cars SET "
@@ -118,7 +139,8 @@
 					."ucreate=".pg_escape_string($this->ucreate).", "
 					."dupdate='".pg_escape_string($this->dupdate)."', "
 					."uupdate=".pg_escape_string($this->uupdate).", "
-					."customdata='".json_encode($this->customdata)."' "
+					."customdata='".json_encode($this->customdata)."', "
+					."flag='".pg_escape_string($this->flag)."' "
 					."WHERE id = ".pg_escape_string($this->id);
 			}
 			$result = dbExecRequest($sql);
@@ -151,6 +173,7 @@
 				$car->dupdate = trim($row['dupdate']);
 				$car->uupdate = trim($row['uupdate']);
 				$car->customdata = json_decode($row['customdata']);
+				$car->flag = trim($row['flag']);
 
 				$depend = categories::readJoinString($row);
 				if($depend !== false)

@@ -1,6 +1,7 @@
 <?php
 	require_once('../classes/auth.class.php');
 	require_once('../classes/drivers.class.php');
+	require_once('../classes/cars.class.php');
 
 	$postdata = file_get_contents("php://input");
 	$postdata = json_decode($postdata);
@@ -45,6 +46,20 @@
 						$myDriver->dupdate = date('Y-m-d H:i:s');
 						$myDriver->uupdate = $driver->id;
 					}
+
+					$myCar = cars::getCarById($myDriver->carid);
+
+					$myCar = $myCar['data'][0];
+
+					$myCar->flag = 'true';
+
+					$savedCar = $myCar->save();
+
+					if($savedCar['error'] === true){
+						echo json_encode(returnResponse(true,"unable to save Car"));
+						return false;
+					}
+
 					echo json_encode($myDriver->save());
 					return false;
 					break;			

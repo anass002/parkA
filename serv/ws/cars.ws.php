@@ -26,6 +26,14 @@
 					echo json_encode(cars::getAll());
 					return false;
 					break;
+				case 'getNotAssignedCars':
+					echo json_encode(cars::getNotAssignedCars());
+					return false;
+					break;
+				case 'getAssignedCars':
+					echo json_encode(cars::getAssignedCars());
+					return false;
+					break;		
 				case 'deleteCars':
 					if(!isset($postdata->id)){
 						echo json_encode(returnResponse(true,"Missing parameter to complete deleteCars"));

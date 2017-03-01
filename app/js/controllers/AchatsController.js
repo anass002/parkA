@@ -9,6 +9,8 @@ angular.module('MetronicApp').controller('AchatsController', function($rootScope
     $scope.data.hideDivTableAchats = true;	
 	$scope.data.hideDivFormAchats = false;
 	$scope.data.hideDivInfosCar = false;
+	$scope.data.newAchatAdded = false;
+	$scope.data.errorAddNewAchat = false;
 	getAchats();
 	getCars();
 
@@ -16,39 +18,50 @@ angular.module('MetronicApp').controller('AchatsController', function($rootScope
 	$scope.addNewAchat = function(achat){
 		$scope.data.hideDivTableAchats = false;	
 		$scope.data.hideDivFormAchats = true;
+		$scope.data.newAchatAdded = false;
+		$scope.data.errorAddNewAchat = false;
 		$scope.data.achat = {};
+		$scope.data.errorForm = {};
 	}
 
 	$scope.editAchat = function(achat){
 		$scope.data.hideDivTableAchats = false;	
 		$scope.data.hideDivFormAchats = true;
+		$scope.data.newAchatAdded = false;
+		$scope.data.errorAddNewAchat = false;
 		$scope.data.achat = achat;
+		$scope.data.errorForm = {};
 	}
 
 	$scope.deleteAchat = function(achat){
-		console.log(achat);
-		$http.post('../serv/ws/achats.ws.php' , {action:'deletePurshase' , id : achat.id}).then(
-			function(response){
-				if(response.data.error === true){
-					alert(response.data.data);
-					return false;
-				}
+		if(window.confirm("Etes vous sur de vouloir supprimer cette achat ?")){
+			$http.post('../serv/ws/achats.ws.php' , {action:'deletePurshase' , id : achat.id}).then(
+				function(response){
+					if(response.data.error === true){
+						alert(response.data.data);
+						return false;
+					}
 
-				getAchats();
-			}
-		)
+					getAchats();
+				}
+			)
+		}
 	}
 
 
 	$scope.saveAchat = function(achat){
-		console.log(achat);
+		if(!checkForm(achat)){
+			return false;
+		}
 
 		$http.post('../serv/ws/achats.ws.php' , {action:'savePurshase' , achat : JSON.stringify(achat)}).then(
 			function(response){
 				if(response.data.error === true){
-					alert(response.data.data);
+					$scope.data.errorAddNewAchat = true;
+					$scope.closeAchat();
 					return false;
 				}
+				$scope.data.newAchatAdded = true;
 				$scope.closeAchat();
 				getAchats();
 			},
@@ -68,6 +81,8 @@ angular.module('MetronicApp').controller('AchatsController', function($rootScope
         $scope.data.hideDivTableAchats = false;	
 		$scope.data.hideDivFormAchats = false;
         $scope.data.hideDivInfosCar = true;
+        $scope.data.errorAddNewAchat = false;
+        $scope.data.newAchatAdded = false;
     }
 
     $scope.closeInfosCar = function(){
@@ -98,6 +113,45 @@ angular.module('MetronicApp').controller('AchatsController', function($rootScope
                 console.log(error);
             }
         )
+    }
+
+    function checkForm(achat){
+    	if(!angular.isDefined(achat.name) || achat.name == ''){
+            $scope.data.errorForm.name = true;
+            return false;
+        }else{
+            $scope.data.errorForm.name = false;
+        }
+
+        if(!angular.isDefined(achat.nfacture) || achat.nfacture == ''){
+            $scope.data.errorForm.nfacture = true;
+            return false;
+        }else{
+            $scope.data.errorForm.nfacture = false;
+        }
+
+        if(!angular.isDefined(achat.nbl) || achat.nbl == ''){
+            $scope.data.errorForm.nbl = true;
+            return false;
+        }else{
+            $scope.data.errorForm.nbl = false;
+        }
+
+        if(!angular.isDefined(achat.price) || achat.price == ''){
+            $scope.data.errorForm.price = true;
+            return false;
+        }else{
+            $scope.data.errorForm.price = false;
+        }
+
+        if(!angular.isDefined(achat.carid) || achat.carid == ''){
+            $scope.data.errorForm.carid = true;
+            return false;
+        }else{
+            $scope.data.errorForm.carid = false;
+        }
+
+        return true;
     }
 
     // set sidebar closed and body solid layout mode

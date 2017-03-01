@@ -20,6 +20,10 @@
 					echo json_encode(missions::getAll());
 					return false;
 					break;
+				case 'getNextMissions':
+					echo json_encode(missions::getNextMissions());
+					return false;
+					break;	
 				case 'deleteMission':
 					if(!isset($postdata->id)){
 						echo json_encode(returnResponse(true,"Missing parameter to complete deleteMission"));

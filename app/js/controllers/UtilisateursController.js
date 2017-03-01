@@ -18,27 +18,31 @@ angular.module('MetronicApp').controller('UtilisateursController', function($roo
         $scope.data.hideDivInfosUser = true;
         $scope.data.hideDivTableUser = false;
         $scope.data.user = user;
+        $scope.data.errorForm = {};
     }
     $scope.deleteUser = function(user){
         console.log(user);
-        $http.post('../serv/ws/users.ws.php' ,{action:'deleteUser' , id : user.id}).then(
-            function(response){
-                if(response.data.error === true){
-                    alert("Error On Add User");
-                    return false;
+        if(window.confirm("Etes vous sur de vouloir supprimer cette utilisateur ?")){
+            $http.post('../serv/ws/users.ws.php' ,{action:'deleteUser' , id : user.id}).then(
+                function(response){
+                    if(response.data.error === true){
+                        alert("Error On Add User");
+                        return false;
+                    }
+                    getUsers();
+                },
+                function(error){
+                    console.log(error);
                 }
-                getUsers();
-            },
-            function(error){
-                console.log(error);
-            }
-        )
+            )
+        }
     }
 
     $scope.AddNewUser = function(){
         $scope.data.hideDivInfosUser = true;
         $scope.data.hideDivTableUser = false;
         $scope.data.user = {};
+        $scope.data.errorForm = {};
     }
 
     $scope.closeNewUser = function(){
@@ -47,12 +51,15 @@ angular.module('MetronicApp').controller('UtilisateursController', function($roo
     }
 
     $scope.saveUser = function(user){
-        console.log(user);
+
+        if(!checkForm(user)){
+            return false;
+        }
 
         $http.post('../serv/ws/users.ws.php' , {action:'AddNewUser' , user:JSON.stringify(user)}).then(
             function(response){
                 if(response.data.error === true){
-                    alert("Error On Add User");
+                    alert(response.data.data);
                     return false;
                 }
                 $scope.closeNewUser();
@@ -76,6 +83,54 @@ angular.module('MetronicApp').controller('UtilisateursController', function($roo
                 console.log(err);
             }
         )
+    }
+
+
+    function checkForm (user){
+        if(!angular.isDefined(user.lastname) || user.lastname == ''){
+            $scope.data.errorForm.lastname = true;
+            return false;
+        }else{
+            $scope.data.errorForm.lastname = false;
+        }
+
+        if(!angular.isDefined(user.firstname) || user.firstname == ''){
+            $scope.data.errorForm.firstname = true;
+            return false;
+        }else{
+            $scope.data.errorForm.firstname = false;
+        }
+
+        if(!angular.isDefined(user.email) || user.email == ''){
+            $scope.data.errorForm.email = true;
+            return false;
+        }else{
+            $scope.data.errorForm.email = false;
+        }
+
+        if(!angular.isDefined(user.login) || user.login == ''){
+            $scope.data.errorForm.login = true;
+            return false;
+        }else{
+            $scope.data.errorForm.login = false;
+        }
+
+        if(!angular.isDefined(user.password) || user.password == ''){
+            $scope.data.errorForm.password = true;
+            return false;
+        }else{
+            $scope.data.errorForm.password = false;
+        }
+
+
+        if(!angular.isDefined(user.type) || user.type == ''){
+            $scope.data.errorForm.type = true;
+            return false;
+        }else{
+            $scope.data.errorForm.type = false;
+        }
+
+        return true;
     }
 
 

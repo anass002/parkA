@@ -9,6 +9,8 @@ angular.module('MetronicApp').controller('CarsController', function($rootScope, 
     $scope.data.hideDivCars = true;
     $scope.data.hideInfosCar = false;
     $scope.data.hideModeInfosCars = false;
+    $scope.data.newcarAdded = false;
+    $scope.data.errorAddNewCar = false;
 
     getCars();
     getCategories();
@@ -17,42 +19,59 @@ angular.module('MetronicApp').controller('CarsController', function($rootScope, 
     $scope.addNewCar = function(){
         $scope.data.hideDivCars = false;
         $scope.data.hideInfosCar = true;
+        $scope.data.newcarAdded = false;
+        $scope.data.errorAddNewCar = false;
         $scope.data.car = {};
+        $scope.data.errorForm = {};
+        $scope.data.models = {};
+        $scope.data.car.carcode = $scope.data.cars.length;
     }
 
     $scope.editCar = function(car){
-        console.log(car);
         $scope.data.hideDivCars = false;
         $scope.data.hideInfosCar = true;
+        $scope.data.newcarAdded = false;
+        $scope.data.errorAddNewCar = false;
         $scope.data.car = car;
+        $scope.data.errorForm = {};
+        $scope.getNameCars(car.brand);
 
     }
     $scope.deleteCar = function(car){
-        $http.post('../serv/ws/cars.ws.php' , {action:'deleteCars' , id : car.id}).then(
-            function(response){
-                console.log(response.data);
-                if(response.data.error === true){
-                    alert(response.data.data);
-                    return false;
+        $scope.data.newcarAdded = false;
+        $scope.data.errorAddNewCar = false;
+        if(window.confirm("Etes Vous de vouloir Supprimer cette Voiture ? ")){
+            $http.post('../serv/ws/cars.ws.php' , {action:'deleteCars' , id : car.id}).then(
+                function(response){
+                    console.log(response.data);
+                    if(response.data.error === true){
+                        alert(response.data.data);
+                        return false;
+                    }
+                    getCars();
+                },
+                function(error){
+                    console.log(error);
                 }
-                getCars();
-            },
-            function(error){
-                console.log(error);
-            }
-        )
+            )
+        }
     }
 
     $scope.saveCar = function(car){
-        console.log(car);
+        if(!checkForm(car)){
+            return false;
+        }
+
         $http.post('../serv/ws/cars.ws.php' , {action:'saveCar' , car : JSON.stringify(car)}).then(
             function(response){
                 console.log(response.data);
                 if(response.data.error === true){
-                    alert(response.data.data);
+                    $scope.data.errorAddNewCar = true;
+                    $scope.closeCar();
                     return false;
                 }
                 $scope.closeCar();
+                $scope.data.newcarAdded = true;
                 getCars();
             },
             function(error){
@@ -67,7 +86,8 @@ angular.module('MetronicApp').controller('CarsController', function($rootScope, 
     }
 
     $scope.getInfosCar = function(car){
-        console.log(car);
+        $scope.data.newcarAdded = false;
+        $scope.data.errorAddNewCar = false;
         $scope.data.car = car;
 
         $http.post('../serv/ws/cars.ws.php' , {action:'getAllInfosCar' , id : car.id}).then(
@@ -89,6 +109,16 @@ angular.module('MetronicApp').controller('CarsController', function($rootScope, 
         $scope.data.hideModeInfosCars = false;
         $scope.data.hideDivCars = true;
         $scope.data.hideInfosCar = false;
+    }
+
+    $scope.getNameCars = function(brand){
+        console.log(brand);
+        angular.forEach($scope.data.brands , function(object){
+            if(brand == object.title){
+                console.log(object.models);
+                $scope.data.models = object.models;
+            }
+        })
     }
 
     function getCars(){
@@ -120,6 +150,59 @@ angular.module('MetronicApp').controller('CarsController', function($rootScope, 
                 console.log(error);
             }
         )
+    }
+
+    function checkForm(car){
+        if(!angular.isDefined(car.carcode) || car.carcode == ''){
+            $scope.data.errorForm.carcode = true;
+            return false;
+        }else{
+            $scope.data.errorForm.carcode = false;
+        }
+
+        if(!angular.isDefined(car.brand) || car.brand == ''){
+            $scope.data.errorForm.brand = true;
+            return false;
+        }else{
+            $scope.data.errorForm.brand = false;
+        }
+
+        if(!angular.isDefined(car.name) || car.name == ''){
+            $scope.data.errorForm.name = true;
+            return false;
+        }else{
+            $scope.data.errorForm.name = false;
+        }
+
+        if(!angular.isDefined(car.greycard) || car.greycard == ''){
+            $scope.data.errorForm.greycard = true;
+            return false;
+        }else{
+            $scope.data.errorForm.greycard = false;
+        }
+
+        if(!angular.isDefined(car.km) || car.km == ''){
+            $scope.data.errorForm.km = true;
+            return false;
+        }else{
+            $scope.data.errorForm.km = false;
+        }
+
+        if(!angular.isDefined(car.registrationnumber) || car.registrationnumber == ''){
+            $scope.data.errorForm.registrationnumber = true;
+            return false;
+        }else{
+            $scope.data.errorForm.registrationnumber = false;
+        }
+
+        if(!angular.isDefined(car.catid) || car.catid == ''){
+            $scope.data.errorForm.catid = true;
+            return false;
+        }else{
+            $scope.data.errorForm.catid = false;
+        }
+
+        return true;
     }
 
     // set sidebar closed and body solid layout mode

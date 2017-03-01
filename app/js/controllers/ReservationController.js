@@ -9,6 +9,8 @@ angular.module('MetronicApp').controller('ReservationController', function($root
     $scope.data.hideFormReservation = false;
     $scope.data.hideListReservation = true;
     $scope.data.hideDivInfosCar = false;
+    $scope.data.newResrAdded = false;
+    $scope.data.errorAddNewResr = false;
 
     getReservations();
     getCars();
@@ -18,7 +20,10 @@ angular.module('MetronicApp').controller('ReservationController', function($root
     $scope.AddNewReservation = function(){
         $scope.data.hideListReservation = false;
         $scope.data.hideFormReservation = true;
+        $scope.data.newResrAdded = false;
+        $scope.data.errorAddNewResr = false;
         $scope.data.reservation = {};
+        $scope.data.errorForm = {};
     }
 
 
@@ -35,38 +40,45 @@ angular.module('MetronicApp').controller('ReservationController', function($root
     };
 
     $scope.editreservation = function(reservation){
-        console.log(reservation);
+        $scope.data.newResrAdded = false;
+        $scope.data.errorAddNewResr = false;
         $scope.data.hideListReservation = false;
         $scope.data.hideFormReservation = true;
         $scope.data.reservation = reservation;
+        $scope.data.errorForm = {};
     }
 
     $scope.deletereservation = function(reservation){
-        console.log(reservation);
-        $http.post('../serv/ws/reservations.ws.php' , {action:'deleteReservation' , id : reservation.id}).then(
-            function(response){
-                if(response.data.error === true){
-                    alert(response.data.data);
-                    return false;
-                }
+        if(window.confirm("Etes vous sur de vouloir supprimer cette réservation ?")){
+            $http.post('../serv/ws/reservations.ws.php' , {action:'deleteReservation' , id : reservation.id}).then(
+                function(response){
+                    if(response.data.error === true){
+                        alert(response.data.data);
+                        return false;
+                    }
 
-                getReservations();
-            },
-            function(error){
-                console.log(error);
-            }
-        )
+                    getReservations();
+                },
+                function(error){
+                    console.log(error);
+                }
+            )
+        }
 
     }
 
     $scope.saveReservation = function(reservation){
-        console.log(reservation);
+        if(!checkForm(reservation)){
+            return false;
+        }
         $http.post('../serv/ws/reservations.ws.php' , {action:'saveReservation' , reservation : JSON.stringify(reservation)}).then(
             function(response){
                 if(response.data.error === true){
-                    alert(response.data.data);
+                    $scope.data.errorAddNewResr = true;
+                    $scope.closeReservation();
                     return false;
                 }
+                $scope.data.newResrAdded = true;
                 $scope.closeReservation();
                 getReservations();
             },
@@ -86,12 +98,15 @@ angular.module('MetronicApp').controller('ReservationController', function($root
         $scope.data.hideFormReservation = false;
         $scope.data.hideListReservation = false;
         $scope.data.hideDivInfosCar = true;
+
     }
 
     $scope.closeInfosCar = function(){
         $scope.data.hideFormReservation = false;
         $scope.data.hideListReservation = true;
-        $scope.data.hideDivInfosCar = false;   
+        $scope.data.hideDivInfosCar = false;
+        $scope.data.newResrAdded = false;
+        $scope.data.errorAddNewResr = false;   
     }
 
     function getCars(){
@@ -105,6 +120,31 @@ angular.module('MetronicApp').controller('ReservationController', function($root
             }
         )
     };
+
+    function checkForm(reservation){
+        if(!angular.isDefined(reservation.dreservation) || reservation.dreservation == ''){
+            $scope.data.errorForm.dreservation = true;
+            return false;
+        }else{
+            $scope.data.errorForm.dreservation = false;
+        }
+
+        if(!angular.isDefined(reservation.rate) || reservation.rate == ''){
+            $scope.data.errorForm.rate = true;
+            return false;
+        }else{
+            $scope.data.errorForm.rate = false;
+        }
+
+        if(!angular.isDefined(reservation.carid) || reservation.carid == ''){
+            $scope.data.errorForm.carid = true;
+            return false;
+        }else{
+            $scope.data.errorForm.carid = false;
+        }
+
+        return true;
+    }
 
     // set sidebar closed and body solid layout mode
     $rootScope.settings.layout.pageContentWhite = true;
