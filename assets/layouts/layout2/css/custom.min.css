@@ -29,3 +29,7 @@
 .page-header.navbar .menu-toggler{
         background-image: url(../img/sidebar-toggler-inverse.png);
 }
+
+.page-header.navbar{
+    background-color: #FFF;
+}
