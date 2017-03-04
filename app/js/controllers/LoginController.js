@@ -10,6 +10,10 @@ angular.module('MetronicApp').controller('LoginController', function($rootScope,
     $rootScope.settings.layout.pageBodySolid = false;
     $rootScope.settings.layout.pageSidebarClosed = false;*/
     $scope.data = {};
+
+    if(angular.isDefined(window.localStorage['authToken'])){
+        $window.location.href = './#/dashboard.html';
+    }
     $scope.connect = function(data){
         $http.post('../serv/ws/auth.ws.php' , {action:'signIn',login : data.login , password : data.password}).then(
             function(response){
