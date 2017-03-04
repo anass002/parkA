@@ -1,4 +1,3 @@
-<!-- BEGIN HEADER INNER -->
 <div class="page-header-inner">
     <!-- BEGIN LOGO -->
     <div class="page-logo" style="background-color: white;">
@@ -27,7 +26,7 @@
             <ul class="nav navbar-nav pull-right">
                 <!-- BEGIN NOTIFICATION DROPDOWN -->
                 <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
-                <li class="dropdown dropdown-extended dropdown-notification" id="header_notification_bar">
+                <!-- <li class="dropdown dropdown-extended dropdown-notification" id="header_notification_bar">
                     <a class="dropdown-toggle" dropdown-menu-hover data-toggle="dropdown" data-close-others="true">
                         <i class="icon-bell"></i>
                         <span class="badge badge-default"> {{data.notifs.length}} </span>
@@ -42,10 +41,50 @@
                                         </span>
                                     </a>
                                 </li>
+
+                                <li>
+                                    <a href="#">
+                                        <span class="photo">
+                                            <img src="../assets/layouts/layout3/img/avatar2.jpg" class="img-circle" alt=""> </span>
+                                        <span class="subject">
+                                            <span class="from"> Lisa Wong </span>
+                                            <span class="time">Just Now </span>
+                                        </span>
+                                        <span class="message"> Vivamus sed auctor nibh congue nibh. auctor nibh auctor nibh... </span>
+                                    </a>
+                                </li>
                             </ul>
                         </li>
                     </ul>
-                </li>
+                </li> -->
+                <li class="dropdown dropdown-extended dropdown-inbox open" id="header_inbox_bar">
+                                <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true" aria-expanded="true">
+                                    <i class="icon-envelope-open"></i>
+                                    <span class="badge badge-default"> {{data.notifs.length}} </span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li class="external">
+                                        <h3>Vous avez 
+                                            <span class="bold">{{data.notifs.length}} </span> Notifications</h3>
+                                    </li>
+                                    <li>
+                                        <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 275px;"><ul class="dropdown-menu-list scroller" style="height: 275px; overflow: hidden; width: auto;" data-handle-color="#637283" data-initialized="1">
+                                            <li ng-repeat="notif in data.notifs">
+                                                <a style="cursor: initial;">
+                                                    <span class="photo">
+                                                        <img src="../assets/layouts/layout2/img/Launchpad-icon.png" class="img-circle" alt=""> </span>
+                                                    <span class="subject">
+                                                        <span class="from"> Réservations </span>
+                                                    </span>
+                                                    <span class="message">{{notif.msg}}</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                        <div class="slimScrollBar" style="background: rgb(99, 114, 131); width: 7px; position: absolute; top: 0px; opacity: 0.4; display: none; border-radius: 7px; z-index: 99; right: 1px; height: 160.904px;"></div><div class="slimScrollRail" style="width: 7px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 7px; background: rgb(234, 234, 234); opacity: 0.2; z-index: 90; right: 1px;"></div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </li>
                 <!-- END NOTIFICATION DROPDOWN -->
                 
                 <!-- BEGIN USER LOGIN DROPDOWN -->
@@ -77,4 +116,4 @@
     </div>
     <!-- END PAGE TOP -->
 </div>
-<!-- END HEADER INNER -->
+<!-- END HEADER INNER
