@@ -114,6 +114,7 @@
 				$notif = new notifications();
 				$notif->carid = $this->carid;
 				$notif->dsend = '2017-03-02 00:00:00';
+				$notif->type = 'Papiers';
 				$notif->msg = "Le papier " . $this->name ." va bientot expiré pensez a le renouveler";
 				$notif->htmlmsg = 	'<p> Le papier '.$this->name.' va bientot expiré pensez a le renouveler </p>';
 				$notif->save();

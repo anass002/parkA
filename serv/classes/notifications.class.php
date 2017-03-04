@@ -7,6 +7,7 @@
 		var $id;
 		var $carid;
 		var $status;
+		var $type;
 		var $dsend;
 		var $msg;
 		var $htmlmsg;
@@ -20,6 +21,7 @@
 			$this->id = false;
 			$this->carid = 0;
 			$this->status = '';
+			$this->type = '';
 			$this->dsend = date('Y-m-d H:i:s');
 			$this->msg = '';
 			$this->htmlmsg = '';
@@ -46,6 +48,7 @@
 				$sql = "INSERT INTO notifications VALUES (DEFAULT, "
 							."".pg_escape_string($this->carid).", "
 							."'".pg_escape_string($this->status)."', "
+							."'".pg_escape_string($this->type)."', "
 							."'".pg_escape_string($this->dsend)."', "
 							."'".pg_escape_string($this->msg)."', "
 							."'".pg_escape_string($this->htmlmsg)."', "
@@ -59,6 +62,7 @@
 				$sql = "UPDATE notifications SET "
 							."carid=".pg_escape_string($this->carid).", "
 							."status='".pg_escape_string($this->status)."', "
+							."type='".pg_escape_string($this->type)."', "
 							."dsend='".pg_escape_string($this->dsend)."', "
 							."msg='".pg_escape_string($this->msg)."', "
 							."htmlmsg='".pg_escape_string($this->htmlmsg)."', "
@@ -89,6 +93,7 @@
 				$notif->id = trim($row['id']);
 				$notif->carid = trim($row['carid']);
 				$notif->status = trim($row['status']);
+				$notif->type = trim($row['type']);
 				$notif->dsend = trim($row['dsend']);
 				$notif->msg = trim($row['msg']);
 				$notif->htmlmsg = trim($row['htmlmsg']);
