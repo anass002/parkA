@@ -15,6 +15,11 @@ angular.module('MetronicApp').controller('ChauffeurController', function($rootSc
 	$scope.data.hideDivInfosCar = false;
     $scope.data.newdriverAdded = false;
     $scope.data.errorAddNewdriver = false;
+    var tokenPayload = jwtHelper.decodeToken(window.localStorage['authToken']);
+    $scope.data.access = true;
+    if(tokenPayload.type == 'user' && !tokenPayload.droits.drivers){
+        $scope.data.access = false;
+    }
 
     getDrivers();
     getCars();

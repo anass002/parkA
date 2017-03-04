@@ -1,4 +1,4 @@
-angular.module('MetronicApp').controller('CategorieController', function($rootScope, $scope,$http,settings) {
+angular.module('MetronicApp').controller('CategorieController', function($rootScope, $scope,$http,settings,jwtHelper) {
     $scope.$on('$viewContentLoaded', function() {   
         // initialize core components
         App.initAjax();
@@ -12,6 +12,11 @@ angular.module('MetronicApp').controller('CategorieController', function($rootSc
     $scope.data = {};
     $scope.data.hideDivCategories = true;
     $scope.data.hideFormCategories = false;
+    var tokenPayload = jwtHelper.decodeToken(window.localStorage['authToken']);
+    $scope.data.access = true;
+    if(tokenPayload.type == 'user' && !tokenPayload.droits.categories){
+        $scope.data.access = false;
+    }
 
 
     getCategories();

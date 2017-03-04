@@ -7,12 +7,23 @@ angular.module('MetronicApp').controller('UtilisateursController', function($roo
             $(".page-sidebar").removeClass("in");
         }
     });
-    $http.defaults.headers.common.Authorization = 'Bearer ' + window.localStorage['authToken'] ;
+
     $scope.data = {};
+    var tokenPayload = jwtHelper.decodeToken(window.localStorage['authToken']);
+    $http.defaults.headers.common.Authorization = 'Bearer ' + window.localStorage['authToken'] ;
+    
     $scope.data.hideDivTableUser = true;
     $scope.data.hideDivInfosUser = false;
     $scope.data.userAdded = false;
     $scope.data.error = false;
+    $scope.data.access = true;
+
+
+    if(tokenPayload.type == 'user' && !tokenPayload.droits.user){
+        $scope.data.access = false;
+    }
+
+
 
     getUsers();
     

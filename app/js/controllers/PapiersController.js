@@ -1,4 +1,4 @@
-angular.module('MetronicApp').controller('PapiersController', function($rootScope, $scope, $http,settings) {
+angular.module('MetronicApp').controller('PapiersController', function($rootScope, $scope, $http,settings,jwtHelper) {
     $scope.$on('$viewContentLoaded', function() {   
         // initialize core components
         App.initAjax();
@@ -15,6 +15,11 @@ angular.module('MetronicApp').controller('PapiersController', function($rootScop
 	$scope.data.hideDivInfosCar = false;
 	$scope.data.newPaperAdded = false;
 	$scope.data.errorAddNewPaper = false;
+	var tokenPayload = jwtHelper.decodeToken(window.localStorage['authToken']);
+    $scope.data.access = true;
+    if(tokenPayload.type == 'user' && !tokenPayload.droits.papers){
+        $scope.data.access = false;
+    }
 
 	getPapers();
 	getCars();

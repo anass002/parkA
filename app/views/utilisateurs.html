@@ -4,7 +4,7 @@
             <h3 class="page-title">Gestion des Utilisateurs</h3>
         </div>
     </div>
-    <div class="portlet-body">
+    <div class="portlet-body" ng-show="data.access">
         <div class="alert alert-success" ng-if="data.userAdded">
             <button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>
             L'utilisateur ajouté avec  <strong>Succèss!</strong> 
@@ -169,6 +169,17 @@
             <div class="col-sm-12 text-right">
                 <button class="btn btn-primary" ng-click="saveUser(data.user)">Enregister</button>
                 <button class="btn btn-danger" ng-click="closeNewUser()">Fermer</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="portlet-body" ng-show="!data.access">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="alert alert-danger text-center" >
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>
+                    <h2><strong>Vous n'avez pas le droit d'accéder a cette page ! </strong></h2>  
+                </div>    
             </div>
         </div>
     </div>

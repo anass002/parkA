@@ -1,4 +1,4 @@
-angular.module('MetronicApp').controller('ReservationController', function($rootScope, $scope, $http,settings, FileUploader) {
+angular.module('MetronicApp').controller('ReservationController', function($rootScope, $scope, $http,settings, FileUploader ,jwtHelper) {
     $scope.$on('$viewContentLoaded', function() {   
         // initialize core components
         App.initAjax();
@@ -7,7 +7,6 @@ angular.module('MetronicApp').controller('ReservationController', function($root
             $(".page-sidebar").removeClass("in");
         }
     });
-    $http.defaults.headers.common.Authorization = 'Bearer ' + window.localStorage['authToken'] ;
     console.log("Ctrl Reservation");
     $scope.data = {};    
     $scope.data.hideFormReservation = false;
@@ -15,6 +14,12 @@ angular.module('MetronicApp').controller('ReservationController', function($root
     $scope.data.hideDivInfosCar = false;
     $scope.data.newResrAdded = false;
     $scope.data.errorAddNewResr = false;
+
+    var tokenPayload = jwtHelper.decodeToken(window.localStorage['authToken']);
+    $scope.data.access = true;
+    if(tokenPayload.type == 'user' && !tokenPayload.droits.reservations){
+        $scope.data.access = false;
+    }
 
     getReservations();
     getCars();

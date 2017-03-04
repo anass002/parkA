@@ -1,4 +1,4 @@
-angular.module('MetronicApp').controller('CarsController', function($rootScope, $scope, $http,settings) {
+angular.module('MetronicApp').controller('CarsController', function($rootScope, $scope, $http,settings,jwtHelper) {
     $scope.$on('$viewContentLoaded', function() {   
         // initialize core components
         App.initAjax();
@@ -15,6 +15,12 @@ angular.module('MetronicApp').controller('CarsController', function($rootScope, 
     $scope.data.hideModeInfosCars = false;
     $scope.data.newcarAdded = false;
     $scope.data.errorAddNewCar = false;
+    
+    var tokenPayload = jwtHelper.decodeToken(window.localStorage['authToken']);
+    $scope.data.access = true;
+    if(tokenPayload.type == 'user' && !tokenPayload.droits.cars){
+        $scope.data.access = false;
+    }
 
     getCars();
     getCategories();

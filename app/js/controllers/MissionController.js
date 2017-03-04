@@ -1,4 +1,4 @@
-angular.module('MetronicApp').controller('MissionController', function($rootScope, $scope, $http,settings) {
+angular.module('MetronicApp').controller('MissionController', function($rootScope, $scope, $http,settings,jwtHelper) {
     $scope.$on('$viewContentLoaded', function() {   
         // initialize core components
         App.initAjax();
@@ -15,6 +15,11 @@ angular.module('MetronicApp').controller('MissionController', function($rootScop
     $scope.data.hideDivInfosCar = false;
     $scope.data.newMissionAdded = false;
     $scope.data.errorAddNewMission = false;
+    var tokenPayload = jwtHelper.decodeToken(window.localStorage['authToken']);
+    $scope.data.access = true;
+    if(tokenPayload.type == 'user' && !tokenPayload.droits.missions){
+        $scope.data.access = false;
+    }
 
     getMissions();
     getCars();
