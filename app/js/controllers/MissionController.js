@@ -2,6 +2,10 @@ angular.module('MetronicApp').controller('MissionController', function($rootScop
     $scope.$on('$viewContentLoaded', function() {   
         // initialize core components
         App.initAjax();
+
+        if(window.innerWidth < 992){
+            $(".page-sidebar").removeClass("in");
+        }
     });
     $http.defaults.headers.common.Authorization = 'Bearer ' + window.localStorage['authToken'] ;
     console.log("Ctrl Missions");

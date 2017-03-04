@@ -28,7 +28,6 @@
 									<th class="text-center">Voiture</th>
 									<th class="text-center">Date de réservation</th>
 									<th class="text-center">Coût</th>
-									<th class="text-center">Fichiers</th>
 									<th class="text-center">Actions</th>
 								</tr>
 							</thead>
@@ -37,7 +36,6 @@
 									<td class="text-center">{{reservation.dependencies.car.name}} ({{reservation.dependencies.car.registrationnumber}})</td>
 									<td class="text-center">{{reservation.dreservation}}</td>
 									<td class="text-center">{{reservation.rate}}</td>
-									<td class="text-center">{{reservation.files}}</td>
 									<td class="text-center">
 										<a title="Modifier la reservation" class="btn btn-icon-only yellow" ng-click="editreservation(reservation)">
 											<i class="fa fa-edit"></i>
@@ -86,6 +84,84 @@
 	                                <span class="help-block font-red-mint" ng-if="data.errorForm.carid"> Veuillez selectionner la marque de la voiture ! </span>
 	                            </div>
 							</div>
+
+
+	                        <div class="form-group">
+	                            <label class="control-label col-md-3">Images : </label>
+	                            <div class="col-md-8">
+	                            	<div class="attachement-div" ng-repeat="(key, value) in data.reservation.files">
+	                            		<div class="attachement-delete" ng-click="deteteAttahcement(key)"><i class="fa fa-times-circle-o"></i></div>
+	                            		<img ng-src="{{value}}" width="200px" />
+	                            	</div>
+			                    	<input type="file" nv-file-select="" uploader="uploader" multiple  /><br/>
+			                    	<table class="table">
+				                        <thead>
+				                            <tr>
+				                                <th width="50%">Name</th>
+				                                <th ng-show="uploader.isHTML5">Size</th>
+				                                <th ng-show="uploader.isHTML5">Progress</th>
+				                                <th>Status</th>
+				                                <th>Actions</th>
+				                            </tr>
+				                        </thead>
+				                        <tbody>
+				                            <tr ng-repeat="item in uploader.queue">
+				                                <td>
+				                                    <strong>{{ item.file.name }}</strong>
+				                                    <!-- Image preview -->
+				                                    <!--auto height-->
+				                                    <!--<div ng-thumb="{ file: item.file, width: 100 }"></div>-->
+				                                    <!--auto width-->
+				                                    <div ng-show="uploader.isHTML5" ng-thumb="{ file: item._file, height: 100 }"></div>
+				                                    <!--fixed width and height -->
+				                                    <!--<div ng-thumb="{ file: item.file, width: 100, height: 100 }"></div>-->
+				                                </td>
+				                                <td ng-show="uploader.isHTML5" nowrap>{{ item.file.size/1024/1024|number:2 }} MB</td>
+				                                <td ng-show="uploader.isHTML5">
+				                                    <div class="progress" style="margin-bottom: 0;">
+				                                        <div class="progress-bar" role="progressbar" ng-style="{ 'width': item.progress + '%' }"></div>
+				                                    </div>
+				                                </td>
+				                                <td class="text-center">
+				                                    <span ng-show="item.isSuccess"><i class="glyphicon glyphicon-ok"></i></span>
+				                                    <span ng-show="item.isCancel"><i class="glyphicon glyphicon-ban-circle"></i></span>
+				                                    <span ng-show="item.isError"><i class="glyphicon glyphicon-remove"></i></span>
+				                                </td>
+				                                <td nowrap>
+				                                    <button type="button" class="btn btn-success btn-xs" ng-click="item.upload()" ng-disabled="item.isReady || item.isUploading || item.isSuccess">
+				                                        <span class="glyphicon glyphicon-upload"></span> Upload
+				                                    </button>
+				                                    <button type="button" class="btn btn-warning btn-xs" ng-click="item.cancel()" ng-disabled="!item.isUploading">
+				                                        <span class="glyphicon glyphicon-ban-circle"></span> Cancel
+				                                    </button>
+				                                    <button type="button" class="btn btn-danger btn-xs" ng-click="item.remove()">
+				                                        <span class="glyphicon glyphicon-trash"></span> Remove
+				                                    </button>
+				                                </td>
+				                            </tr>
+				                        </tbody>
+				                    </table>
+				                     <div>
+				                        <div>
+				                            Queue progress:
+				                            <div class="progress" style="">
+				                                <div class="progress-bar" role="progressbar" ng-style="{ 'width': uploader.progress + '%' }"></div>
+				                            </div>
+				                        </div>
+				                        <button type="button" class="btn btn-success btn-s" ng-click="uploader.uploadAll()" ng-disabled="!uploader.getNotUploadedItems().length">
+				                            <span class="glyphicon glyphicon-upload"></span> Upload all
+				                        </button>
+				                        <button type="button" class="btn btn-warning btn-s" ng-click="uploader.cancelAll()" ng-disabled="!uploader.isUploading">
+				                            <span class="glyphicon glyphicon-ban-circle"></span> Cancel all
+				                        </button>
+				                        <button type="button" class="btn btn-danger btn-s" ng-click="uploader.clearQueue()" ng-disabled="!uploader.queue.length">
+				                            <span class="glyphicon glyphicon-trash"></span> Remove all
+				                        </button>
+				                    </div>
+	                                
+	                            </div>
+	                        </div>
+
 						</div>
 					</form>
 				</div>
@@ -125,100 +201,3 @@
 		</div>
 	</div>
 </div>	
-
-
-
-
-<!-- <h3 class="page-title"> Gestion des Réservations </h3>
-<div>
-	<div class="row" ng-if="data.hideListReservation">
-		<div class="col-sm-12 text-right">
-			<button class="btn btn-primary" ng-click="AddNewReservation()">Ajouter</button>
-		</div>
-		<div class="col-sm-12">
-			<div class="portlet-body">
-				<div class="table-responsive">
-					<table class="table">
-						<thead>
-							<tr>
-								<th class="text-center">Voiture</th>
-								<th class="text-center">Date de réservation</th>
-								<th class="text-center">Coût</th>
-								<th class="text-center">Fichiers</th>
-								<th class="text-center">Actions</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr ng-repeat="reservation in data.reservations">
-								<td class="text-center">{{reservation.dependencies.car.name}} ({{reservation.dependencies.car.registrationnumber}})</td>
-								<td class="text-center">{{reservation.dreservation}}</td>
-								<td class="text-center">{{reservation.rate}}</td>
-								<td class="text-center">{{reservation.files}}</td>
-								<td class="text-center">
-									<a title="Modifier la reservation" class="btn btn-icon-only yellow" ng-click="editreservation(reservation)">
-										<i class="fa fa-edit"></i>
-									</a>
-									<a title="Supprimer la reservation" class="btn btn-icon-only red" ng-click="deletereservation(reservation)">
-										<i class="fa fa-trash"></i>
-									</a>
-								</td>
-							</tr>
-						</tbody>
-					</table>
-				</div>	
-			</div>
-		</div>
-	</div>
-
-	<div class="row" ng-if="data.hideFormReservation" id="form_modal1">
-		<div class="col-sm-12">
-			<div class="portlet-body form">
-				<form class="form-horizontal form-bordered">
-					<div class="form-body">
-						<div class="form-group">
-							<label class="control-label col-md-3">Date de Réservation : </label>
-							<div class="col-md-4">
-								<div class="input-group date form_datetime" data-date="2012-12-21T15:25:00Z">
-                                    <input type="text" size="16" readonly class="form-control">
-                                    <span class="input-group-btn">
-                                        <button class="btn default date-reset" type="button">
-                                            <i class="fa fa-times"></i>
-                                        </button>
-                                        <button class="btn default date-set" type="button">
-                                            <i class="fa fa-calendar"></i>
-                                        </button>
-                                    </span>
-                                </div>
-							</div>
-						</div>
-						<div class="form-group">
-							<label class="control-label col-md-3"> Coût : </label>
-							<div class="col-md-4">
-								<input type="text" class="form-control" ng-model="data.reservation.rate">
-							</div>
-						</div>
-						<div class="form-group">
-							<label class="control-label col-md-3"> Fichiers : </label>
-							<div class="col-md-4">
-								<input type="text" class="form-control" ng-model="data.reservation.files">
-							</div>
-						</div>
-						<div class="form-group">
-							<label class="control-label col-md-3"> Voiture : </label>
-							<div class="col-md-4">
-                                <select class="form-control select2" ng-model="data.reservation.carid">
-                                    <option value="">Selectionner une Voiture</option>                  
-                                    <option ng-repeat="car in data.cars" value="{{car.id}}">{{car.name}}</option>
-                                </select>
-                            </div>
-						</div>
-					</div>
-				</form>
-			</div>
-		</div>
-		<div class="col-sm-12 text-right">
-            <button class="btn btn-primary" ng-click="saveReservation(data.reservation)">Enregister</button>
-            <button class="btn btn-danger" ng-click="closeReservation()">Fermer</button>
-        </div>
-	</div>
-</div> -->

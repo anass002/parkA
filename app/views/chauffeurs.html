@@ -129,6 +129,10 @@
 	                        <div class="form-group">
 	                            <label class="control-label col-md-3">Images : </label>
 	                            <div class="col-md-8">
+	                            	<div class="attachement-div" ng-repeat="(key, value) in data.driver.files">
+	                            		<div class="attachement-delete" ng-click="deteteAttahcement(key)"><i class="fa fa-times-circle-o"></i></div>
+	                            		<img ng-src="{{value}}" width="200px" />
+	                            	</div>
 			                    	<input type="file" nv-file-select="" uploader="uploader" multiple  /><br/>
 			                    	<table class="table">
 				                        <thead>

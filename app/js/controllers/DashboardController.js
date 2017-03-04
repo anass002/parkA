@@ -2,6 +2,10 @@ angular.module('MetronicApp').controller('DashboardController', function($rootSc
     $scope.$on('$viewContentLoaded', function() {   
         // initialize core components
         App.initAjax();
+
+        if(window.innerWidth < 992){
+            $(".page-sidebar").removeClass("in");
+        }
     });
     $http.defaults.headers.common.Authorization = 'Bearer ' + window.localStorage['authToken'] ;
     $scope.data = {};

@@ -2,6 +2,10 @@ angular.module('MetronicApp').controller('PapiersController', function($rootScop
     $scope.$on('$viewContentLoaded', function() {   
         // initialize core components
         App.initAjax();
+
+        if(window.innerWidth < 992){
+            $(".page-sidebar").removeClass("in");
+        }
     });
     console.log("CTRL PAPIERS");
     $http.defaults.headers.common.Authorization = 'Bearer ' + window.localStorage['authToken'] ;

@@ -2,6 +2,10 @@ angular.module('MetronicApp').controller('UserProfileController', function($root
     $scope.$on('$viewContentLoaded', function() {   
         App.initAjax(); // initialize core components
         //Layout.setSidebarMenuActiveLink('set', $('#sidebar_menu_link_profile')); // set profile link active in sidebar menu 
+
+        if(window.innerWidth < 992){
+            $(".page-sidebar").removeClass("in");
+        }
     });
 
     getUser();

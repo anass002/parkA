@@ -140,6 +140,8 @@ MetronicApp.controller('HeaderController', function($scope, $window, jwtHelper,$
             }
         }
     }
+
+    
 });
 
 /* Setup Layout Part - Sidebar */

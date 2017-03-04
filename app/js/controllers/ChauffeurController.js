@@ -2,6 +2,10 @@ angular.module('MetronicApp').controller('ChauffeurController', function($rootSc
     $scope.$on('$viewContentLoaded', function() {   
         // initialize core components
         App.initAjax();
+
+        if(window.innerWidth < 992){
+            $(".page-sidebar").removeClass("in");
+        }
     });
     $http.defaults.headers.common.Authorization = 'Bearer ' + window.localStorage['authToken'] ;
     console.log("Drivers CTRL");
@@ -182,6 +186,12 @@ angular.module('MetronicApp').controller('ChauffeurController', function($rootSc
     $rootScope.settings.layout.pageBodySolid = false;
     $rootScope.settings.layout.pageSidebarClosed = false;
 
+    $scope.deteteAttahcement = function(key) {
+        if(angular.isDefined($scope.data.driver) && angular.isDefined($scope.data.driver.files)){
+            delete $scope.data.driver.files[key];
+        }
+    }
+
 
 
     //Upload
@@ -223,6 +233,9 @@ angular.module('MetronicApp').controller('ChauffeurController', function($rootSc
         };
         uploader.onSuccessItem = function(fileItem, response, status, headers) {
            // console.info('onSuccessItem', fileItem, response, status, headers);
+           if(angular.isDefined(fileItem.file.name)){
+                $scope.data.driver.files[fileItem.file.name] = "uploads/"+fileItem.file.name;
+           }
         };
         uploader.onErrorItem = function(fileItem, response, status, headers) {
            // console.info('onErrorItem', fileItem, response, status, headers);
@@ -233,9 +246,7 @@ angular.module('MetronicApp').controller('ChauffeurController', function($rootSc
         uploader.onCompleteItem = function(fileItem, response, status, headers) {
            // console.info('onCompleteItem', fileItem, response, status, headers);
            //console.log(fileItem);
-           if(angular.isDefined(fileItem.file.name)){
-                $scope.data.driver.files[fileItem.file.name] = "uploads/"+fileItem.file.name;
-           }
+           
         };
         uploader.onCompleteAll = function() {
            // console.info('onCompleteAll');

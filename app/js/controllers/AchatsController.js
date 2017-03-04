@@ -2,6 +2,10 @@ angular.module('MetronicApp').controller('AchatsController', function($rootScope
     $scope.$on('$viewContentLoaded', function() {   
         // initialize core components
         App.initAjax();
+
+        if(window.innerWidth < 992){
+            $(".page-sidebar").removeClass("in");
+        }
     });
     console.log("CTRL ACHATS");
     $http.defaults.headers.common.Authorization = 'Bearer ' + window.localStorage['authToken'] ;
