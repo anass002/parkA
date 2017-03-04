@@ -1,4 +1,4 @@
-angular.module('MetronicApp').controller('ChauffeurController', function($rootScope, $scope, $http,settings, FileUploader) {
+angular.module('MetronicApp').controller('ChauffeurController', function($rootScope, $scope, $http,settings, FileUploader , jwtHelper) {
     $scope.$on('$viewContentLoaded', function() {   
         // initialize core components
         App.initAjax();

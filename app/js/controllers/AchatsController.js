@@ -1,4 +1,4 @@
-angular.module('MetronicApp').controller('AchatsController', function($rootScope, $scope, $http,settings) {
+angular.module('MetronicApp').controller('AchatsController', function($rootScope, $scope, $http,settings,jwtHelper) {
     $scope.$on('$viewContentLoaded', function() {   
         // initialize core components
         App.initAjax();
@@ -17,6 +17,12 @@ angular.module('MetronicApp').controller('AchatsController', function($rootScope
 	$scope.data.errorAddNewAchat = false;
 	getAchats();
 	getCars();
+
+	var tokenPayload = jwtHelper.decodeToken(window.localStorage['authToken']);
+    $scope.data.access = true;
+    if(tokenPayload.type == 'user' && !tokenPayload.droits.cars){
+        $scope.data.access = false;
+    }
 
 	
 	$scope.addNewAchat = function(achat){
