@@ -1,4 +1,4 @@
-angular.module('MetronicApp').controller('CarsController', function($rootScope, $scope, $http,settings,jwtHelper) {
+angular.module('MetronicApp').controller('CarsController', function($rootScope, $scope, $http,settings,jwtHelper,$window) {
     $scope.$on('$viewContentLoaded', function() {   
         // initialize core components
         App.initAjax();
@@ -138,7 +138,7 @@ angular.module('MetronicApp').controller('CarsController', function($rootScope, 
             function(response){
                 console.log(response.data.data);
 
-                window.location.href = 'download/'+response.data.data;
+                $window.open('download/'+response.data.data, '_blank');
             },
             function(error){
                 console.log(error);
@@ -151,7 +151,7 @@ angular.module('MetronicApp').controller('CarsController', function($rootScope, 
             function(response){
                 console.log(response.data.data);
 
-                window.location.href = 'download/'+response.data.data;
+                $window.open('download/'+response.data.data, '_blank');
             },
             function(error){
                 console.log(error);

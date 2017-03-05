@@ -123,8 +123,8 @@
 							 ->setTitle("Données Vehicules")
 							 ->setSubject("Données Vehicules")
 							 ->setDescription("Données Vehicules")
-							 ->setKeywords("vehicule")
-							 ->setCategory("vehicule");
+							 ->setKeywords("vehicules")
+							 ->setCategory("vehicules");
 
 
 		$myActiveSheet = $objPHPExcel->setActiveSheetIndex(0);
@@ -221,12 +221,13 @@
 							 ->setTitle("Données Vehicules")
 							 ->setSubject("Données Vehicules")
 							 ->setDescription("Données Vehicules")
-							 ->setKeywords("vehicule")
-							 ->setCategory("vehicule");
+							 ->setKeywords("vehicules")
+							 ->setCategory("vehicules");
 
 							 
 
 		$myActiveSheet = $objPHPExcel->setActiveSheetIndex(0);
+		$objPHPExcel->getActiveSheet()->setShowGridlines(false);
 
 		
 		$myActiveSheet->setTitle(_("Vehicules"));

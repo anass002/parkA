@@ -77,11 +77,11 @@
 		$objPHPExcel = new PHPExcel();
 		$myActiveSheet = $objPHPExcel->getProperties()->setCreator("Hard Transport Personnel")
 							 ->setLastModifiedBy("Hard Transport Personnel")
-							 ->setTitle("Données Vehicules")
-							 ->setSubject("Données Vehicules")
-							 ->setDescription("Données Vehicules")
-							 ->setKeywords("vehicule")
-							 ->setCategory("vehicule");
+							 ->setTitle("Données Missions")
+							 ->setSubject("Données Missions")
+							 ->setDescription("Données Missions")
+							 ->setKeywords("Missions")
+							 ->setCategory("Missions");
 
 
 		$myActiveSheet = $objPHPExcel->setActiveSheetIndex(0);
@@ -130,12 +130,12 @@
 					),
 				),
 			);
-			foreach(range('A','G') as $columnID) {
+			foreach(range('A','E') as $columnID) {
 			    $myActiveSheet->getColumnDimension($columnID)->setAutoSize(true);
 			}
 			$myHighestRow = (int)$myActiveSheet->getHighestRow();
-			$myActiveSheet->getStyle("A4:G".$myHighestRow)->applyFromArray($styleBorder);
-			$myActiveSheet->getStyle("A4:G4")->applyFromArray($styleCentered);
+			$myActiveSheet->getStyle("A4:E".$myHighestRow)->applyFromArray($styleBorder);
+			$myActiveSheet->getStyle("A4:E4")->applyFromArray($styleCentered);
 			$styleTitle = array( /* Titre du tableau */
 			    'alignment' => array(
 			        'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER,
@@ -150,7 +150,7 @@
 			);
 			$myActiveSheet->mergeCells('A1:K1');
 			$myActiveSheet->mergeCells('A2:K2');
-			$myActiveSheet->setCellValueByColumnAndRow(0, 1, 'Rapport d\'activités des Vehicules du park');
+			$myActiveSheet->setCellValueByColumnAndRow(0, 1, 'Rapport d\'activités des Missions des vehicules du park');
 			$myActiveSheet->getStyle("A1:A1")->applyFromArray($styleTitle);
 			$myActiveSheet->getStyle("A2:A2")->applyFromArray($styleTitle);
 			$myActiveSheet->getStyle('C1:C97')->getNumberFormat()->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_TEXT);
@@ -171,16 +171,16 @@
 		$objPHPExcel = new PHPExcel();
 		$myActiveSheet = $objPHPExcel->getProperties()->setCreator("Hard Transport Personnel")
 							 ->setLastModifiedBy("Hard Transport Personnel")
-							 ->setTitle("Données Vehicules")
-							 ->setSubject("Données Vehicules")
-							 ->setDescription("Données Vehicules")
-							 ->setKeywords("vehicule")
-							 ->setCategory("vehicule");
+							 ->setTitle("Données Missions")
+							 ->setSubject("Données Missions")
+							 ->setDescription("Données Missions")
+							 ->setKeywords("Missions")
+							 ->setCategory("Missions");
 
 							 
 
 		$myActiveSheet = $objPHPExcel->setActiveSheetIndex(0);
-
+		$objPHPExcel->getActiveSheet()->setShowGridlines(false);
 		
 		$myActiveSheet->setTitle(_("Vehicules"));
 		$myActiveSheet->setCellValueByColumnAndRow(0, 4, _('Départ'));
@@ -226,12 +226,12 @@
 					),
 				),
 			);
-			foreach(range('A','G') as $columnID) {
+			foreach(range('A','E') as $columnID) {
 			    $myActiveSheet->getColumnDimension($columnID)->setAutoSize(true);
 			}
 			$myHighestRow = (int)$myActiveSheet->getHighestRow();
-			$myActiveSheet->getStyle("A4:G".$myHighestRow)->applyFromArray($styleBorder);
-			$myActiveSheet->getStyle("A4:G4")->applyFromArray($styleCentered);
+			$myActiveSheet->getStyle("A4:E".$myHighestRow)->applyFromArray($styleBorder);
+			$myActiveSheet->getStyle("A4:E4")->applyFromArray($styleCentered);
 			$styleTitle = array( /* Titre du tableau */
 			    'alignment' => array(
 			        'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER,
@@ -246,7 +246,7 @@
 			);
 			$myActiveSheet->mergeCells('A1:K1');
 			$myActiveSheet->mergeCells('A2:K2');
-			$myActiveSheet->setCellValueByColumnAndRow(0, 1, 'Rapport d\'activités des Vehicules du park');
+			$myActiveSheet->setCellValueByColumnAndRow(0, 1, 'Rapport d\'activités des Missions des vehicules du park');
 			$myActiveSheet->getStyle("A1:A1")->applyFromArray($styleTitle);
 			$myActiveSheet->getStyle("A2:A2")->applyFromArray($styleTitle);
 			$myActiveSheet->getStyle('C1:C97')->getNumberFormat()->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_TEXT);
