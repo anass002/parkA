@@ -94,6 +94,34 @@ angular.module('MetronicApp').controller('PapiersController', function($rootScop
         $scope.data.hideDivInfosCar = false;   
     }
 
+    $scope.exporterExcel = function(type){
+        console.log("EXporter Excel");
+
+        $http.post('../serv/ws/papers.ws.php' , {action:'exportExcel'}).then(
+            function(response){
+                console.log(response.data.data);
+
+                window.location.href = 'download/'+response.data.data;
+            },
+            function(error){
+                console.log(error);
+            }
+        )
+    }
+
+    $scope.exporterPDF = function(){
+        $http.post('../serv/ws/papers.ws.php' , {action:'exportPDF'}).then(
+            function(response){
+                console.log(response.data.data);
+
+                window.location.href = 'download/'+response.data.data;
+            },
+            function(error){
+                console.log(error);
+            }
+        )   
+    }
+
 	function getPapers(){
 		$http.post('../serv/ws/papers.ws.php' , {action : 'getAllPapers'}).then(
 			function(response){

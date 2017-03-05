@@ -73,6 +73,34 @@ angular.module('MetronicApp').controller('CategorieController', function($rootSc
     	$scope.data.hideFormCategories = false;
 	}
 
+    $scope.exporterExcel = function(type){
+        console.log("EXporter Excel");
+
+        $http.post('../serv/ws/categories.ws.php' , {action:'exportExcel'}).then(
+            function(response){
+                console.log(response.data.data);
+
+                window.location.href = 'download/'+response.data.data;
+            },
+            function(error){
+                console.log(error);
+            }
+        )
+    }
+
+    $scope.exporterPDF = function(){
+        $http.post('../serv/ws/categories.ws.php' , {action:'exportPDF'}).then(
+            function(response){
+                console.log(response.data.data);
+
+                window.location.href = 'download/'+response.data.data;
+            },
+            function(error){
+                console.log(error);
+            }
+        )   
+    }
+
 
 
 	function getCategories(){

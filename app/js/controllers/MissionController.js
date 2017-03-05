@@ -118,9 +118,36 @@ angular.module('MetronicApp').controller('MissionController', function($rootScop
         $scope.data.hideListMissions = true;
         $scope.data.hideDivInfosCar = false;   
     }
+    $scope.exporterExcel = function(type){
+        console.log("EXporter Excel");
+
+        $http.post('../serv/ws/missions.ws.php' , {action:'exportExcel'}).then(
+            function(response){
+                console.log(response.data.data);
+
+                window.location.href = 'download/'+response.data.data;
+            },
+            function(error){
+                console.log(error);
+            }
+        )
+    }
+
+    $scope.exporterPDF = function(){
+        $http.post('../serv/ws/missions.ws.php' , {action:'exportPDF'}).then(
+            function(response){
+                console.log(response.data.data);
+
+                window.location.href = 'download/'+response.data.data;
+            },
+            function(error){
+                console.log(error);
+            }
+        )   
+    }
 
     function getCars(){
-        $http.post('../serv/ws/cars.ws.php',{action:'getAllCars'}).then(
+        $http.post('../serv/ws/missions.ws.php',{action:'getAllCars'}).then(
             function(response){
                 console.log(response.data.data);
                 $scope.data.cars = response.data.data;

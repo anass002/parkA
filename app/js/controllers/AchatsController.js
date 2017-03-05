@@ -101,6 +101,34 @@ angular.module('MetronicApp').controller('AchatsController', function($rootScope
         $scope.data.hideDivInfosCar = false;   
     }
 
+    $scope.exporterExcel = function(type){
+        console.log("EXporter Excel");
+
+        $http.post('../serv/ws/achats.ws.php' , {action:'exportExcel'}).then(
+            function(response){
+                console.log(response.data.data);
+
+                window.location.href = 'download/'+response.data.data;
+            },
+            function(error){
+                console.log(error);
+            }
+        )
+    }
+
+    $scope.exporterPDF = function(){
+        $http.post('../serv/ws/achats.ws.php' , {action:'exportPDF'}).then(
+            function(response){
+                console.log(response.data.data);
+
+                window.location.href = 'download/'+response.data.data;
+            },
+            function(error){
+                console.log(error);
+            }
+        )   
+    }
+
 	function getAchats(){
 		$http.post('../serv/ws/achats.ws.php' , {action:'getAllPurshases'}).then(
 			function(response){

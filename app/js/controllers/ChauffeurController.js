@@ -107,6 +107,34 @@ angular.module('MetronicApp').controller('ChauffeurController', function($rootSc
         $scope.data.hideDivInfosCar = false;   
     }
 
+    $scope.exporterExcel = function(type){
+        console.log("EXporter Excel");
+
+        $http.post('../serv/ws/drivers.ws.php' , {action:'exportExcel'}).then(
+            function(response){
+                console.log(response.data.data);
+
+                window.location.href = 'download/'+response.data.data;
+            },
+            function(error){
+                console.log(error);
+            }
+        )
+    }
+
+    $scope.exporterPDF = function(){
+        $http.post('../serv/ws/drivers.ws.php' , {action:'exportPDF'}).then(
+            function(response){
+                console.log(response.data.data);
+
+                window.location.href = 'download/'+response.data.data;
+            },
+            function(error){
+                console.log(error);
+            }
+        )   
+    }
+
 
 
     function getDrivers(){
