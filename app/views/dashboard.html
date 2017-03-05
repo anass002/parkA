@@ -1,72 +1,77 @@
-<div class="portlet light">
-    <div class="portlet-title tabbable-line">
-        <div class="caption">
-            <h3 class="page-title">Accueil</h3>
+
+<div class="row">
+    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+        <div class="dashboard-stat blue">
+            <div class="visual">
+                <i class="fa fa-car"></i>
+            </div>
+            <div class="details">
+                <div class="number"> {{data.nbrTotalCars}} </div>
+                <div class="desc"> Total Vehicule </div>
+            </div>
+            <a class="more" href="#/voitures.html"> Voir Plus
+                <i class="m-icon-swapright m-icon-white"></i>
+            </a>
         </div>
     </div>
-    <div class="portlet-body">
-	    <div class="row widget-row">
-	    	<div class="col-sm-4">
-		    	<div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 ">
-	                <h4 class="widget-thumb-heading">Total Vehicule</h4>
-	                <div class="widget-thumb-wrap">
-	                    <i class="widget-thumb-icon bg-green icon-bulb"></i>
-	                    <div class="widget-thumb-body">
-	                        <span class="widget-thumb-body-stat" data-counter="counterup" data-value="7,644">{{data.nbrTotalCars}}</span>
-	                    </div>
-	                </div>
-	            </div>
+    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+        <div class="dashboard-stat red">
+            <div class="visual">
+                <i class="fa fa-car"></i>
             </div>
-            <div class="col-sm-4">
-		    	<div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 ">
-	                <h4 class="widget-thumb-heading">Total Vehicule Assignés</h4>
-	                <div class="widget-thumb-wrap">
-	                    <i class="widget-thumb-icon bg-green icon-bulb"></i>
-	                    <div class="widget-thumb-body">
-	                        <span class="widget-thumb-body-stat" data-counter="counterup" data-value="7,644">{{data.nbrTotalAssignedCars}}</span>
-	                    </div>
-	                </div>
-	            </div>
+            <div class="details">
+                <div class="number"> {{data.nbrTotalAssignedCars}} </div>
+                <div class="desc"> Total Vehicule Assignés </div>
             </div>
-            <div class="col-sm-4">
-		    	<div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 ">
-	                <h4 class="widget-thumb-heading">Total Vehicule Non Assignés</h4>
-	                <div class="widget-thumb-wrap">
-	                    <i class="widget-thumb-icon bg-green icon-bulb"></i>
-	                    <div class="widget-thumb-body">
-	                        <span class="widget-thumb-body-stat" data-counter="counterup" data-value="7,644">{{data.nbrTotalNotAssignedCars}}</span>
-	                    </div>
-	                </div>
-	            </div>
-            </div>
-	    </div>
-
-	    <div class="row widget-row">
-	    	<div class="col-sm-6">
-		    	<div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 ">
-	                <h4 class="widget-thumb-heading">Total Missions</h4>
-	                <div class="widget-thumb-wrap">
-	                    <i class="widget-thumb-icon bg-green icon-bulb"></i>
-	                    <div class="widget-thumb-body">
-	                        <span class="widget-thumb-body-stat" data-counter="counterup" data-value="7,644">{{data.nbrTotalMissions}}</span>
-	                    </div>
-	                </div>
-	            </div>
-            </div>
-            <div class="col-sm-6">
-		    	<div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 ">
-	                <h4 class="widget-thumb-heading">Total Missions a venir</h4>
-	                <div class="widget-thumb-wrap">
-	                    <i class="widget-thumb-icon bg-green icon-bulb"></i>
-	                    <div class="widget-thumb-body">
-	                        <span class="widget-thumb-body-stat" data-counter="counterup" data-value="7,644">{{data.nbrTotalNextMissions}}</span>
-	                    </div>
-	                </div>
-	            </div>
-            </div>
-	    </div>
+            <a class="more" href="#/voitures.html"> Voir Plus
+                <i class="m-icon-swapright m-icon-white"></i>
+            </a>
+        </div>
     </div>
-</div>    
+    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+        <div class="dashboard-stat green">
+            <div class="visual">
+                <i class="fa fa-car"></i>
+            </div>
+            <div class="details">
+                <div class="number"> {{data.nbrTotalNotAssignedCars}} </div>
+                <div class="desc"> Total Vehicule Non Assignés </div>
+            </div>
+            <a class="more" href="#/voitures.html"> Voir Plus
+                <i class="m-icon-swapright m-icon-white"></i>
+            </a>
+        </div>
+    </div>
+    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+        <div class="dashboard-stat yellow-mint">
+            <div class="visual">
+                <i class="fa fa-bullseye"></i>
+            </div>
+            <div class="details">
+                <div class="number"> {{data.nbrTotalMissions}} </div>
+                <div class="desc"> Total Missions </div>
+            </div>
+            <a class="more" href="#/missions.html"> Voir Plus
+                <i class="m-icon-swapright m-icon-white"></i>
+            </a>
+        </div>
+    </div>
+    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+        <div class="dashboard-stat purple">
+            <div class="visual">
+                <i class="fa fa-dot-circle-o"></i>
+            </div>
+            <div class="details">
+                <div class="number"> {{data.nbrTotalNextMissions}} </div>
+                <div class="desc"> Total Missions à venir </div>
+            </div>
+            <a class="more" href="#/missions.html"> Voir Plus
+                <i class="m-icon-swapright m-icon-white"></i>
+            </a>
+        </div>
+    </div>
+</div>
+
 
 
 

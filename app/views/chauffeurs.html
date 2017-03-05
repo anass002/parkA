@@ -139,10 +139,10 @@
 			                    	<table class="table">
 				                        <thead>
 				                            <tr>
-				                                <th width="50%">Name</th>
-				                                <th ng-show="uploader.isHTML5">Size</th>
-				                                <th ng-show="uploader.isHTML5">Progress</th>
-				                                <th>Status</th>
+				                                <th width="50%">Nom</th>
+				                                <th ng-show="uploader.isHTML5">Taille</th>
+				                                <th ng-show="uploader.isHTML5">Progression</th>
+				                                <th>Statut</th>
 				                                <th>Actions</th>
 				                            </tr>
 				                        </thead>
@@ -174,10 +174,10 @@
 				                                        <span class="glyphicon glyphicon-upload"></span> Upload
 				                                    </button>
 				                                    <button type="button" class="btn btn-warning btn-xs" ng-click="item.cancel()" ng-disabled="!item.isUploading">
-				                                        <span class="glyphicon glyphicon-ban-circle"></span> Cancel
+				                                        <span class="glyphicon glyphicon-ban-circle"></span> Annuler
 				                                    </button>
 				                                    <button type="button" class="btn btn-danger btn-xs" ng-click="item.remove()">
-				                                        <span class="glyphicon glyphicon-trash"></span> Remove
+				                                        <span class="glyphicon glyphicon-trash"></span> Supprimer
 				                                    </button>
 				                                </td>
 				                            </tr>
@@ -185,19 +185,19 @@
 				                    </table>
 				                     <div>
 				                        <div>
-				                            Queue progress:
+				                            File de Progression:
 				                            <div class="progress" style="">
 				                                <div class="progress-bar" role="progressbar" ng-style="{ 'width': uploader.progress + '%' }"></div>
 				                            </div>
 				                        </div>
 				                        <button type="button" class="btn btn-success btn-s" ng-click="uploader.uploadAll()" ng-disabled="!uploader.getNotUploadedItems().length">
-				                            <span class="glyphicon glyphicon-upload"></span> Upload all
+				                            <span class="glyphicon glyphicon-upload"></span> Uploader Tout
 				                        </button>
 				                        <button type="button" class="btn btn-warning btn-s" ng-click="uploader.cancelAll()" ng-disabled="!uploader.isUploading">
-				                            <span class="glyphicon glyphicon-ban-circle"></span> Cancel all
+				                            <span class="glyphicon glyphicon-ban-circle"></span> Annuler Tout
 				                        </button>
 				                        <button type="button" class="btn btn-danger btn-s" ng-click="uploader.clearQueue()" ng-disabled="!uploader.queue.length">
-				                            <span class="glyphicon glyphicon-trash"></span> Remove all
+				                            <span class="glyphicon glyphicon-trash"></span> Supprimer Tout
 				                        </button>
 				                    </div>
 	                                

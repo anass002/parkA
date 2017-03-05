@@ -31,6 +31,8 @@ angular.module('MetronicApp').controller('PapiersController', function($rootScop
 		$scope.data.newPaperAdded = false;
 		$scope.data.errorAddNewPaper = false;
 		$scope.data.errorForm = {};
+
+        window.scrollTo(0,document.body.scrollHeight);
 	}
 
 	$scope.editPaper = function(paper){

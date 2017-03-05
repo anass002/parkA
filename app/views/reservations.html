@@ -18,6 +18,16 @@
 		<div class="row" ng-if="data.hideListReservation">
 			<div class="col-sm-12 text-right">
 				<button class="btn btn-primary" ng-click="AddNewReservation()">Ajouter</button>
+				<div class="btn-group">
+				  <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				    Exporter <span class="caret"></span>
+				  </button>
+				  <ul class="dropdown-menu">
+				    <li><a href="#"  ng-click="exporterExcel()">Excel <i class="fa fa-file-excel-o" aria-hidden="true"></i></a></li>
+				    <li><a href="#" ng-click="exporterPDF()">PDF <i class="fa fa-file-pdf-o" aria-hidden="true"></i></a></li>
+				  </ul>
+				</div>
+
 			</div>
 			<div class="col-sm-12">
 				<div class="portlet-body">
@@ -62,19 +72,8 @@
 						<div class="form-body">
 							<div class="form-group">
 								<label class="control-label col-md-3">Date de Réservation : </label>
-								<div class="col-md-8">
-									<div class="col-md-4">
--									<div class="input-group date form_datetime" data-date="2012-12-21T15:25:00Z">
--	                                    <input type="text" size="16" readonly class="form-control">
--	                                    <span class="input-group-btn">
--	                                        <button class="btn default date-reset" type="button">
--	                                            <i class="fa fa-times"></i>
--	                                        </button>
--	                                        <button class="btn default date-set" type="button">
--	                                            <i class="fa fa-calendar"></i>
--	                                        </button>
--	                                    </span>
--	                                </div>
+								<div class="col-md-4">
+									<input class="form-control form-control-inline input-medium date-picker" size="16" type="text" value="" />
 									<span class="help-block font-red-mint" ng-if="data.errorForm.dreservation"> Veuillez selectionner la marque de la voiture ! </span>
 								</div>
 							</div>
@@ -108,10 +107,10 @@
 			                    	<table class="table">
 				                        <thead>
 				                            <tr>
-				                                <th width="50%">Name</th>
-				                                <th ng-show="uploader.isHTML5">Size</th>
-				                                <th ng-show="uploader.isHTML5">Progress</th>
-				                                <th>Status</th>
+				                                <th width="50%">Nom</th>
+				                                <th ng-show="uploader.isHTML5">Taille</th>
+				                                <th ng-show="uploader.isHTML5">Progression</th>
+				                                <th>Statut</th>
 				                                <th>Actions</th>
 				                            </tr>
 				                        </thead>
@@ -143,10 +142,10 @@
 				                                        <span class="glyphicon glyphicon-upload"></span> Upload
 				                                    </button>
 				                                    <button type="button" class="btn btn-warning btn-xs" ng-click="item.cancel()" ng-disabled="!item.isUploading">
-				                                        <span class="glyphicon glyphicon-ban-circle"></span> Cancel
+				                                        <span class="glyphicon glyphicon-ban-circle"></span> Annuler
 				                                    </button>
 				                                    <button type="button" class="btn btn-danger btn-xs" ng-click="item.remove()">
-				                                        <span class="glyphicon glyphicon-trash"></span> Remove
+				                                        <span class="glyphicon glyphicon-trash"></span> Supprimer
 				                                    </button>
 				                                </td>
 				                            </tr>
@@ -154,19 +153,19 @@
 				                    </table>
 				                     <div>
 				                        <div>
-				                            Queue progress:
+				                            File de Progression :
 				                            <div class="progress" style="">
 				                                <div class="progress-bar" role="progressbar" ng-style="{ 'width': uploader.progress + '%' }"></div>
 				                            </div>
 				                        </div>
 				                        <button type="button" class="btn btn-success btn-s" ng-click="uploader.uploadAll()" ng-disabled="!uploader.getNotUploadedItems().length">
-				                            <span class="glyphicon glyphicon-upload"></span> Upload all
+				                            <span class="glyphicon glyphicon-upload"></span> Uploader Tout
 				                        </button>
 				                        <button type="button" class="btn btn-warning btn-s" ng-click="uploader.cancelAll()" ng-disabled="!uploader.isUploading">
-				                            <span class="glyphicon glyphicon-ban-circle"></span> Cancel all
+				                            <span class="glyphicon glyphicon-ban-circle"></span> Annuler Tout
 				                        </button>
 				                        <button type="button" class="btn btn-danger btn-s" ng-click="uploader.clearQueue()" ng-disabled="!uploader.queue.length">
-				                            <span class="glyphicon glyphicon-trash"></span> Remove all
+				                            <span class="glyphicon glyphicon-trash"></span> Supprimer Tout
 				                        </button>
 				                    </div>
 	                                
