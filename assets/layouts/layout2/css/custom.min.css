@@ -46,3 +46,11 @@
     font-size: 18px;
     cursor: pointer;
 }
+
+.page-header.navbar .top-menu .navbar-nav>li.dropdown-inbox>.dropdown-menu .dropdown-menu-list>li .photo{
+        margin: 10px 16px 16px 0;
+}
+
+.page-header.navbar .top-menu .navbar-nav>li.dropdown-inbox>.dropdown-menu .dropdown-menu-list>li .photo > i{
+    font-size: 24px;
+}

@@ -33,6 +33,8 @@ angular.module('MetronicApp').controller('MissionController', function($rootScop
         $scope.data.errorAddNewMission = false;
         $scope.data.mission = {};
         $scope.data.errorForm = {};
+
+        window.scrollTo(0,document.body.scrollHeight);
     }
 
 

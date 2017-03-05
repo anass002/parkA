@@ -6,7 +6,8 @@ var ComponentsDateTimePickers = function () {
             $('.date-picker').datepicker({
                 rtl: App.isRTL(),
                 orientation: "left",
-                autoclose: true
+                autoclose: true,
+                language : 'fr'
             });
             //$('body').removeClass("modal-open"); // fix bug when inline picker is used in modal
         }
@@ -15,7 +16,9 @@ var ComponentsDateTimePickers = function () {
     
         // Workaround to fix datepicker position on window scroll
         $( document ).scroll(function(){
-            $('#form_modal2 .date-picker').datepicker('place'); //#modal is the id of the modal
+            $('#form_modal1 .date-picker').datepicker({
+                language : 'fr'
+            }); //#modal is the id of the modal
         });
     }
 
@@ -154,10 +157,8 @@ var ComponentsDateTimePickers = function () {
         }
 
         $(".form_datetime").datetimepicker({
-            autoclose: true,
-            isRTL: App.isRTL(),
             format: "dd MM yyyy - hh:ii",
-            pickerPosition: (App.isRTL() ? "bottom-right" : "bottom-left")
+            language: 'fr'
         });
 
         $(".form_advance_datetime").datetimepicker({
@@ -181,9 +182,14 @@ var ComponentsDateTimePickers = function () {
 
         $('body').removeClass("modal-open"); // fix bug when inline picker is used in modal
 
+
+
         // Workaround to fix datetimepicker position on window scroll
         $( document ).scroll(function(){
-            $('#form_modal1 .form_datetime, #form_modal1 .form_advance_datetime, #form_modal1 .form_meridian_datetime').datetimepicker('place'); //#modal is the id of the modal
+            $('#form_modal1 .form_datetime').datetimepicker({
+                format: "dd MM yyyy - hh:ii",
+                language: 'fr'
+            }); //#modal is the id of the modal
         });
     }
 
@@ -229,16 +235,16 @@ var ComponentsDateTimePickers = function () {
         //main function to initiate the module
         init: function () {
             handleDatePickers();
-            handleTimePickers();
+            //handleTimePickers();
             handleDatetimePicker();
-            handleDateRangePickers();
-            handleClockfaceTimePickers();
+           // handleDateRangePickers();
+            //handleClockfaceTimePickers();
         }
     };
 
 }();
 
-if (App.isAngularJsApp() === false) { 
+if (App.isAngularJsApp() === true) { 
     jQuery(document).ready(function() {    
         ComponentsDateTimePickers.init(); 
     });

@@ -1,4 +1,4 @@
-angular.module('MetronicApp').controller('ReservationController', function($rootScope, $scope, $http,settings, FileUploader ,jwtHelper) {
+angular.module('MetronicApp').controller('ReservationController', function($rootScope, $scope, $http,settings, FileUploader ,jwtHelper, $window) {
     $scope.$on('$viewContentLoaded', function() {   
         // initialize core components
         App.initAjax();
@@ -6,6 +6,7 @@ angular.module('MetronicApp').controller('ReservationController', function($root
         if(window.innerWidth < 992){
             $(".page-sidebar").removeClass("in");
         }
+
     });
     console.log("Ctrl Reservation");
     $scope.data = {};    
@@ -34,6 +35,13 @@ angular.module('MetronicApp').controller('ReservationController', function($root
          $scope.data.reservation = {};   
          $scope.data.reservation.files = {};
         $scope.data.errorForm = {};
+
+        $(function () {
+            //$('#form_modal1 .date-picker').datepicker('place');
+        });
+
+        window.scrollTo(0,document.body.scrollHeight);
+        
     }
 
 
@@ -117,6 +125,42 @@ angular.module('MetronicApp').controller('ReservationController', function($root
         $scope.data.hideDivInfosCar = false;
         $scope.data.newResrAdded = false;
         $scope.data.errorAddNewResr = false;   
+    }
+
+
+
+    $scope.exporterExcel = function(type){
+        console.log("EXporter Excel");
+
+        $http.post('../serv/ws/reservations.ws.php' , {action:'exportExcel'}).then(
+            function(response){
+                console.log(response.data.data);
+
+                $window.open('download/'+response.data.data, '_blank');
+            },
+            function(error){
+                console.log(error);
+            }
+        )
+    }
+
+    $scope.exporterPDF = function(){
+        $http.post('../serv/ws/reservations.ws.php' , {action:'exportPDF'}).then(
+            function(response){
+                console.log(response.data.data);
+
+                $http.get('download/'+response.data.data)
+                .then(function(data){
+                    //data is link to pdf
+                    $window.open(data);
+                }); 
+
+                //$window.open('download/'+response.data.data, '_blank');
+            },
+            function(error){
+                console.log(error);
+            }
+        )   
     }
 
     function getCars(){

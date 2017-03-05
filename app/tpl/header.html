@@ -64,7 +64,7 @@
                     </a>
                     <ul class="dropdown-menu">
                         <li class="external">
-                            <h3>You have
+                            <h3>Vous avez
                                 <span class="bold">{{data.notifs.length}}</span> Notifications</h3>
                         </li>
                         <li>
@@ -72,7 +72,7 @@
                                 <li ng-repeat="notif in data.notifs">
                                     <a style="cursor: initial;">
                                         <span class="photo">
-                                            <img src="../assets/layouts/layout2/img/Launchpad-icon.png" class="img-circle" alt=""> </span>
+                                            <i class="fa fa-calendar-o"></i> </span>
                                         <span class="subject">
                                             <span class="from"> Réservations </span>
                                         </span>
@@ -88,7 +88,7 @@
                 <!-- BEGIN USER LOGIN DROPDOWN -->
                 <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
                 <li class="dropdown dropdown-user">
-                    <a href="#" class="dropdown-toggle" dropdown-menu-hover data-toggle="dropdown" data-close-others="true">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-close-others="true">
                         <img alt="" class="img-circle" src="{{settings.assetsPath}}/pages/media/users/avatar3.jpg" />
                         <span class="username username-hide-on-mobile"> {{name}} </span>
                         <i class="fa fa-angle-down"></i>
@@ -97,12 +97,12 @@
                         <li>
                             <a href="#/profile.html">
 
-                                <i class="icon-user"></i> My Profile </a>
+                                <i class="icon-user"></i> Mon Profile </a>
                         </li>
                         <li class="divider"> </li>
                         <li ng-click="logOut()">
                             <a>
-                                <i class="icon-key"></i> Log Out </a>
+                                <i class="icon-key"></i> Deconnexion </a>
                         </li>
                     </ul>
                 </li>

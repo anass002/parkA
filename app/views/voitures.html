@@ -16,9 +16,15 @@
 
         <div class="row" ng-if="data.hideDivCars">
             <div class="col-sm-12 text-right">
-                <button title="" class="btn btn-primary" ng-click="addNewCar()">Ajouter</button>
-                <button title="" class="btn btn-primary" ng-click="exporterExcel()">Exporter Excel</button>
-                <button title="" class="btn btn-primary" ng-click="exporterPDF()">Exporter PDF</button>
+                <button title="" class="btn btn-primary" ng-click="addNewCar()">Ajouter</button><div class="btn-group">
+                  <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Exporter <span class="caret"></span>
+                  </button>
+                  <ul class="dropdown-menu">
+                    <li><a href="#"  ng-click="exporterExcel()">Excel <i class="fa fa-file-excel-o" aria-hidden="true"></i></a></li>
+                    <li><a href="#" ng-click="exporterPDF()">PDF <i class="fa fa-file-pdf-o" aria-hidden="true"></i></a></li>
+                  </ul>
+                </div>
             </div>
             <div class="col-sm-12">
                 <div class="table-responsive">
