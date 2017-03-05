@@ -149,7 +149,7 @@ angular.module('MetronicApp').controller('MissionController', function($rootScop
     }
 
     function getCars(){
-        $http.post('../serv/ws/missions.ws.php',{action:'getAllCars'}).then(
+        $http.post('../serv/ws/cars.ws.php',{action:'getAllCars'}).then(
             function(response){
                 console.log(response.data.data);
                 $scope.data.cars = response.data.data;

@@ -59,7 +59,7 @@
                 </li> -->
                 <li class="dropdown dropdown-extended dropdown-inbox" id="header_inbox_bar">
                     <a href="#" class="dropdown-toggle" dropdown-menu-hover data-toggle="dropdown" data-close-others="true">
-                        <i class="icon-envelope-open"></i>
+                        <i class="icon-bell"></i>
                         <span class="badge badge-default"> {{data.notifs.length}}  </span>
                     </a>
                     <ul class="dropdown-menu">
@@ -74,7 +74,7 @@
                                         <span class="photo">
                                             <i class="fa fa-calendar-o"></i> </span>
                                         <span class="subject">
-                                            <span class="from"> Réservations </span>
+                                            <span class="from"> {{notif.type}} </span>
                                         </span>
                                         <span class="message">{{notif.msg}}</span>
                                     </a>

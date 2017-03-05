@@ -2,6 +2,7 @@
 	require_once('config.inc.php');
 	require_once('error.inc.php');
 	require_once('db.inc.php');
+	require_once('../vendor/autoload.php');
 
 	class notifications {
 		var $id;
@@ -34,7 +35,9 @@
 
 
 		function getAllNotifications(){
-			$sql = "SELECT * FROM notifications";
+			$m = new \Moment\Moment();
+			$momentPeriodVo = $m->getPeriod('month');
+			$sql = "SELECT * FROM notifications where dsend between '".$momentPeriodVo->getStartDate()->format('Y-m-d')." 00:00:00'::timestamp and '".$momentPeriodVo->getEndDate()->format('Y-m-d')."'::timestamp ";
 			return notifications::execRequest($sql);
 		}
 

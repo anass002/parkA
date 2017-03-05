@@ -4,6 +4,7 @@
 	require_once('db.inc.php');
 	require_once('cars.class.php');
 	require_once('notifications.class.php');
+	require_once('../vendor/autoload.php');
 
 	class papers {
 		var $id; 
@@ -113,10 +114,16 @@
 			if($this->id === false){
 				$notif = new notifications();
 				$notif->carid = $this->carid;
-				$notif->dsend = '2017-03-02 00:00:00';
+
+				$car = cars::getCarById($this->carid);
+
+				$car = $car['data'][0];
+
+				$m = new \Moment\Moment($this->dend);
 				$notif->type = 'Papiers';
-				$notif->msg = "Le papier " . $this->name ." va bientot expiré pensez a le renouveler";
-				$notif->htmlmsg = 	'<p> Le papier '.$this->name.' va bientot expiré pensez a le renouveler </p>';
+				$notif->dsend = $m->subtractDays(15)->format('Y-m-d');
+				$notif->msg = "Le papier " . $this->name ." va bientot expiré pour le vehicule ".$car->name." (".$car->registrationnumber.") pensez a le renouveler";
+				$notif->htmlmsg = 	"<p> Le papier ".$this->name." va bientot expiré pour le vehicule ".$car->name." (".$car->registrationnumber.") pensez a le renouveler </p>";
 				$notif->save();
 			}
 

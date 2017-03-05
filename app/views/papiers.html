@@ -71,7 +71,7 @@
 							<div class="form-group">
 	                            <label class="control-label col-md-3">Date Début : </label>
 	                            <div class="col-md-8">
-	                                <input class="form-control form-control-inline input-medium date-picker" ng-model="data.paper.dbegin" size="16" type="text" value="" />
+	                                <input class="form-control form-control-inline input-medium date-picker" ng-model="data.paper.dbegin" size="16" type="text" data-date-format="yyyy-mm-dd" />
 	                                <span class="help-block font-red-mint" ng-if="data.errorForm.dbegin"> Veuillez saisir la date de début du papier ! </span>
 	                            </div>
 	                        </div>
@@ -81,7 +81,7 @@
 							<div class="form-group">
 	                            <label class="control-label col-md-3">Date Fin : </label>
 	                            <div class="col-md-8">
-	                            	<input class="form-control form-control-inline input-medium date-picker" ng-model="data.paper.dend" size="16" type="text" value="" />
+	                            	<input class="form-control form-control-inline input-medium date-picker" ng-model="data.paper.dend" size="16" type="text" data-date-format="yyyy-mm-dd" />
 	                                <span class="help-block font-red-mint" ng-if="data.errorForm.dend"> Veuillez saisir la date d'expiration du papier ! </span>
 	                            </div>
 	                        </div>

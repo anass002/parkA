@@ -7,6 +7,10 @@ namespace Composer\Autoload;
 class ComposerStaticInite2ff2b2164378d92ae503e377f16ad87
 {
     public static $prefixLengthsPsr4 = array (
+        'M' => 
+        array (
+            'Moment\\' => 7,
+        ),
         'L' => 
         array (
             'Lcobucci\\JWT\\' => 13,
@@ -14,6 +18,10 @@ class ComposerStaticInite2ff2b2164378d92ae503e377f16ad87
     );
 
     public static $prefixDirsPsr4 = array (
+        'Moment\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/fightbulc/moment/src',
+        ),
         'Lcobucci\\JWT\\' => 
         array (
             0 => __DIR__ . '/..' . '/lcobucci/jwt/src',

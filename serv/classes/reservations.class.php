@@ -101,10 +101,15 @@
 			if($this->id === false){
 				$notif = new notifications();
 				$notif->carid = $this->carid;
-				$notif->dsend = '2017-03-02 00:00:00';
+				$m = new \Moment\Moment($this->dreservation);
+				$car = cars::getCarById($this->carid);
+
+				$car = $car['data'][0];
+
+				$notif->dsend = $notif->dsend = $m->format('Y-m-d');
 				$notif->type = 'Réservation';
-				$notif->msg = "Une Réservation a ete enregister pour le vehicule " .$this->carid ." Avec le prix : " .$this->rate ." (MAD)";
-				$notif->htmlmsg = 	'Une Réservation a ete enregister pour le vehicule ' .$this->carid .' Avec le prix : ' .$this->rate .' (MAD)';
+				$notif->msg = "Une Réservation a ete enregister pour le vehicule " .$car->name . " (" .$car->registrationnumber." )". " Avec le prix : " .$this->rate ." (MAD)";
+				$notif->htmlmsg = 	'Une Réservation a ete enregister pour le vehicule ' .$car->name . ' ('.$car->registrationnumber.')' . 'Avec le prix : ' .$this->rate .' (MAD)';
 				$notif->save();
 			}
 
