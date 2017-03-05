@@ -3,6 +3,7 @@
 	require_once('../classes/reservations.class.php');
 	require_once('../classes/notifications.class.php');
 	require_once('../vendor/phpoffice/phpexcel/Classes/PHPExcel.php');
+	require_once('../vendor/autoload.php');
 
 
 	$postdata = file_get_contents("php://input");
@@ -162,7 +163,7 @@
 	function exportPDF(){
 		$rendererName = PHPExcel_Settings::PDF_RENDERER_MPDF;
 		$rendererLibrary = 'mPDF5.4';
-		$rendererLibraryPath = dirname(__FILE__).'/../../../libraries/PDF/' . $rendererLibrary;
+		$rendererLibraryPath = '../vendor/mpdf/mpdf';
 
 		$objPHPExcel = new PHPExcel();
 		$myActiveSheet = $objPHPExcel->getProperties()->setCreator("Hard Transport Personnel")
@@ -194,6 +195,55 @@
 			$myActiveSheet->setCellValueExplicitByColumnAndRow(2, (5+$i), $myReservations[$i]->rate);
 		}
 
+		$styleCentered = array( /* Entête des tableaux */
+			    'alignment' => array(
+			        'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER,
+			        'vertical' => PHPExcel_Style_Alignment::VERTICAL_CENTER
+			    ),
+			    'fill' => array(
+			            'type' => PHPExcel_Style_Fill::FILL_SOLID,
+			            'color' => array('rgb' => '993333')
+			    ),
+			    'font'  => array(
+			        'bold'  => true,
+			        'color' => array('rgb' => 'FFFFFF'),
+			        'size'  => 14,
+			        'name'  => 'Calibri'
+			    )
+			);
+			$styleBorder = array( /* Cadrillage des cellules */
+				'borders' => array(
+					'allborders' => array(
+						'style' => PHPExcel_Style_Border::BORDER_THIN,
+						'color' => array('rgb' => '000000'),
+					),
+				),
+			);
+			foreach(range('A','G') as $columnID) {
+			    $myActiveSheet->getColumnDimension($columnID)->setAutoSize(true);
+			}
+			$myHighestRow = (int)$myActiveSheet->getHighestRow();
+			$myActiveSheet->getStyle("A4:G".$myHighestRow)->applyFromArray($styleBorder);
+			$myActiveSheet->getStyle("A4:G4")->applyFromArray($styleCentered);
+			$styleTitle = array( /* Titre du tableau */
+			    'alignment' => array(
+			        'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER,
+			        'vertical' => PHPExcel_Style_Alignment::VERTICAL_CENTER
+			    ),
+			    'font'  => array(
+			        'bold'  => true,
+			        'color' => array('rgb' => '993333'),
+			        'size'  => 20,
+			        'name'  => 'Calibri'
+			    )
+			);
+			$myActiveSheet->mergeCells('A1:K1');
+			$myActiveSheet->mergeCells('A2:K2');
+			$myActiveSheet->setCellValueByColumnAndRow(0, 1, 'Rapport d\'activités des Vehicules du park');
+			$myActiveSheet->getStyle("A1:A1")->applyFromArray($styleTitle);
+			$myActiveSheet->getStyle("A2:A2")->applyFromArray($styleTitle);
+			$myActiveSheet->getStyle('C1:C97')->getNumberFormat()->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_TEXT);
+
 
 		if (!PHPExcel_Settings::setPdfRenderer(
 		    $rendererName,
@@ -208,7 +258,11 @@
 			$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'PDF');
 			
 
-			return $objWriter->save('document.pdf');
+			$nameFile = uniqid();
+			$file = '../../app/download/'.$nameFile.'.pdf';
+			$objWriter->save($file);
+
+			return $nameFile.'.pdf';
 	}
 
 

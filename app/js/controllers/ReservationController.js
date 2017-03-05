@@ -149,11 +149,7 @@ angular.module('MetronicApp').controller('ReservationController', function($root
             function(response){
                 console.log(response.data.data);
 
-                $http.get('download/'+response.data.data)
-                .then(function(data){
-                    //data is link to pdf
-                    $window.open(data);
-                }); 
+                $window.open('download/'+response.data.data, '_blank');
 
                 //$window.open('download/'+response.data.data, '_blank');
             },
