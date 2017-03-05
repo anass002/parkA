@@ -88,6 +88,7 @@ angular.module('MetronicApp').controller('PapiersController', function($rootScop
 		$scope.data.hideDivFormPapiers = false;
 		$scope.data.newPaperAdded = false;
 		$scope.data.errorAddNewPaper = false;
+        $scope.data.hideDivInfosCar = true;   
     }
 
     $scope.closeInfosCar = function(){
