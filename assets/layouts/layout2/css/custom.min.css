@@ -54,3 +54,10 @@
 .page-header.navbar .top-menu .navbar-nav>li.dropdown-inbox>.dropdown-menu .dropdown-menu-list>li .photo > i{
     font-size: 24px;
 }
+.upload-table .btn{
+    display: block;
+}
+
+.upload-table thead tr th, .upload-table td{
+    font-size: 10px;
+}
