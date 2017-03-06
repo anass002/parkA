@@ -16,7 +16,7 @@
         </div>
 
 		<div class="row" ng-if="data.hideListReservation">
-			<div class="col-sm-12 text-right">
+			<div class="col-sm-12 text-right" style="margin-bottom:1em;">
 				<button class="btn btn-primary" ng-click="AddNewReservation()">Ajouter</button>
 				<div class="btn-group">
 				  <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -73,15 +73,15 @@
 							<div class="form-group">
 								<label class="control-label col-md-3">Date de Réservation : </label>
 								<div class="col-md-4">
-									<input class="form-control form-control-inline input-medium date-picker" size="16" type="text" ng-model="data.reservation.dreservation" data-date-format="yyyy-mm-dd" />
-									<span class="help-block font-red-mint" ng-if="data.errorForm.dreservation"> Veuillez selectionner la marque de la voiture ! </span>
+									<input class="form-control form-control-inline input-medium date-picker" size="16" type="text" ng-model="data.reservation.dreservation" data-date-format="yyyy-mm-dd" placeholder="Date Résérvation" />
+									<span class="help-block font-red-mint" ng-if="data.errorForm.dreservation"> Veuillez selectionner la date de la réservation ! </span>
 								</div>
 							</div>
 							<div class="form-group">
 								<label class="control-label col-md-3"> Coût : </label>
 								<div class="col-md-8">
-									<input type="text" class="form-control" ng-model="data.reservation.rate">
-									<span class="help-block font-red-mint" ng-if="data.errorForm.rate"> Veuillez selectionner la marque de la voiture ! </span>
+									<input type="text" class="form-control" ng-model="data.reservation.rate" placeholder="Cout Réservation">
+									<span class="help-block font-red-mint" ng-if="data.errorForm.rate">{{data.errorForm.text}} </span>
 								</div>
 							</div>
 							<div class="form-group">
@@ -91,7 +91,7 @@
 	                                    <option value="">Selectionner une Voiture</option>                  
 	                                    <option ng-repeat="car in data.cars" value="{{car.id}}">{{car.name}}</option>
 	                                </select>
-	                                <span class="help-block font-red-mint" ng-if="data.errorForm.carid"> Veuillez selectionner la marque de la voiture ! </span>
+	                                <span class="help-block font-red-mint" ng-if="data.errorForm.carid"> Veuillez selectionner le vehicule pour la résérvation ! </span>
 	                            </div>
 							</div>
 
@@ -176,7 +176,7 @@
 					</form>
 				</div>
 			</div>
-			<div class="col-sm-12 text-right">
+			<div class="col-sm-12 text-right" style="margin-top: 1em;">
 	            <button class="btn btn-primary" ng-click="saveReservation(data.reservation)">Enregister</button>
 	            <button class="btn btn-danger" ng-click="closeReservation()">Fermer</button>
 	        </div>

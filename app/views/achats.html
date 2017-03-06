@@ -14,7 +14,7 @@
             <strong>Erreur !</strong> Lors de l'ajout du achat   
         </div>
 		<div class="row" ng-if="data.hideDivTableAchats">
-			<div class="col-sm-12 text-right">
+			<div class="col-sm-12 text-right" style="margin-bottom:1em;">
 				<button class="btn btn-primary" ng-click="addNewAchat()">Ajouter</button>
 				<div class="btn-group">
 				  <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -69,7 +69,7 @@
 							<div class="form-group">
 	                            <label class="control-label col-md-3">Nom : </label>
 	                            <div class="col-md-8">
-	                                <input type="text" class="form-control" ng-model="data.achat.name">
+	                                <input type="text" class="form-control" ng-model="data.achat.name" placeholder="Nom Achat">
 	                                <span class="help-block font-red-mint" ng-if="data.errorForm.name"> Veuillez saisir le nom de l'article acheter ! </span>
 	                            </div>
 	                        </div>
@@ -77,7 +77,7 @@
 	                        <div class="form-group">
 	                            <label class="control-label col-md-3">N° Facture : </label>
 	                            <div class="col-md-8">
-	                                <input type="text" class="form-control" ng-model="data.achat.nfacture">
+	                                <input type="text" class="form-control" ng-model="data.achat.nfacture" placeholder="Numéro Facture">
 	                                <span class="help-block font-red-mint" ng-if="data.errorForm.nfacture"> Veuillez saisir le numero de facture de l'achat ! </span>
 	                            </div>
 	                        </div>
@@ -85,7 +85,7 @@
 	                        <div class="form-group">
 	                            <label class="control-label col-md-3">N° Bon Commande : </label>
 	                            <div class="col-md-8">
-	                                <input type="text" class="form-control" ng-model="data.achat.nbl">
+	                                <input type="text" class="form-control" ng-model="data.achat.nbl" placeholder="N° Bon Commande">
 	                                <span class="help-block font-red-mint" ng-if="data.errorForm.nbl"> Veuillez saisir le numéro de bon de commande de l'achat ! </span>
 	                            </div>
 	                        </div>
@@ -93,8 +93,8 @@
 	                        <div class="form-group">
 	                            <label class="control-label col-md-3">Prix : </label>
 	                            <div class="col-md-8">
-	                                <input type="text" class="form-control" ng-model="data.achat.price">
-	                                <span class="help-block font-red-mint" ng-if="data.errorForm.price"> Veuillez saisir le prix d'achat  ! </span>
+	                                <input type="text" class="form-control" ng-model="data.achat.price" placeholder="Prix Achat">
+	                                <span class="help-block font-red-mint" ng-if="data.errorForm.price"> {{data.errorForm.text}} </span>
 	                            </div>
 	                        </div>
 
@@ -113,7 +113,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-sm-12 text-right">
+			<div class="col-sm-12 text-right" style="margin-top: 1em;">
 				<button class="btn btn-primary" ng-click="saveAchat(data.achat)">Enregister</button>
 	            <button class="btn btn-danger" ng-click="closeAchat()">Fermer</button>
 			</div>

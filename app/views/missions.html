@@ -15,7 +15,7 @@
         </div>
 
 		<div class="row" ng-if="data.hideListMissions">
-			<div class="col-sm-12 text-right">
+			<div class="col-sm-12 text-right" style="margin-bottom:1em;">
 				<button class="btn btn-primary" ng-click="AddNewMission()">Ajouter</button>
 				<div class="btn-group">
 				  <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -73,30 +73,30 @@
 							<div class="form-group">
 								<label class="control-label col-md-3"> Départ : </label>
 								<div class="col-md-8">
-									<input type="text" class="form-control" ng-model="data.mission.departure">
-									<span class="help-block font-red-mint" ng-if="data.errorForm.departure"> Veuillez saisir le lieu de départ de la missions ! </span>
+									<input type="text" class="form-control" ng-model="data.mission.departure" placeholder="Départ">
+									<span class="help-block font-red-mint" ng-if="data.errorForm.departure"> Veuillez saisir le lieu de départ de la mission ! </span>
 								</div>
 							</div>
 							<div class="form-group">
 								<label class="control-label col-md-3">Date de Départ : </label>
 								<div class="col-md-8">
-									<input class="form-control form-control-inline input-medium date-picker" ng-model="data.mission.ddeparture" size="16" type="text" data-date-format="yyyy-mm-dd" />
+									<input class="form-control form-control-inline input-medium date-picker" ng-model="data.mission.ddeparture" size="16" type="text" data-date-format="yyyy-mm-dd" placeholder="Date Départ" />
 									<!-- <input type="text" class="form-control" ng-model="data.mission.ddeparture"> -->
-									<span class="help-block font-red-mint" ng-if="data.errorForm.ddeparture"> Veuillez saisir la date de départ de la missions ! </span>
+									<span class="help-block font-red-mint" ng-if="data.errorForm.ddeparture"> Veuillez saisir la date de départ de la mission ! </span>
 								</div>
 							</div>
 							<div class="form-group">
 								<label class="control-label col-md-3"> Arrivée : </label>
 								<div class="col-md-8">
-									<input type="text" class="form-control" ng-model="data.mission.destination">
-									<span class="help-block font-red-mint" ng-if="data.errorForm.destination"> Veuillez saisir le lieu de d'arrivée de la missions ! </span>
+									<input type="text" class="form-control" ng-model="data.mission.destination" placeholder="Arrivée">
+									<span class="help-block font-red-mint" ng-if="data.errorForm.destination"> Veuillez saisir le lieu de d'arrivée de la mission ! </span>
 								</div>
 							</div>
 							<div class="form-group">
 								<label class="control-label col-md-3"> Coût : </label>
 								<div class="col-md-8">
-									<input type="text" class="form-control" ng-model="data.mission.rate">
-									<span class="help-block font-red-mint" ng-if="data.errorForm.rate"> Veuillez saisir le coût de la missions ! </span>
+									<input type="text" class="form-control" ng-model="data.mission.rate" placeholder="Coût">
+									<span class="help-block font-red-mint" ng-if="data.errorForm.rate"> {{data.errorForm.text}} </span>
 								</div>
 							</div>
 							<div class="form-group">
@@ -113,7 +113,7 @@
 					</form>
 				</div>
 			</div>
-			<div class="col-sm-12 text-right">
+			<div class="col-sm-12 text-right" style="margin-top: 1em;">
 	            <button class="btn btn-primary" ng-click="saveMission(data.mission)">Enregister</button>
 	            <button class="btn btn-danger" ng-click="closeMission()">Fermer</button>
 	        </div>

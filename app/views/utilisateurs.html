@@ -14,7 +14,7 @@
             <strong>Error!</strong> The daily cronjob has failed. 
         </div>
         <div class="row" ng-if="data.hideDivTableUser">
-            <div class="col-sm-12 text-right">
+            <div class="col-sm-12 text-right" style="margin-bottom:1em;">
                 <button title="Ajouter Nouveau Utilisateur" class="btn btn-primary" ng-click="AddNewUser()">Ajouter</button>
             </div>
             <div class="col-sm-12">
@@ -53,35 +53,35 @@
                             <div class="form-group">
                                 <label class="control-label col-md-3">Nom : </label>
                                 <div class="col-md-8">
-                                    <input type="text" class="form-control" ng-model="data.user.lastname">
+                                    <input type="text" class="form-control" ng-model="data.user.lastname" placeholder="Nom">
                                     <span class="help-block font-red-mint" ng-if="data.errorForm.lastname"> Veuillez saisir un nom ! </span>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-md-3">Prénom : </label>
                                 <div class="col-md-8">
-                                    <input type="text" class="form-control" ng-model="data.user.firstname">
+                                    <input type="text" class="form-control" ng-model="data.user.firstname" placeholder="Prénom">
                                     <span class="help-block font-red-mint" ng-if="data.errorForm.firstname"> Veuillez saisir un prénom ! </span>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-md-3">Email : </label>
                                 <div class="col-md-8">
-                                    <input type="text" class="form-control" ng-model="data.user.email">
-                                    <span class="help-block font-red-mint" ng-if="data.errorForm.email"> Veuillez saisir un email !  </span>
+                                    <input type="text" class="form-control" ng-model="data.user.email" placeholder="Email">
+                                    <span class="help-block font-red-mint" ng-if="data.errorForm.email"> {{data.errorForm.text }}  </span>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-md-3">Login : </label>
                                 <div class="col-md-8">
-                                    <input type="text" class="form-control" ng-model="data.user.login">
+                                    <input type="text" class="form-control" ng-model="data.user.login" placeholder="Login"> 
                                     <span class="help-block font-red-mint" ng-if="data.errorForm.login"> Veuillez saisir un login !  </span>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-md-3">Mot de Passe : </label>
                                 <div class="col-md-8">
-                                    <input type="password" class="form-control" ng-model="data.user.password">
+                                    <input type="password" class="form-control" ng-model="data.user.password" placeholder="Mot de passe">
                                     <span class="help-block font-red-mint" ng-if="data.errorForm.password"> Veuillez saisir un mot de passe !  </span>
                                 </div>
                             </div>
@@ -163,7 +163,7 @@
                     </form>
                 </div>
             </div>
-            <div class="col-sm-12 text-right">
+            <div class="col-sm-12 text-right" style="margin-top: 1em;">
                 <button class="btn btn-primary" ng-click="saveUser(data.user)">Enregister</button>
                 <button class="btn btn-danger" ng-click="closeNewUser()">Fermer</button>
             </div>

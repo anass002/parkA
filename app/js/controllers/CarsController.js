@@ -221,9 +221,18 @@ angular.module('MetronicApp').controller('CarsController', function($rootScope, 
 
         if(!angular.isDefined(car.km) || car.km == ''){
             $scope.data.errorForm.km = true;
+            $scope.data.errorForm.text = "Veuillez saisir le kilométrage de la voiture ! ";
             return false;
         }else{
-            $scope.data.errorForm.km = false;
+            var isNumber = /^[0-9.]+$/.test(car.km);
+
+            if(!isNumber){
+                $scope.data.errorForm.km = true;
+                $scope.data.errorForm.text = "Le kilométrage doit etre un nombre !";
+                return false;
+            }else{
+                $scope.data.errorForm.km = false;
+            }
         }
 
         if(!angular.isDefined(car.registrationnumber) || car.registrationnumber == ''){

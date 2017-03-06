@@ -15,7 +15,7 @@
         </div>
 
         <div class="row" ng-if="data.hideDivCars">
-            <div class="col-sm-12 text-right">
+            <div class="col-sm-12 text-right" style="margin-bottom:1em;">
                 <button title="" class="btn btn-primary" ng-click="addNewCar()">Ajouter</button>
                 <div class="btn-group">
                   <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -88,28 +88,28 @@
                             <div class="form-group">
                                 <label class="control-label col-md-3">Nom : </label>
                                 <div class="col-md-8">
-                                    <input type="text" class="form-control" ng-model="data.car.name">
+                                    <input type="text" class="form-control" ng-model="data.car.name" placeholder="Modéle Voiture">
                                     <span class="help-block font-red-mint" ng-if="data.errorForm.name"> Veuillez saisir le nom de la voiture ! </span>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-md-3">Carte grise : </label>
                                 <div class="col-md-8">
-                                    <input type="text" class="form-control" ng-model="data.car.greycard">
+                                    <input type="text" class="form-control" ng-model="data.car.greycard" placeholder="N° carte grise">
                                     <span class="help-block font-red-mint" ng-if="data.errorForm.greycard"> Veuillez saisir le numéro de carte grise ! </span>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-md-3">Kilométrage : </label>
                                 <div class="col-md-8">
-                                    <input type="text" class="form-control" ng-model="data.car.km">
-                                    <span class="help-block font-red-mint" ng-if="data.errorForm.km"> Veuillez saisir le kilométrage de la voiture ! </span>
+                                    <input type="text" class="form-control" ng-model="data.car.km" placeholder="Kilométrage">
+                                    <span class="help-block font-red-mint" ng-if="data.errorForm.km"> {{data.errorForm.text}}</span>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-md-3">N° plaque : </label>
                                 <div class="col-md-8">
-                                    <input type="text" class="form-control" ng-model="data.car.registrationnumber">
+                                    <input type="text" class="form-control" ng-model="data.car.registrationnumber" placeholder="Numéro plaque">
                                     <span class="help-block font-red-mint" ng-if="data.errorForm.registrationnumber"> Veuillez saisir un numéro de plaque ! </span>
                                 </div>
                             </div>
@@ -127,7 +127,7 @@
                     </form>
                 </div>
             </div>
-            <div class="col-sm-12 text-right">
+            <div class="col-sm-12 text-right" style="margin-top: 1em;">
                 <button class="btn btn-primary" ng-click="saveCar(data.car)">Enregister</button>
                 <button class="btn btn-danger" ng-click="closeCar()">Fermer</button>
             </div>

@@ -118,9 +118,16 @@ angular.module('MetronicApp').controller('UtilisateursController', function($roo
 
         if(!angular.isDefined(user.email) || user.email == ''){
             $scope.data.errorForm.email = true;
+            $scope.data.errorForm.text = "Veuillez saisir un email !";
             return false;
         }else{
-            $scope.data.errorForm.email = false;
+             if(!validateEmail(user.email)){
+                $scope.data.errorForm.email = true;
+                $scope.data.errorForm.text = "Veuillez saisir un format de mail Valide Comme : XXXX@XXX.XXX !";
+                return false;
+            }else{
+                $scope.data.errorForm.email = false;
+            }
         }
 
         if(!angular.isDefined(user.login) || user.login == ''){
@@ -146,6 +153,11 @@ angular.module('MetronicApp').controller('UtilisateursController', function($roo
         }
 
         return true;
+    }
+
+    function validateEmail(email) {
+      var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      return re.test(email);
     }
 
 

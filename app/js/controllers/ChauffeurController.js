@@ -178,16 +178,32 @@ angular.module('MetronicApp').controller('ChauffeurController', function($rootSc
 
         if(!angular.isDefined(driver.tel) || driver.tel == ''){
             $scope.data.errorForm.tel = true;
+            $scope.data.errorForm.text = "Veuillez saisir le téléphone du Chauffeur !";
             return false;
         }else{
-            $scope.data.errorForm.tel = false;
+            var reg = /^06[0-9]{8}$/.test(driver.tel);
+
+            if(!reg){
+                $scope.data.errorForm.tel = true;
+                $scope.data.errorForm.text = "Veuillez saisir un format de téléphone valide comme 06XXXXXXXX !";
+                return false;  
+            }else{
+                $scope.data.errorForm.tel = false;
+            }
         }
 
         if(!angular.isDefined(driver.email) || driver.email == ''){
             $scope.data.errorForm.email = true;
+            $scope.data.errorForm.text = "Veuillez saisir l'email du Chauffeur ! ";
             return false;
         }else{
-            $scope.data.errorForm.email = false;
+            if(!validateEmail(driver.email)){
+                $scope.data.errorForm.email = true;
+                $scope.data.errorForm.text = "Veuillez saisir un format de mail Valide Comme : XXXX@XXX.XXX !";
+                return false;
+            }else{
+                $scope.data.errorForm.email = false;
+            }
         }
 
         if(!angular.isDefined(driver.driverlicense) || driver.driverlicense == ''){
@@ -212,6 +228,11 @@ angular.module('MetronicApp').controller('ChauffeurController', function($rootSc
         }
 
         return true;
+    }
+
+    function validateEmail(email) {
+      var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      return re.test(email);
     }
 
     // set sidebar closed and body solid layout mode

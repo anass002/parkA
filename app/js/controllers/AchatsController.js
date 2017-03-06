@@ -177,9 +177,17 @@ angular.module('MetronicApp').controller('AchatsController', function($rootScope
 
         if(!angular.isDefined(achat.price) || achat.price == ''){
             $scope.data.errorForm.price = true;
+            $scope.data.errorForm.text = "Veuillez saisir le prix d'achat  !";
             return false;
         }else{
-            $scope.data.errorForm.price = false;
+            var isNumber = /^[0-9.]+$/.test(achat.price);
+            if(!isNumber){
+                $scope.data.errorForm.price = true;
+                $scope.data.errorForm.text = "Le Prix doit etre un nombre !";
+                return false;
+            }else{
+                $scope.data.errorForm.price = false;
+            }
         }
 
         if(!angular.isDefined(achat.carid) || achat.carid == ''){

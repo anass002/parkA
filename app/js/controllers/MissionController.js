@@ -184,9 +184,17 @@ angular.module('MetronicApp').controller('MissionController', function($rootScop
 
         if(!angular.isDefined(mission.rate) || mission.rate == ''){
             $scope.data.errorForm.rate = true;
+            $scope.data.errorForm.text = "Veuillez saisir le coût de la mission !";
             return false;
         }else{
-            $scope.data.errorForm.rate = false;
+            var isNumber = /^[0-9.]+$/.test(mission.rate);
+            if(!isNumber){
+                $scope.data.errorForm.rate = true;
+                $scope.data.errorForm.text = "Le Cout doit etre un nombre !";
+                return false;
+            }else{
+                $scope.data.errorForm.rate = false;
+            }
         }
 
         if(!angular.isDefined(mission.carid) || mission.carid == ''){

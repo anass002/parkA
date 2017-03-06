@@ -181,9 +181,17 @@ angular.module('MetronicApp').controller('ReservationController', function($root
 
         if(!angular.isDefined(reservation.rate) || reservation.rate == ''){
             $scope.data.errorForm.rate = true;
+            $scope.data.errorForm.text = "Veuillez saisir le Cout de la résérvation !";
             return false;
         }else{
-            $scope.data.errorForm.rate = false;
+            var isNumber = /^[0-9.]+$/.test(reservation.rate);
+            if(!isNumber){
+                $scope.data.errorForm.rate = true;
+                $scope.data.errorForm.text = "Le Cout doit etre un nombre !";
+                return false;
+            }else{
+                $scope.data.errorForm.rate = false;
+            }
         }
 
         if(!angular.isDefined(reservation.carid) || reservation.carid == ''){

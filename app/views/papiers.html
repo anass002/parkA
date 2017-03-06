@@ -16,7 +16,7 @@
         </div>
 
 		<div class="row" ng-if="data.hideDivTablePapiers">
-			<div class="col-sm-12 text-right">
+			<div class="col-sm-12 text-right" style="margin-bottom:1em;">
 				<button class="btn btn-primary" ng-click="addNewPaper()">Ajouter</button>
 				<div class="btn-group">
 				  <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -68,7 +68,7 @@
 							<div class="form-group">
 	                            <label class="control-label col-md-3">Nom : </label>
 	                            <div class="col-md-4">
-	                                <input type="text" class="form-control" ng-model="data.paper.name">
+	                                <input type="text" class="form-control" ng-model="data.paper.name" placeholder="Nom Papier">
 	                                <span class="help-block font-red-mint" ng-if="data.errorForm.name"> Veuillez saisir le nom du papier ! </span>
 	                            </div>
 	                        </div>
@@ -78,7 +78,7 @@
 							<div class="form-group">
 	                            <label class="control-label col-md-3">Date Début : </label>
 	                            <div class="col-md-8">
-	                                <input class="form-control form-control-inline input-medium date-picker" ng-model="data.paper.dbegin" size="16" type="text" data-date-format="yyyy-mm-dd" />
+	                                <input class="form-control form-control-inline input-medium date-picker" ng-model="data.paper.dbegin" size="16" type="text" data-date-format="yyyy-mm-dd" placeholder="Date Début"/>
 	                                <span class="help-block font-red-mint" ng-if="data.errorForm.dbegin"> Veuillez saisir la date de début du papier ! </span>
 	                            </div>
 	                        </div>
@@ -88,7 +88,7 @@
 							<div class="form-group">
 	                            <label class="control-label col-md-3">Date Fin : </label>
 	                            <div class="col-md-8">
-	                            	<input class="form-control form-control-inline input-medium date-picker" ng-model="data.paper.dend" size="16" type="text" data-date-format="yyyy-mm-dd" />
+	                            	<input class="form-control form-control-inline input-medium date-picker" ng-model="data.paper.dend" size="16" type="text" data-date-format="yyyy-mm-dd" placeholder="Date Fin" />
 	                                <span class="help-block font-red-mint" ng-if="data.errorForm.dend"> Veuillez saisir la date d'expiration du papier ! </span>
 	                            </div>
 	                        </div>
@@ -107,7 +107,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-sm-12 text-right">
+			<div class="col-sm-12 text-right" style="margin-top: 1em;">
 				<button class="btn btn-primary" ng-click="savePaper(data.paper)">Enregister</button>
 	            <button class="btn btn-danger" ng-click="closePaper()">Fermer</button>
 			</div>

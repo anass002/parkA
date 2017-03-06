@@ -6,7 +6,7 @@
 	</div>
 	<div class="portlet-body" ng-show="data.access">
 		<div class="row" ng-if="data.hideDivCategories">
-			<div class="col-sm-12 text-right">
+			<div class="col-sm-12 text-right" style="margin-bottom:1em;">
 				<button class="btn btn-primary" ng-click="AddNewCategorie()">Ajouter</button>
 				<div class="btn-group">
 				  <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -53,14 +53,14 @@
 							<div class="form-group">
 								<label class="control-label col-md-3"> Nom : </label>
 								<div class="col-md-8">
-									<input type="text" class="form-control" ng-model="data.categorie.name">
+									<input type="text" class="form-control" ng-model="data.categorie.name" placeholder="Nom catégorie">
 								</div>
 							</div>
 						</div>
 					</form>
 				</div>
 			</div>
-			<div class="col-sm-12 text-right">
+			<div class="col-sm-12 text-right" style="margin-top: 1em;">
 	            <button class="btn btn-primary" ng-click="saveCategorie(data.categorie)">Enregister</button>
 	            <button class="btn btn-danger" ng-click="closeCategories()">Fermer</button>
 	        </div>
